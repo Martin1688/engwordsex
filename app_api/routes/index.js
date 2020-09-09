@@ -8,6 +8,17 @@ const auth = jwt({
 const ctrlAuth = require('../controllers/authentication');
 const ctrlPara = require('../controllers/paras');
 
+router.post('/register', ctrlAuth.register);
+router.post('/login', ctrlAuth.login);
+//router.post('/isuser', ctrlAuth.isuser);
+
+router.get('/paras/:paratype', ctrlPara.parasByType);
+router.route('/paras')
+    .patch(auth, ctrlPara.parasByName)
+    .post(auth, ctrlPara.paraCreate);
+
+router.route('/paras/:paraid')
+    .delete(auth, ctrlPara.paraDeleteOne);
 
 
 module.exports = router;
