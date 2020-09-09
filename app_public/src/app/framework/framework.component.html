@@ -1,0 +1,58 @@
+<nav class="navbar fixed-top navbar-expand-md navbar-light">
+    <div class="container">
+        <a routerLink="" class="navbar-brand">英文生字記憶秘笈</a>
+        <button type="button" data-toggle="collapse" data-target="#navbarMain" class="navbar-toggler">
+            選單
+        </button>
+        <div id="navbarMain" class="navbar-collapse collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a routerLink="setpara" routerLinkActive="active" class="nav-link">設定</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    練習
+                  </a>
+                    <div class="dropdown-menu bg-primary">
+                        <a routerLink="wordspellex" routerLinkActive="active" class="dropdown-item">單字拼字練習</a>
+                        <a routerLink="engselectchiex" class="dropdown-item">英選中練習</a>
+                        <a routerLink="autowordspellex" class="dropdown-item">自動語音拼字</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    考試
+                  </a>
+                    <div class="dropdown-menu bg-primary">
+                        <a routerLink="wordspelltest " routerLinkActive="active " class="dropdown-item ">單字拼字考試</a>
+                        <a routerLink="engselectchitest " class="dropdown-item ">英選中考試</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="about " routerLinkActive="active " class="nav-link ">關於</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav justify-content-end ">
+                <li class="nav-item " routerLinkActive="active " *ngIf="!isLoggedIn() ">
+                    <a routerLink="login " class="nav-link ">Sign in</a>
+                </li>
+                <li class="nav-item dropdown " routerLinkActive="active " *ngIf="isLoggedIn() ">
+                    <a class="nav-link dropdown-toggle " data-toggle="dropdown ">{{getUsername()}}</a>
+                    <div class="dropdown-menu ">
+                        <a class="dropdown-item " (click)="doLogout() ">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container content ">
+    <router-outlet></router-outlet>
+    <footer>
+        <div class="row ">
+            <div class="col-12 ">
+                <small>&copy; 潘丁瑜設計 2020</small>
+            </div>
+        </div>
+    </footer>
+</div>

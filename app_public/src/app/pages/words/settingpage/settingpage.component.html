@@ -1,0 +1,28 @@
+<div class="mainDiv">
+    <h2>參數設定</h2>
+    <form (ngSubmit)="onSubmit()" #queryForm="ngForm">
+        <div class="input-group fMargin">
+            <div class="input-group-prepend">
+                <span class="input-group-text">練習字數：</span>
+            </div>
+            <select class="col-12 col-md-4 form-control ctrlColor" id="exCount" required [(ngModel)]="model.exCount" name="exCount" (onChanged)="SetExCount()">
+            <option *ngFor="let count of viewModel.exCount" [value]="count">{{count}}</option>
+          </select>
+        </div>
+        <div class="input-group fMargin">
+            <div class="input-group-prepend">
+                <span class="input-group-text">練習次數：</span>
+            </div>
+            <select class="col-12 col-md-4 form-control ctrlColor" id="rptCount" required [(ngModel)]="model.rptCount" name="rptCount" (onChanged)="SetRptCount()">
+            <option *ngFor="let rpt of viewModel.rptCount" [value]="rpt">{{rpt}}</option>
+          </select>
+        </div>
+        <div class="row fMargin">
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">設定</button>
+                <!-- <button type="button" class="btn btn-primary" (click)="monthTotal()" style="margin-left: 100px;">月結算</button> -->
+            </div>
+        </div>
+    </form>
+
+</div>
