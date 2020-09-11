@@ -1,0 +1,76 @@
+import { Injectable, Inject } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { BROWSER_STORAGE } from '../classes/storage';
+import { User } from '../classes/user';
+import { Authresponse } from '../classes/authresponse';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class GeneralService {
+
+  private apiBaseUrl = environment.apiBaseUrl;
+  //private apiBaseUrl = 'https://tranquil-coast-59247.herokuapp.com/api';
+
+  constructor(private http: HttpClient,
+    @Inject(BROWSER_STORAGE) private storage: Storage) {
+    // console.log('martin '+this.apiBaseUrl);
+  }
+
+  private handleError(error: any): Promise<any> {
+    console.log(error.status);
+    if (error.status == 401) {
+      return Promise.reject('帳號不存在，請先註冊');
+    } else if (error.status == 402) {
+      return Promise.reject('密碼不正確');
+    }
+    //console.error('Something has gone wrong', error);
+    return Promise.reject(error.message || error);
+  }
+
+  public login(user: User): Promise<Authresponse> {
+    return this.makeAuthApiCall('login', user);
+  }
+  public register(user: User): Promise<Authresponse> {
+    return this.makeAuthApiCall('register', user);
+  }
+  private makeAuthApiCall(urlPath: string, user: User): Promise<Authresponse> {
+    const url: string = `${this.apiBaseUrl}/${urlPath}`;
+    return this.http
+      .post(url, user)
+      .toPromise()
+      .then(response => response as Authresponse)
+      .catch(this.handleError);
+    //.catch(this.handleError);
+  }
+
+  // public checkAccount(uname: string): Promise<boolean> {
+  //   const url: string = `${this.apiBaseUrl}/isuser`;
+  //   return this.http
+  //     .post(url, { name: uname })
+  //     .toPromise()
+  //     .then(response => response as boolean)
+  //     .catch(this.handleError);
+  // }
+
+ 
+
+  // delItem(_id: string): Promise<any> {
+  //   const url: string = `${this.apiBaseUrl}/fmaccount/${_id}`;
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({
+  //       'Authorization': `Bearer ${this.storage.getItem('token')}`
+  //     })
+  //   };
+
+  //   return this.http
+  //     .delete(url,httpOptions)
+  //     .toPromise()
+  //     .catch(this.handleError);
+  // }
+  // public getName(): string {
+  //   return this.storage.getItem('faccount-name');
+  // }
+
+}

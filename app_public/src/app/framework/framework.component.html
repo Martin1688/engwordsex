@@ -6,8 +6,15 @@
         </button>
         <div id="navbarMain" class="navbar-collapse collapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a routerLink="setpara" routerLinkActive="active" class="nav-link">設定</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        設定
+                      </a>
+                    <div class="dropdown-menu bg-primary">
+                        <a routerLink="/words" routerLinkActive="active" class="dropdown-item">練習設定</a>
+                        <a routerLink="/general/accountset" class="dropdown-item">帳號自我管理</a>
+                        <a routerLink="/general/admin" class="dropdown-item">管理員</a>
+                    </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
@@ -34,12 +41,14 @@
             </ul>
             <ul class="navbar-nav justify-content-end ">
                 <li class="nav-item " routerLinkActive="active " *ngIf="!isLoggedIn() ">
-                    <a routerLink="login " class="nav-link ">Sign in</a>
+                    <a routerLink="/general/login" class="nav-link ">登入</a>
                 </li>
-                <li class="nav-item dropdown " routerLinkActive="active " *ngIf="isLoggedIn() ">
-                    <a class="nav-link dropdown-toggle " data-toggle="dropdown ">{{getUsername()}}</a>
-                    <div class="dropdown-menu ">
-                        <a class="dropdown-item " (click)="doLogout() ">Logout</a>
+                <li class="nav-item dropdown" *ngIf="isLoggedIn()">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        {{getUsername()}}
+                  </a>
+                    <div class="dropdown-menu bg-primary">
+                        <a class="dropdown-item" (click)="doLogout()">登出</a>
                     </div>
                 </li>
             </ul>

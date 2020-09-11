@@ -14,10 +14,11 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     role: String,
+    grade: String,
     memo: String,
     hash: String,
     salt: String,
-    signDate: String
+    signdate: String
 });
 userSchema.methods.setPassword = function(password) {
     this.salt = crypto.randomBytes(16).toString('hex');
@@ -33,13 +34,13 @@ userSchema.methods.validPassword = function(password) {
 };
 userSchema.methods.generateJwt = function() {
     const expiry = new Date();
-    expiry.setDate(expiry.getDate() + 1000);
-    //console.log(this);
+    expiry.setDate(expiry.getDate() + 7);
+    console.log(this);
     //console.log(secretWord);
     return jwt.sign({
         _id: this._id,
         email: this.email,
-        name: this.name,
+        role: this.role,
         exp: parseInt(expiry.getTime() / 1000, 10),
     }, secretWord);
 };

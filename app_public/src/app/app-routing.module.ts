@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path:'words',
     loadChildren:()=>import('./pages/words/words.module').then(m=> m.WordsModule)
+  },   
+  {
+    path:'general',
+    loadChildren:()=>import('./pages/general/general.module').then(m=> m.GeneralModule)
   }
 ];
 

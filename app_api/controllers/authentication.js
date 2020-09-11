@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
 const register = (req, res) => {
+    console.log(req.body);
     if (!req.body.name || !req.body.email || !req.body.password) {
         return res
             .status(400)
@@ -12,7 +13,10 @@ const register = (req, res) => {
     const user = new User();
     user.name = req.body.name;
     user.email = req.body.email;
-    console.log(req.body.password);
+    user.role = req.body.role;
+    user.grade = req.body.grade;
+    user.memo = req.body.memo;
+    user.signdate = req.body.signdate;
     // res.status('304').json('fromMartin');
     user.setPassword(req.body.password);
     user.save((err) => {
@@ -24,7 +28,7 @@ const register = (req, res) => {
             const token = user.generateJwt();
             res
                 .status(200)
-                .json({ token });
+                .json({ 'token': token, 'name': user.name, 'grade': user.grade });
         }
     })
 };
@@ -33,7 +37,7 @@ const login = (req, res) => {
     if (!req.body.email || !req.body.password) {
         return res
             .status(400)
-            .json({ "message": "All fields required" });
+            .json({ "message": "email and password required" });
     }
     passport.authenticate('local', (err, user, info) => {
         if (err) {
@@ -43,9 +47,9 @@ const login = (req, res) => {
         }
         if (user) {
             const token = user.generateJwt();
-            res
+            res.set({ 'content-type': 'application/json; charset=utf-8' })
                 .status(200)
-                .json({ token });
+                .json({ 'token': token, 'name': user.name, 'grade': user.grade });
         } else {
             res
                 .status(401)

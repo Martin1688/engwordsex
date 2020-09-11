@@ -1,11 +1,11 @@
 <div class="mainDiv">
-    <h2>參數設定</h2>
+    <h2>練習設定</h2>
     <form (ngSubmit)="onSubmit()" #queryForm="ngForm">
         <div class="input-group fMargin">
             <div class="input-group-prepend">
                 <span class="input-group-text">練習字數：</span>
             </div>
-            <select class="col-12 col-md-4 form-control ctrlColor" id="exCount" required [(ngModel)]="model.exCount" name="exCount" (onChanged)="SetExCount()">
+            <select class="col-12 form-control ctrlColor" id="exCount" required [(ngModel)]="model.exCount" name="exCount" (onChanged)="SetExCount()">
             <option *ngFor="let count of viewModel.exCount" [value]="count">{{count}}</option>
           </select>
         </div>
@@ -13,7 +13,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">練習次數：</span>
             </div>
-            <select class="col-12 col-md-4 form-control ctrlColor" id="rptCount" required [(ngModel)]="model.rptCount" name="rptCount" (onChanged)="SetRptCount()">
+            <select class="col-12 form-control ctrlColor" id="rptCount" required [(ngModel)]="model.rptCount" name="rptCount" (onChanged)="SetRptCount()">
             <option *ngFor="let rpt of viewModel.rptCount" [value]="rpt">{{rpt}}</option>
           </select>
         </div>

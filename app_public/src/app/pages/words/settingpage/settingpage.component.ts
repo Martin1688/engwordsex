@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-settingpage',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingpageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthenticationService) { }
   viewModel = {
     "exCount": [10, 20, 30, 40, 50],
     'rptCount': [1 , 2 , 3 ,4]
@@ -22,5 +23,9 @@ export class SettingpageComponent implements OnInit {
 
   SetRptCount(){}
 
-  onSubmit(){}
+  onSubmit(){
+    const user =this.authService.getCurrentUser();
+    const nm =user.name;
+    console.log(user);
+  }
 }
