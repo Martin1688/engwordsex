@@ -29,7 +29,7 @@ export class AuthenticationService {
           localStorage.setItem('password', '');
           localStorage.setItem('useremail', '');
         }
-        console.log(authResp.name);
+        // console.log(authResp.name);
         localStorage.setItem('username',authResp.name)
         localStorage.setItem('grade',authResp.grade)
         this.saveToken(authResp.token);

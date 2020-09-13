@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 
+
 const wordSchema = new mongoose.Schema({
     wdId: {
         type: Number,
+        unique: true,
         required: true
     },
     eng: {
@@ -19,4 +21,6 @@ const wordSchema = new mongoose.Schema({
     },
     memo: String
 });
-mongoose.model('word', wordSchema);
+
+const newLocal = 'Word';
+mongoose.model(newLocal, wordSchema);

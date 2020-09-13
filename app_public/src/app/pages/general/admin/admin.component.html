@@ -1,0 +1,57 @@
+<br />
+<br />
+<br />
+<div class="row">
+    <!-- <div class="col-12">
+        <p class="lead">搜尋使用者 </p>
+            <div role="alert" *ngIf="formError" class="alert alert-danger">
+                {{ formError }}</div>
+        <form (submit)="onSubmit()" *ngIf="setUser">
+            <div class="input-group fMargin">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">姓 名：</span>
+                </div>
+                <input type="email" class="form-control" id="email" name="email" placeholder="輸入 姓名 " [(ngModel)]="credentials.name">
+            </div>
+            <div class="input-group fMargin">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Email：</span>
+                </div>
+                <input type="email" class="form-control" id="email" name="email" placeholder="輸入 email " [(ngModel)]="credentials.email">
+            </div>
+            <div class="input-group fMargin">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">級 別：</span>
+                </div>
+                <select id="role" name="role" class="form-control" [(ngModel)]="credentials.role">
+                    <option [ngValue]="5">初級</option>
+                    <option [ngValue]="4">中級</option>
+                    <option [ngValue]="3">中高級</option>
+                  </select>
+  
+            </div>
+            <div class="input-group fMargin">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">角 色：</span>
+                </div>
+                <select id="role" name="role" class="form-control" [(ngModel)]="credentials.role">
+                    <option [ngValue]="5">client</option>
+                    <option [ngValue]="4">user</option>
+                    <option [ngValue]="3">admin</option>
+                  </select>
+  
+            </div>
+            <button type="submit" role="button" class="btn btn-primary">儲存</button>
+        </form> -->
+    <div>
+        <form enctype="multipart/form-data">
+            <input type="file" (change)="onUpfile($event.target.files)" id="myFile" name="myFile" class="FClass">
+            <div class="col-12">
+                <span *ngIf="uploadFileName">上傳檔名：{{uploadFileName}}</span>
+            </div>
+            <button  type="button" role="button" class="btn btn-primary" (click)="pressBtn()">上傳字庫</button>
+        </form>
+
+    </div>
+    <!-- <app-sidebar [content]="pageContent.sidebar" class="col-12 col-md-4"></app-sidebar> -->
+</div>
