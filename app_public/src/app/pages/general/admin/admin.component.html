@@ -2,10 +2,10 @@
 <br />
 <br />
 <div class="row">
-    <!-- <div class="col-12">
+    <div class="col-12">
         <p class="lead">搜尋使用者 </p>
-            <div role="alert" *ngIf="formError" class="alert alert-danger">
-                {{ formError }}</div>
+        <div role="alert" *ngIf="formError" class="alert alert-danger">
+            {{ formError }}</div>
         <form (submit)="onSubmit()" *ngIf="setUser">
             <div class="input-group fMargin">
                 <div class="input-group-prepend">
@@ -28,7 +28,7 @@
                     <option [ngValue]="4">中級</option>
                     <option [ngValue]="3">中高級</option>
                   </select>
-  
+
             </div>
             <div class="input-group fMargin">
                 <div class="input-group-prepend">
@@ -39,11 +39,11 @@
                     <option [ngValue]="4">user</option>
                     <option [ngValue]="3">admin</option>
                   </select>
-  
+
             </div>
             <button type="submit" role="button" class="btn btn-primary">儲存</button>
-        </form> -->
-    <div>
+        </form>
+        <!--<div>
         <form enctype="multipart/form-data">
             <input type="file" (change)="onUpfile($event.target.files)" id="myFile" name="myFile" class="FClass">
             <div class="col-12">
@@ -53,5 +53,5 @@
         </form>
 
     </div>
-    <!-- <app-sidebar [content]="pageContent.sidebar" class="col-12 col-md-4"></app-sidebar> -->
-</div>
+    <app-sidebar [content]="pageContent.sidebar" class="col-12 col-md-4"></app-sidebar> -->
+    </div>

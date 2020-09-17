@@ -1,19 +1,25 @@
 const mongoose = require('mongoose');
 
 const exerciseSchema = new mongoose.Schema({
-    userName: {
+    userEmail: {
         type: String,
+        unique: true,
         required: true
     },
-    engs: {
-        type: [String],
+    startIndex: {
+        type: Number,
+        required: true
+    },
+    endIndex: {
+        type: Number,
         required: true
     },
     exDate: {
         type: Date,
         required: true
     },
-    done: String,
-    latestId: Number
+    doneDate: Date,
+    done: Boolean,
+    wordCount: Number
 });
-mongoose.model('word', exerciseSchema);
+mongoose.model('Exercise', exerciseSchema);

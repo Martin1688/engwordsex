@@ -34,4 +34,22 @@ export class VocabularyService {
       .then(response => response as boolean)
       .catch(this.handleError);
   }
+
+  public getWords(emailuser:string, count:number, repCount:number, myGrade: string){
+    console.log(emailuser);
+    localStorage.setItem('repCount', repCount.toString());
+    const url: string = `${this.apiBaseUrl}/words`;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      })
+    };
+    return this.http
+      .patch(url,{email:emailuser, wordCount:count, grade:myGrade},httpOptions)
+      .toPromise()
+      // .then(response => {
+      //   console.log(response);
+      // })
+      .catch(this.handleError);
+  }
 }
