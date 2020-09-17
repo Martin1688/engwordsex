@@ -27,8 +27,11 @@ export class LoginComponent implements OnInit {
     private historyService: HistoryService) { }
 
   ngOnInit() {
-    this.credentials.email = this.authenticationService.getMail();
-    this.credentials.password = localStorage.getItem('password');  
+    const currentUser =this.authenticationService.getCurrentUser();
+    if(currentUser){
+      this.credentials.email = this.authenticationService.getMail();
+      this.credentials.name = this.authenticationService.getName();  
+    }
   }
   public onLoginSubmit(): void {
      //console.log(this.credentials);

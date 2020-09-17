@@ -37,8 +37,8 @@ export class SettingpageComponent implements OnInit {
       const exWords =words.map(x=>{
        return  {wdId:x.wdId, eng: x.eng, chi: x.chi, grade: x.grade}
       });
-      localStorage.setItem("exWords",JSON.stringify(exWords));
-      const reWords= JSON.parse(localStorage.getItem("exWords"));
+      this.authService.setPrjItem("exWords",JSON.stringify(exWords));
+      const reWords= JSON.parse(this.authService.getPrjItem("exWords"));
       //console.log(words);
       console.log(reWords);
     });

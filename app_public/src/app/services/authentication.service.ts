@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-//import { BROWSER_STORAGE } from '../classes/storage';
+import { BROWSER_STORAGE } from '../classes/storage';
 import { User } from '../classes/user';
 import { Authresponse } from '../classes/authresponse';
 import { GeneralService } from '../services/general.service';
@@ -9,43 +9,43 @@ import { GeneralService } from '../services/general.service';
 })
 export class AuthenticationService {
 
-  constructor(
-    private generalService: GeneralService) { }//@Inject(BROWSER_STORAGE) private storage: Storage,
+  constructor(@Inject(BROWSER_STORAGE) private storage: Storage,
+    private generalService: GeneralService) { }//
 
 
   public getToken(): string {
-    return localStorage.getItem('token');
+    return this.storage.getItem('token');
   }
   public saveToken(token: string): void {
-    localStorage.setItem('token', token);
+    this.storage.setItem('token', token);
   }
   public login(user: User): Promise<any> {
     return this.generalService.login(user)
       .then((authResp: Authresponse) => {
         if (user.keep) {
-          localStorage.setItem('password', user.password);
-          localStorage.setItem('useremail', user.email);
+          this.storage.setItem('password', user.password);
+          this.storage.setItem('useremail', user.email);
         } else {
-          localStorage.setItem('password', '');
-          localStorage.setItem('useremail', '');
+          this.storage.setItem('password', '');
+          this.storage.setItem('useremail', '');
         }
         // console.log(authResp.name);
-        localStorage.setItem('username',authResp.name)
-        localStorage.setItem('grade',authResp.grade)
+        this.storage.setItem('username',authResp.name)
+        this.storage.setItem('grade',authResp.grade)
         this.saveToken(authResp.token);
       });
   }
   public register(user: User): Promise<any> {
     return this.generalService.register(user)
       .then((authResp: Authresponse) => {
-        localStorage.setItem('username', authResp.name);
-        localStorage.setItem('grade',authResp.grade)
+        this.storage.setItem('username', authResp.name);
+        this.storage.setItem('grade',authResp.grade)
         this.saveToken(authResp.token);
       });
   }
 
   public logout(): void {
-    localStorage.removeItem('token');
+    this.storage.removeItem('token');
   }
   public isLoggedIn(): boolean {
     // console.log('Martin in isLogin')
@@ -64,16 +64,23 @@ export class AuthenticationService {
       //console.log({ email, name, role });
       const user={ email,  role } as User;
       user.name=this.getName();
-      user.grade=localStorage.getItem('grade');
+      user.grade=this.storage.getItem('grade');
       return user;
     }
   }
   public getName(): string {
-    //console.log(localStorage.getItem('username'));
-    return localStorage.getItem('username');
+    //console.log(this.storage.getItem('username'));
+    return this.storage.getItem('username');
   }
   public getMail(): string {
-    return localStorage.getItem('useremail');
+    return this.storage.getItem('useremail');
   }
 
+  public setPrjItem(itmName:string, itmValue:string){
+    this.storage.setItem(itmName,itmValue);
+  }
+
+  public getPrjItem(itmName:string):string{
+    return this.storage.getItem(itmName);
+  }
 }

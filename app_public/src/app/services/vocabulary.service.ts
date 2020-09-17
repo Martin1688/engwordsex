@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
 export class VocabularyService {
   private apiBaseUrl = environment.apiBaseUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService:AuthenticationService) { }
   private handleError(error: any): Promise<any> {
     console.log(error.status);
     if (error.status == 401) {
@@ -25,7 +25,7 @@ export class VocabularyService {
     const url: string = `${this.apiBaseUrl}/words`;
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
+        'Authorization': `Bearer ${this.authService.getToken()}`
       })
     };
     return this.http
@@ -37,11 +37,11 @@ export class VocabularyService {
 
   public getWords(emailuser:string, count:number, repCount:number, myGrade: string){
     console.log(emailuser);
-    localStorage.setItem('repCount', repCount.toString());
+    this.authService.setPrjItem('repCount', repCount.toString());
     const url: string = `${this.apiBaseUrl}/words`;
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
+        'Authorization': `Bearer ${this.authService.getToken()}`
       })
     };
     return this.http
