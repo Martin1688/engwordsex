@@ -20,7 +20,8 @@ export class SettingpageComponent implements OnInit {
   model = {
     'exCount': 10,
     'rptCount': 3
-  }
+  };
+  formError='';
   ngOnInit(): void {
     const user =this.authService.getCurrentUser();
     const nm =user.name;
@@ -33,14 +34,19 @@ export class SettingpageComponent implements OnInit {
   onSubmit(){
     //console.log(this.model);
     this.user =this.authService.getCurrentUser();
-    this.wordService.getWords(this.user.email, this.model.exCount, this.model.rptCount, this.user.grade).then(words=>{
+    this.wordService.getWords(this.user.email, this.model.exCount, this.model.rptCount, this.user.grade)
+    .then(words=>{
       const exWords =words.map(x=>{
        return  {wdId:x.wdId, eng: x.eng, chi: x.chi, grade: x.grade}
       });
       this.authService.setPrjItem("exWords",JSON.stringify(exWords));
       const reWords= JSON.parse(this.authService.getPrjItem("exWords"));
+      this.formError="設定完成";
       //console.log(words);
-      console.log(reWords);
+      //console.log(reWords);
+    })
+    .catch(err => {
+      this.formError=err;
     });
 
   }
