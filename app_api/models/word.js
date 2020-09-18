@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 const wordSchema = new mongoose.Schema({
     wdId: {
         type: Number,
@@ -15,7 +14,7 @@ const wordSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    grade:{
+    grade: {
         type: String,
         required: true
     },
