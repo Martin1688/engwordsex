@@ -10,10 +10,7 @@ const exerciseSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    endIndex: {
-        type: Number,
-        required: true
-    },
+    endIndex: Number,
     exDate: {
         type: Date,
         required: true

@@ -55,7 +55,7 @@ const wordsGet = (req, res) => {
         if (row) { //如果有更新練習參數
             console.log(row);
             if (row.done) { //如果上次的練習達到標準
-                row.startIndex = row.endIndex;
+                row.startIndex = row.endIndex === null ? 1 : row.endIndex;
                 //row.endIndex += parseInt(req.body.wordCount);
                 row.wordCount = parseInt(req.body.wordCount);
                 row.done = false;
@@ -98,7 +98,7 @@ const wordsGet = (req, res) => {
             exercise.create({ //建1筆紀錄
                 userEmail: req.body.email,
                 startIndex: 1,
-                //endIndex: parseInt(req.body.wordCount),
+                endIndex: null,
                 exDate: new Date(),
                 done: false,
                 wordCount: parseInt(req.body.wordCount)
@@ -150,7 +150,7 @@ const exerciseDone = (req, res) => {
             row.done = true;
             row.doneDate = new Date();
             row.save();
-            res.status(200).json({ row });
+            res.status(200).json({ "ok": true });
         }
     });
 }

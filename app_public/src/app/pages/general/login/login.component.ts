@@ -46,8 +46,7 @@ export class LoginComponent implements OnInit {
   private doLogin(): void {
     this.credentials.name = this.credentials.name;
     this.authenticationService.login(this.credentials)
-      .then(() => {
-        
+      .then(() => {        
         this.router.navigateByUrl(this.historyService.getLastNonLoginUrl());
       })
       .catch((message) => {

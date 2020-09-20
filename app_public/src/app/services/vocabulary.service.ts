@@ -7,6 +7,7 @@ import { AuthenticationService } from './authentication.service';
   providedIn: 'root'
 })
 export class VocabularyService {
+
   private apiBaseUrl = environment.apiBaseUrl;
 
   constructor(private http: HttpClient, private authService:AuthenticationService) { }
@@ -37,7 +38,11 @@ export class VocabularyService {
 
   public getWords(emailuser:string, count:number, repCount:number, myGrade: string){
     console.log(emailuser);
-    this.authService.setPrjItem('repCount', repCount.toString());
+    if(this.authService.removePrjItem('repCount')){
+      setTimeout(() => {
+        this.authService.setPrjItem('repCount', repCount.toString());        
+      }, 100);
+    }
     const url: string = `${this.apiBaseUrl}/words`;
     const httpOptions = {
       headers: new HttpHeaders({
@@ -51,5 +56,19 @@ export class VocabularyService {
       //   console.log(response);
       // })
       .catch(this.handleError);
+  }
+  setWords(emailuser: string) {
+    const url: string = `${this.apiBaseUrl}/words`;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${this.authService.getToken()}`
+      })
+    };
+    return this.http
+      .post(url,{email:emailuser},httpOptions)
+      .toPromise()
+      .then(response => response as boolean)
+      .catch(this.handleError);
+
   }
 }

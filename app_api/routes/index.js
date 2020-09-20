@@ -22,7 +22,8 @@ router.route('/paras/:paraid')
     .delete(auth, ctrlPara.paraDeleteOne);
 
 router.route('/words')
-    .post(auth, ctrlWord.wordsCreate) // 用於建立英文單字資料庫，此API沒研發成功，後改由server端直接匯入
+    //.post(auth, ctrlWord.wordsCreate) // 用於建立英文單字資料庫，此API沒研發成功，後改由server端直接匯入
+    .post(auth, ctrlWord.exerciseDone) // 設定練習完成
     .patch(auth, ctrlWord.wordsGet); //讀取要練習的英文字，並將相關參數紀錄於英文練習參數檔中
 
 router.route('/exercise')

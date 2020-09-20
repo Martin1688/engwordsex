@@ -26,10 +26,10 @@ export class AuthenticationService {
           this.storage.setItem('password', user.password);
           this.storage.setItem('useremail', user.email);
         } else {
-          this.storage.setItem('password', '');
-          this.storage.setItem('useremail', '');
+          this.storage.removeItem('password');
+          this.storage.removeItem('useremail');
         }
-        // console.log(authResp.name);
+         console.log(authResp.name);
         this.storage.setItem('username',authResp.name)
         this.storage.setItem('grade',authResp.grade)
         this.saveToken(authResp.token);
@@ -44,9 +44,6 @@ export class AuthenticationService {
       });
   }
 
-  public logout(): void {
-    this.storage.removeItem('token');
-  }
   public isLoggedIn(): boolean {
     // console.log('Martin in isLogin')
     const token: string = this.getToken();
@@ -82,5 +79,17 @@ export class AuthenticationService {
 
   public getPrjItem(itmName:string):string{
     return this.storage.getItem(itmName);
+  }
+
+  public removePrjItem(itmName:string):boolean{
+    if(this.storage.getItem(itmName) !== null && this.storage.getItem(itmName).length > 0){
+      this.storage.removeItem(itmName); 
+    }
+   return true;
+  }
+  public logout(): void {
+    this.storage.removeItem('token');
+    this.storage.removeItem('username');
+    this.storage.removeItem('role');
   }
 }
