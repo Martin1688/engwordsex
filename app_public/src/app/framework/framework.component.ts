@@ -9,18 +9,23 @@ import { User } from '../classes/user';
 export class FrameworkComponent implements OnInit {
   user: User;
   constructor(private authService: AuthenticationService) {
-
   }
 
   ngOnInit(): void {
+    this.user = this.authService.getCurrentUser();
+    console.log(this.user);
   }
   isLoggedIn() {
     return this.authService.isLoggedIn();
   }
-
+  userRole(){
+    return 'admin';
+    // const myRole = this.user===null ? '':this.user.role; 
+    // return myRole;
+  }
   getUsername() {
-    this.user = this.authService.getCurrentUser();
-    return this.user.name;
+    const myName = this.user===null ? '':this.user.name; 
+    return myName;
   }
   doLogout() {
     return this.authService.logout();

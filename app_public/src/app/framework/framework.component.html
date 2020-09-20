@@ -12,8 +12,9 @@
                       </a>
                     <div class="dropdown-menu bg-primary">
                         <a routerLink="/words" routerLinkActive="active" class="dropdown-item">練習設定</a>
+                        <a routerLink="/words/selfwordset" class="dropdown-item">單字輸入設定</a>
                         <a routerLink="/general/accountset" class="dropdown-item">帳號自我管理</a>
-                        <a routerLink="/general/admin" class="dropdown-item">管理員</a>
+                        <a routerLink="/general/admin" class="dropdown-item" *ngIf="userRole()==='admin'">管理員</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -23,7 +24,7 @@
                     <div class="dropdown-menu bg-primary">
                         <a routerLink="/words/spellex" routerLinkActive="active" class="dropdown-item">單字拼字練習</a>
                         <a routerLink="engselectchiex" class="dropdown-item">英選中練習</a>
-                        <a routerLink="autowordspellex" class="dropdown-item">自動語音拼字</a>
+                        <a routerLink="/words/autospell" class="dropdown-item">自動語音拼字</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">

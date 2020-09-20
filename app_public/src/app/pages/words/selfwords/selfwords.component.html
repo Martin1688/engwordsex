@@ -1,0 +1,69 @@
+<div class="mainDiv">
+
+    <div class="row">
+
+
+        <table class="col-12">
+            <tr>
+                <td class="center" colspan="3">
+                    <h2>英文單字自已輸入</h2>
+                </td>
+            </tr>
+            <tr *ngIf="message">
+                <td class="center" colspan="3">
+                    <span class="alert alert-danger">{{message}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="center">
+                    <h5>英文單字</h5>
+                </td>
+                <td class="center" colspan="2">
+                    <input type="text">
+                </td>
+            </tr>
+            <tr>
+                <td class="center" rowspan="2">
+                    <h5>中文</h5>
+                </td>
+                <td class="center">
+                    <h5>詞類</h5>
+                </td>
+                <td class="center">
+                    <h5>意義</h5>
+                </td>
+            </tr>
+            <tr>
+
+                <td class="center">
+                    <select>
+                        <option value="名詞">名詞(Noun)</option>
+                        <option value="代名詞">代名詞(Pronoun)</option>
+                        <option value="形容詞">形容詞(Adjective)</option>
+                        <option value="動詞">動詞(Verb)</option>
+                        <option value="副詞">副詞(Adverb)</option>
+                        <option value="介係詞">介係詞(Preposition)</option>
+                        <option value="連接詞">連接詞(Conjunction)</option>
+                        <option value="嘆詞">嘆詞(Interjection)</option>
+                    </select>
+                </td>
+                <td class="center">
+                    <input type="text">
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="navbar fixed-bottom foot2nd" *ngIf="false">
+        <div class="row">
+            <table class="col-12">
+                <tr>
+                    <td class="left"><button type="button" class="btn btn-success">設定</button></td>
+                    <!-- <td class="showOk"><button type="button" class="btn btn-success">{{ok}}</button></td> -->
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
