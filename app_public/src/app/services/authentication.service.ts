@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject, IterableDiffers } from '@angular/core';
 import { BROWSER_STORAGE } from '../classes/storage';
 import { User } from '../classes/user';
 import { Authresponse } from '../classes/authresponse';
@@ -17,8 +17,10 @@ export class AuthenticationService {
     return this.storage.getItem('token');
   }
   public saveToken(token: string): void {
-    this.storage.setItem('token', token);
-  }
+    if(this.removePrjItem('token')){
+      this.setPrjItem('token',token);
+    }
+ }
   public login(user: User): Promise<any> {
     return this.generalService.login(user)
       .then((authResp: Authresponse) => {
@@ -30,8 +32,8 @@ export class AuthenticationService {
           this.storage.removeItem('useremail');
         }
          console.log(authResp.name);
-        this.storage.setItem('username',authResp.name)
-        this.storage.setItem('grade',authResp.grade)
+        this.setPrjItem('username',authResp.name)
+        this.setPrjItem('grade',authResp.grade)
         this.saveToken(authResp.token);
       });
   }
@@ -74,7 +76,9 @@ export class AuthenticationService {
   }
 
   public setPrjItem(itmName:string, itmValue:string){
-    this.storage.setItem(itmName,itmValue);
+    if(this.removePrjItem(itmName)){
+      this.storage.setItem(itmName,itmValue);
+    }
   }
 
   public getPrjItem(itmName:string):string{

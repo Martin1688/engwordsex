@@ -10,56 +10,56 @@ import { WordsRoutingModule } from '../words-routing.module';
   styleUrls: ['./settingpage.component.css']
 })
 export class SettingpageComponent implements OnInit {
-  user:User;
+  user: User;
   constructor(private authService: AuthenticationService,
-    private wordService:VocabularyService) { }
+    private wordService: VocabularyService) { }
   viewModel = {
     "exCount": [10, 20, 30, 40, 50],
-    'rptCount': [1 , 2 , 3 ,4]
+    'rptCount': [1, 2, 3, 4]
   };
   model = {
     'exCount': 10,
     'rptCount': 3
   };
-  formError='';
+  formError = '';
   ngOnInit(): void {
-    this.user =this.authService.getCurrentUser();
+    this.user = this.authService.getCurrentUser();
     // const nm =user.name;
     // console.log(user);
   }
-  SetExCount(){}
+  SetExCount() { }
 
-  SetRptCount(){}
+  SetRptCount() { }
 
-  onSubmit(){
+  onSubmit() {
     //console.log(this.model);
     //this.user =this.authService.getCurrentUser();
     this.wordService.getWords(this.user.email, this.model.exCount, this.model.rptCount, this.user.grade)
-    .then(words=>{
-      const exWords =words.map(x=>{
-       return  {wdId:x.wdId, eng: x.eng, chi: x.chi, grade: x.grade}
+      .then(words => {
+        const exWords = words.map(x => {
+          return { wdId: x.wdId, eng: x.eng, chi: x.chi, grade: x.grade }
+        });
+        if (this.authService.removePrjItem("exWords")) {
+          setTimeout(() => {
+            this.authService.setPrjItem("exWords", JSON.stringify(exWords));
+            const reWords = JSON.parse(this.authService.getPrjItem("exWords"));
+            this.formError = "設定完成";
+          }, 100);
+        }
+        //console.log(words);
+        //console.log(reWords);
+      })
+      .catch(err => {
+        this.formError = err;
       });
-      if(this.authService.removePrjItem("exWords")){
-        setTimeout(() => {
-          this.authService.setPrjItem("exWords",JSON.stringify(exWords));
-          const reWords= JSON.parse(this.authService.getPrjItem("exWords"));
-          this.formError="設定完成";              
-        }, 100);
-      }
-      //console.log(words);
-      //console.log(reWords);
-    })
-    .catch(err => {
-      this.formError=err;
-    });
   }
 
-  jobDone(){
-  this.wordService.setWords(this.user.email).then(ok=>{
-    //console.log(ok.ok);
-    if(ok.ok){
-      this.formError="完成，繼續下批練習";
-    }
-  })
+  jobDone() {
+    this.wordService.setWords(this.user.email).then(ok => {
+      //console.log(ok.ok);
+      if (ok.ok) {
+        this.formError = "完成，繼續下批練習";
+      }
+    })
   }
 }
