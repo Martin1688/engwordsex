@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { AuthenticationService } from './authentication.service';
+import { Observable } from 'rxjs';
+import { Vcblry } from '../classes/vcblry';
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +59,26 @@ export class VocabularyService {
       // })
       .catch(this.handleError);
   }
+  public getAutoComp(stChar:string){
+    const url: string = `${this.apiBaseUrl}/complete`;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${this.authService.getToken()}`
+      })
+    };
+    return this.http.post(url,{startChar:stChar},httpOptions);
+  }
+  public getAWord(key:string){
+    const url: string = `${this.apiBaseUrl}/complete`;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${this.authService.getToken()}`
+      })
+    };
+    return this.http.patch(url,{eng:key},httpOptions);
+
+  }
+
   setWords(emailuser: string) {
     const url: string = `${this.apiBaseUrl}/words`;
     const httpOptions = {

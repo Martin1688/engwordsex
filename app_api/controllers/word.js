@@ -169,9 +169,49 @@ const exerciseDel = (req, res) => {
     })
 }
 
+const completeWords = (req, res) => {
+    const str = req.body.startChar;
+    //const mm = `/^${str}/`;
+    console.log(str);
+    word.find({ eng: new RegExp('^' + str + '.*') }).limit(1000).exec((err, rows) => {
+        if (err) {
+            console.log(err);
+            res.status(401).json({ "error": err });
+            return;
+        }
+        if (rows) {
+            let ary = rows.map(x => {
+                return x.eng;
+            })
+            console.log(ary.length);
+            res.status(200).json({ ary });
+        }
+    });
+}
+
+const wordsGetOne = (req, res) => {
+    const str = req.body.eng;
+    console.log(str);
+    word.find({ eng: str }, (err, rows) => {
+        if (err) {
+            console.log(err);
+            res.status(401).json({ "error": err });
+            return;
+        }
+        if (rows) {
+            const row = rows[0];
+            res.status(200).json({ row });
+        }
+
+    })
+
+}
+
 module.exports = {
     wordsCreate,
     wordsGet,
     exerciseDone,
-    exerciseDel
+    exerciseDel,
+    completeWords,
+    wordsGetOne
 };

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { VocabularyService } from 'src/app/services/vocabulary.service';
+import { Vcblry } from 'src/app/classes/vcblry';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-selfwords',
@@ -6,10 +9,99 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./selfwords.component.css']
 })
 export class SelfwordsComponent implements OnInit {
-  message:string;
-  constructor() { }
+  message: string;
+  wordData: any[] = [];
+  retObj: { "ary": any };
+  lastkeydown1: number = 0;
+  subscription: any;
+  wordList1: any[];
+  newWord: Vcblry = new Vcblry();
+  chiAry: string[];
+  wordAry: Vcblry[] = [];
+  //showBox=false;
+  constructor(private authService: AuthenticationService,
+    private wordService: VocabularyService) {
+    //Get the user data from users.json
 
-  ngOnInit(): void {
   }
 
+  ngOnInit(): void {
+    this.lastkeydown1 = new Date().getTime();
+    console.log(this.lastkeydown1);
+  }
+  getAutoWords(chr: string) {
+    this.wordService.getAutoComp(chr).subscribe(
+      data => {
+        this.retObj = data as { "ary": any };
+        Object.assign(this.wordData, this.retObj.ary);
+        setTimeout(() => {
+          console.log(this.wordData);
+        }, 10);
+      },
+      error => {
+        console.log("Something wrong here", error);
+      });
+
+  }
+  // onKeydown($event){
+  //   this.lastkeydown1=$event.timeStamp;
+  // }
+
+  getWordIdsFirstWay($event) {
+    this.wordList1 = [];
+    let wordId = (<HTMLInputElement>document.getElementById('WordIdFirstWay')).value.trim();
+    if (wordId.length == 0) {
+      return false;
+    }
+    else if (wordId.length == 1) {
+      this.getAutoWords(wordId);
+    }
+    //console.log(wordId);
+    if (wordId.length > 1) {
+      const decision = this.lastkeydown1 - $event.timeStamp;
+      //console.log(decision);
+      if (decision > 200) {
+        this.wordList1 = this.searchFromArray(this.wordData, wordId);
+        //this.showBox=true;
+        //console.log(this.wordList1);
+      }
+    }
+  }
+
+  searchFromArray(arr, regex) {
+    let matches = [], i;
+    for (i = 0; i < arr.length; i++) {
+      if (arr[i].match(regex)) {
+        matches.push(arr[i]);
+      }
+    }
+    return matches;
+  }
+  // onSelect(){
+  //   this.showBox=false;
+  //   console.log('selected');
+  // }
+  onBlur() {
+    let wordId = (<HTMLInputElement>document.getElementById('WordIdFirstWay')).value.trim();
+    this.wordService.getAWord(wordId).subscribe(x => {
+      const { row } = x as { row };
+      this.newWord = row as Vcblry;
+      // const ary=this.newWord.chi.split(';');
+      // this.chiAry = ary;
+      // if(this.chiAry.length === 0){
+      //   this.chiAry.push(this.newWord.chi);
+      // }
+      console.log(this.chiAry);
+
+    })
+  }
+
+  Add2List() {
+    this.wordAry.push(this.newWord);
+    this.newWord =  new Vcblry();
+    (<HTMLInputElement>document.getElementById('WordIdFirstWay')).value='';
+  }
+  Save2Local() {
+    this.authService.setPrjItem("exWords", JSON.stringify(this.wordAry));
+  }
 }

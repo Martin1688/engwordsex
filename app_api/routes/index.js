@@ -30,5 +30,7 @@ router.route('/exercise')
     .post(auth, ctrlWord.exerciseDone) // 用於設定英文練習參數檔done = true, 及doneDate()
     .patch(auth, ctrlWord.exerciseDel); // 用於刪除英文練習參數檔
 
-
+router.route('/complete')
+    .post(auth, ctrlWord.completeWords) //取得autocomplete 所需的英文字 最只有526筆紀錄
+    .patch(auth, ctrlWord.wordsGetOne); //用eng 查 1個 字物件返回
 module.exports = router;

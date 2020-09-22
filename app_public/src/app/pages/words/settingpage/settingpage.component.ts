@@ -42,7 +42,7 @@ export class SettingpageComponent implements OnInit {
         if (this.authService.removePrjItem("exWords")) {
           setTimeout(() => {
             this.authService.setPrjItem("exWords", JSON.stringify(exWords));
-            const reWords = JSON.parse(this.authService.getPrjItem("exWords"));
+            //const reWords = JSON.parse(this.authService.getPrjItem("exWords"));
             this.formError = "設定完成";
           }, 100);
         }

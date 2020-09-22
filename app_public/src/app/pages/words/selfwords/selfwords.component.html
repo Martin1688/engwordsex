@@ -1,69 +1,57 @@
 <div class="mainDiv">
 
     <div class="row">
-
-
         <table class="col-12">
             <tr>
-                <td class="center" colspan="3">
+                <td class="center" colspan="2">
                     <h2>英文單字自已輸入</h2>
                 </td>
             </tr>
             <tr *ngIf="message">
-                <td class="center" colspan="3">
+                <td class="center" colspan="2">
                     <span class="alert alert-danger">{{message}}</span>
                 </td>
             </tr>
             <tr>
-                <td class="center">
-                    <h5>英文單字</h5>
+                <td class="center clm1">
+                    <h5>英文</h5>
                 </td>
-                <td class="center" colspan="2">
-                    <input type="text">
+                <td class="center clm2">
+                    <input class="full" type="text" (blur)="onBlur()" (keyup)="getWordIdsFirstWay($event)" id="WordIdFirstWay" list="dynmicWordIds" />
+                    <datalist id="dynmicWordIds">
+                       <option *ngFor="let item of wordList1" [value]="item">{{item}}</option>
+                    </datalist>
                 </td>
             </tr>
             <tr>
-                <td class="center" rowspan="2">
+                <td class="center clm1">
                     <h5>中文</h5>
                 </td>
-                <td class="center">
-                    <h5>詞類</h5>
-                </td>
-                <td class="center">
-                    <h5>意義</h5>
+                <td class="center clm2">
+                    <textarea [(ngModel)]="this.newWord.chi" class="full" rows="3"></textarea>
                 </td>
             </tr>
-            <tr>
-
-                <td class="center">
-                    <select>
-                        <option value="名詞">名詞(Noun)</option>
-                        <option value="代名詞">代名詞(Pronoun)</option>
-                        <option value="形容詞">形容詞(Adjective)</option>
-                        <option value="動詞">動詞(Verb)</option>
-                        <option value="副詞">副詞(Adverb)</option>
-                        <option value="介係詞">介係詞(Preposition)</option>
-                        <option value="連接詞">連接詞(Conjunction)</option>
-                        <option value="嘆詞">嘆詞(Interjection)</option>
-                    </select>
+            <tr *ngIf="wordAry.length > 0">
+                <td class="center clm1">
+                    <h5>字庫</h5>
                 </td>
-                <td class="center">
-                    <input type="text">
+                <td class="center clm2">
+                    <select>
+                        <option *ngFor="let word of wordAry">{{word.eng}}</option>
+                    </select>
                 </td>
             </tr>
         </table>
 
     </div>
 
-    <div class="navbar fixed-bottom foot2nd" *ngIf="false">
+    <div class="navbar fixed-bottom foot2nd">
         <div class="row">
-            <table class="col-12">
-                <tr>
-                    <td class="left"><button type="button" class="btn btn-success">設定</button></td>
-                    <!-- <td class="showOk"><button type="button" class="btn btn-success">{{ok}}</button></td> -->
-                </tr>
-            </table>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button *ngIf="this.newWord.chi" type="button" class="btn btn-success" (click)="Add2List()" title="加入字庫">加入</button>
+                <button *ngIf="wordAry.length > 0" type="button" class="btn btn-success" (click)="Save2Local()" title="加入本次字庫，上次儲存之字庫會被清除">儲存</button>
+            </div>
         </div>
     </div>
-
+    <!-- (click)="getAutoCom()" -->
 </div>

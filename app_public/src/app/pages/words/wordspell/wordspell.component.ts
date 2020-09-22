@@ -14,7 +14,7 @@ export class WordspellComponent implements OnInit {
   wIndex:number=1;
   total:number;
   exWord:string;
-  totalRpt:string;
+  totalRpt:string="3";
   rptCount=1;
   message="";
   utterThis :SpeechSynthesisUtterance; 

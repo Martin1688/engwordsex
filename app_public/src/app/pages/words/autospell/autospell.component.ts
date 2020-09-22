@@ -14,7 +14,7 @@ export class AutospellComponent implements OnInit {
   wIndex: number = 1;
   total: number;
   exWord: string;
-  totalRpt: string;
+  totalRpt: string="3";
   rptCount = 1;
   message = "";
   utterTW: SpeechSynthesisUtterance;
@@ -97,6 +97,7 @@ export class AutospellComponent implements OnInit {
           } else {
             this.wIndex =1;
             this.currentWord = this.wordAry[this.wIndex - 1];
+            this.message="撥放完畢";
           }
         }, 7000);
       }
