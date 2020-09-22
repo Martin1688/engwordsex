@@ -4,7 +4,7 @@ import { SettingpageComponent } from './settingpage/settingpage.component';
 import { WordspellComponent } from './wordspell/wordspell.component';
 import { AutospellComponent } from './autospell/autospell.component';
 import { SelfwordsComponent } from './selfwords/selfwords.component';
-
+import { WordselectComponent } from './wordselect/wordselect.component';
 const routes: Routes = [
   {
     path:'',
@@ -18,6 +18,9 @@ const routes: Routes = [
   },{
     path:'selfwordset',
     component:SelfwordsComponent
+  },{
+    path:'engselectchiex',
+    component:WordselectComponent
   }
 ];
 

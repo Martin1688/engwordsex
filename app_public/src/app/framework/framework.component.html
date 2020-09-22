@@ -23,11 +23,11 @@
                   </a>
                     <div class="dropdown-menu bg-primary">
                         <a routerLink="/words/spellex" routerLinkActive="active" class="dropdown-item">單字拼字練習</a>
-                        <a routerLink="engselectchiex" class="dropdown-item">英選中練習</a>
+                        <a routerLink="/words/engselectchiex" class="dropdown-item">英選中練習</a>
                         <a routerLink="/words/autospell" class="dropdown-item">自動語音拼字</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" *ngIf="false">
                     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                     考試
                   </a>

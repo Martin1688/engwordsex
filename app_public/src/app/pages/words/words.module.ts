@@ -6,9 +6,10 @@ import {ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { WordspellComponent } from './wordspell/wordspell.component';
 import { AutospellComponent } from './autospell/autospell.component';
 import { SelfwordsComponent } from './selfwords/selfwords.component';
+import { WordselectComponent } from './wordselect/wordselect.component';
 
 @NgModule({
-  declarations: [SettingpageComponent, WordspellComponent, AutospellComponent, SelfwordsComponent],
+  declarations: [SettingpageComponent, WordspellComponent, AutospellComponent, SelfwordsComponent, WordselectComponent],
   imports: [
     CommonModule,
     WordsRoutingModule,

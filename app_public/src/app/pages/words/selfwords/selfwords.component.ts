@@ -90,7 +90,7 @@ export class SelfwordsComponent implements OnInit {
     this.wordService.getAWord(wordId).subscribe(x => {
       const { row } = x as { row: any };
       this.newWord = row as Vcblry;
-      this.message=this.newWord.chi;
+      //this.message=this.newWord.chi;
     })
   }
 
