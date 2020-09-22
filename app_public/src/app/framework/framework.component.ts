@@ -20,11 +20,17 @@ export class FrameworkComponent implements OnInit {
   }
   userRole(){
     //return 'admin';
-     const myRole = this.user===null || this.user.role===null ? '':this.user.role; 
+     let myRole = '';
+     if(this.user && this.user.role){
+       myRole=this.user.role;
+     } 
     return myRole;
   }
   getUsername() {
-    const myName = this.user===null ? '':this.user.name; 
+    let myName ='';
+     if(this.user && this.user.name){
+       myName=this.user.name;
+     }
     return myName;
   }
   doLogout() {
