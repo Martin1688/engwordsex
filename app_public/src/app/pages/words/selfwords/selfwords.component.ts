@@ -88,8 +88,9 @@ export class SelfwordsComponent implements OnInit {
     //let wordId = (<HTMLInputElement>document.getElementById('WordIdFirstWay')).value.trim();
     const wordId = this.newWord.eng;
     this.wordService.getAWord(wordId).subscribe(x => {
-      const { row } = x as { row };
+      const { row } = x as { row: any };
       this.newWord = row as Vcblry;
+      this.message=this.newWord.chi;
     })
   }
 

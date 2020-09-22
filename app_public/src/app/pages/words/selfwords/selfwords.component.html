@@ -1,6 +1,9 @@
 <div class="mainDiv">
-    <h2>英文單字自已輸入</h2>
+    <h2>英文單字自己輸入</h2>
     <form #queryForm="ngForm">
+        <div role="alert" *ngIf="message" class="alert alert-danger">
+            {{ message }}
+        </div>
         <div class="input-group fMargin">
             <div class="input-group-prepend">
                 <span class="input-group-text">英文：</span>
