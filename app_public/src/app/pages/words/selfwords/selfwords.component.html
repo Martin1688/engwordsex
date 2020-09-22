@@ -1,29 +1,33 @@
 <div class="mainDiv">
     <h2>英文單字自已輸入</h2>
-    <div class="input-group fMargin">
-        <div class="input-group-prepend">
-            <span class="input-group-text">英文：</span>
-        </div>
-        <input class="form-control" type="text" (blur)="onBlur()" (keyup)="getWordIdsFirstWay($event)" id="WordIdFirstWay" list="dynmicWordIds" />
-        <datalist id="dynmicWordIds">
-         <option *ngFor="let item of wordList1" [value]="item">{{item}}</option>
+    <form #queryForm="ngForm">
+        <div class="input-group fMargin">
+            <div class="input-group-prepend">
+                <span class="input-group-text">英文：</span>
+            </div>
+            <input class="form-control" type="text" (blur)="onBlur()" (keyup)="getWordIdsFirstWay($event)" id="WordIdFirstWay" list="dynmicWordIds" name="WordIdFirstWay" [(ngModel)]="newWord.eng" />
+            <datalist id="dynmicWordIds">
+         <option *ngFor="let item of wordList1 " [value]="item ">{{item}}</option>
       </datalist>
-    </div>
-    <div class="input-group fMargin">
-        <div class="input-group-prepend">
-            <span class="input-group-text">中文：</span>
         </div>
-        <textarea [(ngModel)]="newWord.chi" class="form-control" rows="3"></textarea>
-    </div>
+        <div class="input-group fMargin ">
+            <div class="input-group-prepend ">
+                <span class="input-group-text ">中文：</span>
+            </div>
+            <textarea id="chi" name="chi" [(ngModel)]="newWord.chi " class="form-control " rows="3 "></textarea>
+        </div>
 
-    <div class="input-group fMargin" *ngIf="wordAry.length > 0">
-        <div class="input-group-prepend">
-            <span class="input-group-text">字庫：</span>
-        </div>
-        <select class="form-control">
+        <div class="input-group fMargin " *ngIf="wordAry.length> 0">
+            <div class="input-group-prepend">
+                <span class="input-group-text">字庫：</span>
+            </div>
+            <select class="form-control">
             <option *ngFor="let word of wordAry">{{word.eng}}</option>
         </select>
-    </div>
+        </div>
+
+    </form>
+
     <div class="navbar fixed-bottom foot2nd">
         <div class="row">
             <div class="btn-group" role="group" aria-label="Basic example">

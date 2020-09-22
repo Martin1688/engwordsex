@@ -15,7 +15,12 @@ export class SelfwordsComponent implements OnInit {
   lastkeydown1: number = 0;
   subscription: any;
   wordList1: any[];
-  newWord: Vcblry = new Vcblry();
+  newWord: Vcblry = {
+    wdId:'',
+    eng:'',
+    chi:'',
+    grade:''
+  };
   chiAry: string[];
   wordAry: Vcblry[] = [];
   //showBox=false;
@@ -27,7 +32,7 @@ export class SelfwordsComponent implements OnInit {
 
   ngOnInit(): void {
     this.lastkeydown1 = new Date().getTime();
-    //console.log(this.lastkeydown1);
+    console.log(this.newWord);
   }
   getAutoWords(chr: string) {
     this.wordService.getAutoComp(chr).subscribe(
@@ -49,7 +54,8 @@ export class SelfwordsComponent implements OnInit {
 
   getWordIdsFirstWay($event) {
     this.wordList1 = [];
-    let wordId = (<HTMLInputElement>document.getElementById('WordIdFirstWay')).value.trim();
+//    let wordId = (<HTMLInputElement>document.getElementById('WordIdFirstWay')).value.trim();
+    const wordId= this.newWord.eng;
     if (wordId.length == 0) {
       return false;
     }
@@ -77,29 +83,25 @@ export class SelfwordsComponent implements OnInit {
     }
     return matches;
   }
-  // onSelect(){
-  //   this.showBox=false;
-  //   console.log('selected');
-  // }
+ 
   onBlur() {
-    let wordId = (<HTMLInputElement>document.getElementById('WordIdFirstWay')).value.trim();
+    //let wordId = (<HTMLInputElement>document.getElementById('WordIdFirstWay')).value.trim();
+    const wordId = this.newWord.eng;
     this.wordService.getAWord(wordId).subscribe(x => {
       const { row } = x as { row };
       this.newWord = row as Vcblry;
-      // const ary=this.newWord.chi.split(';');
-      // this.chiAry = ary;
-      // if(this.chiAry.length === 0){
-      //   this.chiAry.push(this.newWord.chi);
-      // }
-      //console.log(this.chiAry);
-
     })
   }
 
   Add2List() {
     this.wordAry.push(this.newWord);
-    this.newWord =  new Vcblry();
-    (<HTMLInputElement>document.getElementById('WordIdFirstWay')).value='';
+    this.newWord =  {
+      wdId:'',
+      eng:'',
+      chi:'',
+      grade:''
+    };
+    //(<HTMLInputElement>document.getElementById('WordIdFirstWay')).value='';
   }
   Save2Local() {
     this.authService.setPrjItem("exWords", JSON.stringify(this.wordAry));

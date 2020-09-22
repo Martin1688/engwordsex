@@ -21,7 +21,7 @@ export class AutospellComponent implements OnInit {
   utterboy: SpeechSynthesisUtterance;
   uttergirl: SpeechSynthesisUtterance;
   playSubject: Subject<Vcblry>;
-  charDelayTime=1000;
+  charDelayTime=1100;
   constructor(private authService: AuthenticationService) {
     this.wordAry = JSON.parse(authService.getPrjItem('exWords'));
     this.totalRpt = this.authService.getPrjItem('repCount');
@@ -60,9 +60,9 @@ export class AutospellComponent implements OnInit {
   playWord() {
     if (this.currentWord) {
       if(this.currentWord.eng.length > 10){
-        this.charDelayTime = 1200;
+        this.charDelayTime = 1300;
       } else{
-        this.charDelayTime =1000;
+        this.charDelayTime =1100;
       }
       this.speakEng(this.currentWord.eng, this.currentWord.eng.length % 2);
       setTimeout(() => {
