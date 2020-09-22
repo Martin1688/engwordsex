@@ -27,16 +27,16 @@ export class SelfwordsComponent implements OnInit {
 
   ngOnInit(): void {
     this.lastkeydown1 = new Date().getTime();
-    console.log(this.lastkeydown1);
+    //console.log(this.lastkeydown1);
   }
   getAutoWords(chr: string) {
     this.wordService.getAutoComp(chr).subscribe(
       data => {
         this.retObj = data as { "ary": any };
         Object.assign(this.wordData, this.retObj.ary);
-        setTimeout(() => {
-          console.log(this.wordData);
-        }, 10);
+        // setTimeout(() => {
+        //   console.log(this.wordData);
+        // }, 10);
       },
       error => {
         console.log("Something wrong here", error);
@@ -91,7 +91,7 @@ export class SelfwordsComponent implements OnInit {
       // if(this.chiAry.length === 0){
       //   this.chiAry.push(this.newWord.chi);
       // }
-      console.log(this.chiAry);
+      //console.log(this.chiAry);
 
     })
   }

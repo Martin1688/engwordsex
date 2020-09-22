@@ -13,15 +13,15 @@ export class FrameworkComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.authService.getCurrentUser();
-    console.log(this.user);
+    //console.log(this.user);
   }
   isLoggedIn() {
     return this.authService.isLoggedIn();
   }
   userRole(){
-    return 'admin';
-    // const myRole = this.user===null ? '':this.user.role; 
-    // return myRole;
+    //return 'admin';
+     const myRole = this.user===null || this.user.role===null ? '':this.user.role; 
+    return myRole;
   }
   getUsername() {
     const myName = this.user===null ? '':this.user.name; 

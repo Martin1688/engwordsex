@@ -25,13 +25,13 @@ export class AuthenticationService {
     return this.generalService.login(user)
       .then((authResp: Authresponse) => {
         if (user.keep) {
-          this.storage.setItem('password', user.password);
-          this.storage.setItem('useremail', user.email);
+          this.setPrjItem('password', user.password);
+          this.setPrjItem('useremail', user.email);
         } else {
           this.storage.removeItem('password');
           this.storage.removeItem('useremail');
         }
-         console.log(authResp.name);
+         //console.log(authResp.name);
         this.setPrjItem('username',authResp.name)
         this.setPrjItem('grade',authResp.grade)
         this.saveToken(authResp.token);
@@ -40,8 +40,8 @@ export class AuthenticationService {
   public register(user: User): Promise<any> {
     return this.generalService.register(user)
       .then((authResp: Authresponse) => {
-        this.storage.setItem('username', authResp.name);
-        this.storage.setItem('grade',authResp.grade)
+        this.setPrjItem('username', authResp.name);
+        this.setPrjItem('grade',authResp.grade)
         this.saveToken(authResp.token);
       });
   }
