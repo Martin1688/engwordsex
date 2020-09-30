@@ -12,7 +12,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">姓 名：</span>
                 </div>
-                <input type="email" class="form-control" id="email" name="email" placeholder="輸入 姓名 " [(ngModel)]="credentials.name">
+                <input type="email" class="form-control" id="name" name="name" placeholder="輸入 姓名 " [(ngModel)]="credentials.name">
             </div>
             <div class="input-group fMargin">
                 <div class="input-group-prepend">
@@ -24,7 +24,29 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">密 碼：</span>
                 </div>
-                <input type="pasword" class="form-control" id="password" name="password" placeholder="輸入密碼" [(ngModel)]="credentials.password">
+                <input [type]="passwordTextType?'password':'text'" class="form-control" id="password" name="password" placeholder="輸入密碼" [(ngModel)]="credentials.password">
+                <div class="input-group-append">
+                    <span class="input-group-text">
+                      <i class="fa" [ngClass]="{
+                        'fa-eye-slash': passwordTextType,
+                        'fa-eye': !passwordTextType
+                      }" (click)="setPasswordText()"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="input-group fMargin">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">確 認：</span>
+                </div>
+                <input id="password2" name="password2" [type]="password2TextType?'password':'text'" class="form-control" placeholder="確認密碼" [(ngModel)]="password2content">
+                <div class="input-group-append">
+                    <span class="input-group-text">
+                      <i class="fa" [ngClass]="{
+                        'fa-eye-slash': password2TextType,
+                        'fa-eye': !password2TextType
+                      }" (click)="setPassword2Text()"></i>
+                    </span>
+                </div>
             </div>
             <button type="submit" role="button" class="btn btn-primary">註冊</button>
         </form>

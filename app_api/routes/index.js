@@ -8,6 +8,7 @@ const auth = jwt({
 const ctrlAuth = require('../controllers/authentication');
 const ctrlPara = require('../controllers/paras');
 const ctrlWord = require('../controllers/word');
+const ctrlMail = require('../controllers/mailagent');
 
 router.post('/register', ctrlAuth.register);
 router.post('/login', ctrlAuth.login);
@@ -15,8 +16,8 @@ router.post('/login', ctrlAuth.login);
 
 router.get('/paras/:paratype', ctrlPara.parasByType);
 router.route('/paras')
-    .patch(auth, ctrlPara.parasByName)
-    .post(auth, ctrlPara.paraCreate);
+    .patch(auth, ctrlPara.parasByName) //
+    .post(auth, ctrlPara.paraCreate); //
 
 router.route('/paras/:paraid')
     .delete(auth, ctrlPara.paraDeleteOne);
@@ -31,6 +32,24 @@ router.route('/exercise')
     .patch(auth, ctrlWord.exerciseDel); // 用於刪除英文練習參數檔
 
 router.route('/complete')
-    .post(auth, ctrlWord.completeWords) //取得autocomplete 所需的英文字 最只有526筆紀錄
+    .post(auth, ctrlWord.completeWords) //取得autocomplete 所需的英文字
     .patch(auth, ctrlWord.wordsGetOne); //用eng 查 1個 字物件返回
+
+
+router.post('/usernewpsw', ctrlMail.sendMail);
+
+router.route('/changepws')
+    .post(auth, ctrlMail.changePws);
+
+router.route('/user')
+    .put(auth, ctrlAuth.updateUser)
+    .patch(auth, ctrlAuth.aUser);
+router.route('/user/:email')
+    .delete(auth, ctrlAuth.delUser);
+
+router.route('/mailcpl')
+    .post(auth, ctrlAuth.completeMails);
+
+
+
 module.exports = router;

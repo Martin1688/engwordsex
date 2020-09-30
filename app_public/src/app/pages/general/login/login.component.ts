@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     signdate:'',
     keep: true
   };
-
+  passwordTextType = true;
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
@@ -29,10 +29,17 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     const currentUser =this.authenticationService.getCurrentUser();
     if(currentUser){
+      this.router.navigateByUrl('/words'); 
+    } else {
       this.credentials.email = this.authenticationService.getMail();
       this.credentials.name = this.authenticationService.getName();  
     }
   }
+
+  setPasswordText() {
+    this.passwordTextType = !this.passwordTextType;
+  }
+    
   public onLoginSubmit(): void {
      //console.log(this.credentials);
 
@@ -46,8 +53,12 @@ export class LoginComponent implements OnInit {
   private doLogin(): void {
     this.credentials.name = this.credentials.name;
     this.authenticationService.login(this.credentials)
-      .then(() => {        
-        this.router.navigateByUrl(this.historyService.getLastNonLoginUrl());
+      .then(() => { 
+        document.location.reload();
+        // this.authenticationService.getCurrentUser();
+        // setTimeout(() => {
+        //   this.router.navigateByUrl(this.historyService.getLastNonLoginUrl());          
+        // }, 200);       
       })
       .catch((message) => {
         this.formError = message

@@ -10,8 +10,8 @@
             </div>
             <input class="form-control" type="text" (blur)="onBlur()" (keyup)="getWordIdsFirstWay($event)" id="WordIdFirstWay" list="dynmicWordIds" name="WordIdFirstWay" [(ngModel)]="newWord.eng" autocomplete="off" />
             <datalist id="dynmicWordIds">
-         <option *ngFor="let item of wordList1 " [value]="item ">{{item}}</option>
-      </datalist>
+                <option *ngFor="let item of wordList1 " [value]="item ">{{item}}</option>
+            </datalist>
         </div>
         <div class="input-group fMargin ">
             <div class="input-group-prepend ">

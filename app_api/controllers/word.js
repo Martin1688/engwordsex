@@ -53,7 +53,7 @@ const wordsGet = (req, res) => {
             return;
         }
         if (row) { //如果有更新練習參數
-            console.log(row);
+            //console.log(row);
             if (row.done) { //如果上次的練習達到標準
                 row.startIndex = row.endIndex === null ? 1 : row.endIndex;
                 //row.endIndex += parseInt(req.body.wordCount);

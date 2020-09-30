@@ -96,4 +96,6 @@ export class AuthenticationService {
     this.storage.removeItem('username');
     this.storage.removeItem('role');
   }
+
+
 }

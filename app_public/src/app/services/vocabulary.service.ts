@@ -39,7 +39,7 @@ export class VocabularyService {
   }
 
   public getWords(emailuser:string, count:number, repCount:number, myGrade: string){
-    console.log(emailuser);
+    //console.log(emailuser);
     if(this.authService.removePrjItem('repCount')){
       setTimeout(() => {
         this.authService.setPrjItem('repCount', repCount.toString());        

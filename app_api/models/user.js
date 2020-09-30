@@ -45,4 +45,8 @@ userSchema.methods.generateJwt = function() {
     }, secretWord);
 };
 
+userSchema.methods.genePassword = function(charCnt) {
+    this.memo = crypto.randomBytes(charCnt).toString();
+};
+
 mongoose.model('User', userSchema);

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { User } from '../classes/user';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-framework',
   templateUrl: './framework.component.html',
@@ -8,7 +9,7 @@ import { User } from '../classes/user';
 })
 export class FrameworkComponent implements OnInit {
   user: User;
-  constructor(private authService: AuthenticationService) {
+  constructor(private router: Router,private authService: AuthenticationService) {
   }
 
   ngOnInit(): void {
@@ -34,6 +35,9 @@ export class FrameworkComponent implements OnInit {
     return myName;
   }
   doLogout() {
-    return this.authService.logout();
+     this.authService.logout();
+     setTimeout(() => {
+      this.router.navigateByUrl('/words');  
+     }, 100);
   }
 }

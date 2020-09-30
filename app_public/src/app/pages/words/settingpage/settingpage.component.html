@@ -20,7 +20,7 @@
             <option *ngFor="let rpt of viewModel.rptCount" [value]="rpt">{{rpt}}</option>
           </select>
         </div>
-        <div class="row fMargin">
+        <div class="row fMargin" *ngIf="user">
             <div class="col-12">
                 <div class="btn-group" role="group" aria-label="功能"></div>
                 <button type="submit" class="btn btn-primary">設定</button>

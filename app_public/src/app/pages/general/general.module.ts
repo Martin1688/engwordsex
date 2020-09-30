@@ -6,10 +6,13 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import {ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { AdminComponent } from './admin/admin.component';
+import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+import { SelfusersetComponent } from './selfuserset/selfuserset.component';
+import { ChangepwsComponent } from './changepws/changepws.component';
 
 
 @NgModule({
-  declarations: [RegisterComponent, LoginComponent, AdminComponent],
+  declarations: [RegisterComponent, LoginComponent, AdminComponent, ResetpasswordComponent, SelfusersetComponent, ChangepwsComponent],
   imports: [
     CommonModule,
     GeneralRoutingModule,

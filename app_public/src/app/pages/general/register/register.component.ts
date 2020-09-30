@@ -14,20 +14,31 @@ export class RegisterComponent implements OnInit {
     name: '',
     email: '',
     password: '',
-    role:'client',
-    grade:'初級',
-    memo:'',
-    signdate:'',
+    role: 'client',
+    grade: '初級',
+    memo: '',
+    signdate: '',
     keep: true
   };
+  passwordTextType = true;
+  password2TextType = true;
+  password2content='';
   constructor(private router: Router,
     private authenticationService: AuthenticationService,
     private historyService: HistoryService) { }
 
   ngOnInit(): void {
   }
+  setPasswordText() {
+    this.passwordTextType = !this.passwordTextType;
+  }
+  setPassword2Text() {
+    this.password2TextType = !this.password2TextType;
+  }
   public onRegisterSubmit(): void {
-    // console.log(this.credentials);
+     console.log(this.credentials);
+    const pws2 = this.password2content;
+    console.log(pws2);
     this.formError = '';
     if (
       !this.credentials.name ||
@@ -35,7 +46,10 @@ export class RegisterComponent implements OnInit {
       !this.credentials.password
     ) {
       this.formError = '全部欄位都是必填，請再試一次';
-    } else {
+    } else if (pws2 !== this.credentials.password) {
+      this.formError = '密碼與確認密碼必須相同';
+    }
+    else {
       this.doRegister();
     }
   }
