@@ -23,6 +23,7 @@ export class SelfwordsComponent implements OnInit {
   };
   chiAry: string[];
   wordAry: Vcblry[] = [];
+  isMobile=false;
   //showBox=false;
   constructor(private authService: AuthenticationService,
     private wordService: VocabularyService) {
@@ -32,9 +33,20 @@ export class SelfwordsComponent implements OnInit {
 
   ngOnInit(): void {
     this.lastkeydown1 = new Date().getTime();
-    console.log(this.newWord);
+    //console.log(this.newWord);
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+      this.isMobile=true;
+      //this.formError="mobile device";
+    }else{
+      this.isMobile=false;
+      //this.formError="not mobile device";
+    }
+
   }
   getAutoWords(chr: string) {
+    if(this.isMobile){
+      return;
+    }
     this.wordService.getAutoComp(chr).subscribe(
       data => {
         this.retObj = data as { "ary": any };
@@ -53,7 +65,9 @@ export class SelfwordsComponent implements OnInit {
   // }
 
   getWordIdsFirstWay($event) {
-    if($event.key ==='Enter'){
+    if(this.isMobile){
+      return;
+    } else if($event.key ==='Enter'){
       return;
     }
     this.wordList1 = [];
@@ -100,6 +114,7 @@ export class SelfwordsComponent implements OnInit {
   itemSelected(item: string){
     this.newWord.eng=item;
     this.wordList1=[];
+    document.getElementById('WordIdFirstWay').focus();
     //this.onEnter();
   }
 

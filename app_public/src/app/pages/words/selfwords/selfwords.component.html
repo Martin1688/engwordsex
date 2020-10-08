@@ -1,5 +1,5 @@
 <div class="mainDiv">
-    <h2>英文單字自己輸入</h2>
+    <h2>英文單字自己輸入<span *ngIf="isMobile">(手機)</span></h2>
     <form #queryForm="ngForm">
         <div role="alert" *ngIf="message" class="alert alert-danger">
             {{ message }}
@@ -8,7 +8,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">英文：</span>
             </div>
-            <input class="form-control" type="text" (keyup.enter)="onEnter()" (keyup)="getWordIdsFirstWay($event)" id="WordIdFirstWay" name="WordIdFirstWay" [(ngModel)]="newWord.eng" autocomplete="off" />
+            <input class="form-control" type="text" (keyup.enter)="onEnter()" (keyup)="getWordIdsFirstWay($event)" id="WordIdFirstWay" name="WordIdFirstWay" [(ngModel)]="newWord.eng" />
             <div class="sub-list">
                 <br>
                 <ui *ngIf="wordList1">

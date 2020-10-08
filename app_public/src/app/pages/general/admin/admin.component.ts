@@ -32,6 +32,7 @@ export class AdminComponent implements OnInit {
   retObj: { "ary": any };
   roleops = ['client', 'user', 'admin'];
   gradeops = ['初級', '中級', '中高級'];
+  isMobile=false;
   constructor(private authService: AuthenticationService,
     private generalService: GeneralService,
     private wordsService: VocabularyService
@@ -42,6 +43,13 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
     this.lastkeydown1 = new Date().getTime();
     this.getAutoMails();
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+      this.isMobile=true;
+      //this.formError="mobile device";
+    }else{
+      this.isMobile=false;
+      //this.formError="not mobile device";
+    }
 
   }
 
@@ -87,6 +95,9 @@ export class AdminComponent implements OnInit {
     });
   }
   getAutoMails() {
+    if(this.isMobile){
+      return;
+    }
     this.generalService.mailAutoComp().then(
       data => {
         this.retObj = data as { "ary": any };
@@ -102,9 +113,13 @@ export class AdminComponent implements OnInit {
   }
 
   getMailsFirstWay($event) {
+    if(this.isMobile){
+      return;
+    }    
     if($event.key ==='Enter'){
       return;
     }
+
     this.mailList1 = [];
     //    let wordId = (<HTMLInputElement>document.getElementById('WordIdFirstWay')).value.trim();
     const temMail = this.credentials.email;
@@ -139,6 +154,7 @@ export class AdminComponent implements OnInit {
   itemSelected(item: string){
     this.credentials.email=item;
     this.mailList1=[];
+    document.getElementById('email').focus();
     //this.onEnter();
   }
 
