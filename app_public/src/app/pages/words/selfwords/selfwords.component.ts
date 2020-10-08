@@ -108,9 +108,7 @@ export class SelfwordsComponent implements OnInit {
   onEnter() {
     this.message='Enter detected';
     let wordId = (<HTMLInputElement>document.getElementById('WordIdFirstWay')).value.trim();
-    if(this.isMobile){
-      wordId=wordId.toLowerCase();
-    }
+
     //const wordId = this.newWord.eng;
     this.wordService.getAWord(wordId).subscribe(x => {
       const { row } = x as { row: any };
