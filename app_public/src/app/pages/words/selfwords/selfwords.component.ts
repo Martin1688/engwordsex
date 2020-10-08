@@ -66,11 +66,12 @@ export class SelfwordsComponent implements OnInit {
 
   getWordIdsFirstWay($event) {
     if(this.isMobile){
-      if($event.key === 'Enter'){
-        return this.onEnter();
-      } else {
-        return;
-      }      
+      // if($event.key === 'Enter'){
+      //   return this.onEnter();
+      // } else {
+      //   return;
+      // }    
+      return;  
     } else if($event.key ==='Enter'){
       return;
     }
@@ -133,6 +134,7 @@ export class SelfwordsComponent implements OnInit {
       chi:'',
       grade:''
     };
+    this.message='';
     //(<HTMLInputElement>document.getElementById('WordIdFirstWay')).value='';
   }
   Save2Local() {
