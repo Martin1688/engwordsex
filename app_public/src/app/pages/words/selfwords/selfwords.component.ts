@@ -65,6 +65,7 @@ export class SelfwordsComponent implements OnInit {
   // }
 
   getWordIdsFirstWay($event) {
+    this.message=$event.key;
     if(this.isMobile){
       return;
     } else if($event.key ==='Enter'){
@@ -102,7 +103,7 @@ export class SelfwordsComponent implements OnInit {
   }
  
   onEnter() {
-    this.message='Enter detected' + this.newWord.eng;
+    this.message='Enter detected';
     //let wordId = (<HTMLInputElement>document.getElementById('WordIdFirstWay')).value.trim();
     const wordId = this.newWord.eng;
     this.wordService.getAWord(wordId).subscribe(x => {
