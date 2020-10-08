@@ -65,9 +65,12 @@ export class SelfwordsComponent implements OnInit {
   // }
 
   getWordIdsFirstWay($event) {
-    this.message=$event.key;
     if(this.isMobile){
-      return;
+      if($event.key === 'Enter'){
+        return this.onEnter();
+      } else {
+        return;
+      }      
     } else if($event.key ==='Enter'){
       return;
     }
