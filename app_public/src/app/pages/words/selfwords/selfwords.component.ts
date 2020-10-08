@@ -112,9 +112,16 @@ export class SelfwordsComponent implements OnInit {
 
     //const wordId = this.newWord.eng;
     this.wordService.getAWord(wordId).subscribe(x => {
+      console.log(x);
       const { row } = x as { row: any };
-      this.newWord = row as Vcblry;
-      this.message += ' and API called'
+      console.log(row);
+      if(row){
+        this.message += ' and API called'  
+        this.newWord = row as Vcblry;
+      } else {
+        const {error}=x as {error:any};
+        this.message = error;
+      }
       //this.message=this.newWord.chi;
     })
   }

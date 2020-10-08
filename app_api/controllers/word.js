@@ -194,13 +194,19 @@ const wordsGetOne = (req, res) => {
     console.log(str);
     word.find({ eng: str }, (err, rows) => {
         if (err) {
-            console.log(err);
+            // console.log(err);
             res.status(401).json({ "error": err });
             return;
         }
         if (rows) {
             const row = rows[0];
-            res.status(200).json({ row });
+            // console.log(row);
+            if (row) {
+                res.status(200).json({ row });
+            } else {
+                const other = '查不到' + str;
+                res.status(200).json({ "error": other });
+            }
         }
 
     })
