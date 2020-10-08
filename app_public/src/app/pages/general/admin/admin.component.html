@@ -6,15 +6,21 @@
         <p class="lead">搜尋使用者 </p>
         <div *ngIf="formError" class="alert alert-danger">
             {{ formError }}</div>
-        <form (submit)="onSubmit()">
+        <form>
             <div class="input-group fMargin">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Email：</span>
                 </div>
-                <input class="form-control" type="email" (blur)="onBlur()" (keyup)="getMailsFirstWay($event)" id="email" list="dynmicMail" name="email" [(ngModel)]="credentials.email" autocomplete="off" />
-                <datalist id="dynmicMail">
+                <input class="form-control" type="email" (focus)="credentials.email='';formError=''" (keyup)="getMailsFirstWay($event)" id="email" name="email" [(ngModel)]="credentials.email" autocomplete="off" />
+                <div class="sub-list">
+                    <br>
+                    <ui *ngIf="mailList1">
+                        <li *ngFor="let item of mailList1" (click)="itemSelected(item)">{{item}}</li>
+                    </ui>
+                </div>
+                <!-- <datalist id="dynmicMail">  list="dynmicMail"
                     <option *ngFor="let item of mailList1 " [value]="item ">{{item}}</option>
-                </datalist>
+                </datalist> -->
             </div>
             <div class="input-group fMargin">
                 <div class="input-group-prepend">
@@ -41,7 +47,7 @@
 
             </div>
             <div class="btn-group  fMargin" role="group" aria-label="Basic example">
-                <button type="submit" role="button" class="btn btn-success">修改</button>
+                <button type="button" role="button" class="btn btn-success" (click)="onSubmit()">修改</button>
                 <button type="button" class="btn btn-success" style="margin-left: 100px;" (click)="onDelete()">刪除</button>
             </div>
         </form>

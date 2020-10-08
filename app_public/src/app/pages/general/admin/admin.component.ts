@@ -69,8 +69,11 @@ export class AdminComponent implements OnInit {
 
   }
 
-  onBlur() {
+  onEnter() {
     const temMail = this.credentials.email;
+    if(!temMail){
+      return;
+    }
     this.generalService.getAUser(temMail).then(x => {
       const { grade, role, name, _id } = x;
       //this.credentials.email=email;
@@ -78,8 +81,8 @@ export class AdminComponent implements OnInit {
       this.credentials.name = name;
       this.credentials.role = role;
       this.credentials._id = _id;
-      console.log(x);
-      console.log(this.credentials);
+      //console.log(x);
+      //console.log(this.credentials);
       //this.credentials = row ;
     });
   }
@@ -88,9 +91,9 @@ export class AdminComponent implements OnInit {
       data => {
         this.retObj = data as { "ary": any };
         Object.assign(this.mailData, this.retObj.ary);
-        setTimeout(() => {
-          console.log(this.mailData);
-        }, 100);
+        // setTimeout(() => {
+        //   console.log(this.mailData);
+        // }, 100);
       },
       error => {
         console.log("Something wrong here", error);
@@ -99,6 +102,9 @@ export class AdminComponent implements OnInit {
   }
 
   getMailsFirstWay($event) {
+    if($event.key ==='Enter'){
+      return;
+    }
     this.mailList1 = [];
     //    let wordId = (<HTMLInputElement>document.getElementById('WordIdFirstWay')).value.trim();
     const temMail = this.credentials.email;
@@ -130,39 +136,10 @@ export class AdminComponent implements OnInit {
     return matches;
   }
 
+  itemSelected(item: string){
+    this.credentials.email=item;
+    this.mailList1=[];
+    this.onEnter();
+  }
 
-  // public onUpfile(fileList: FileList): void {
-  //   let file = fileList[0];
-  //   this.uploadFileName=file.name;
-  //   //console.log(file.name);
-  //   let fileReader: FileReader = new FileReader();
-  //   let self = this;
-  //   fileReader.onloadend = function(x) {
-  //     //self.aryContent=;
-  //     self.dealWordBase(fileReader.result.toString().split("/\r\n|\r|\n/", 10000));
-  //     // self.fileContent = fileReader.result;
-  //     // console.log(self.aryContent);
-  //     //console.log(x);
-  //   }
-  //   fileReader.readAsText(file);
-  // }
-  // pressBtn(){
-  //   document.getElementById('myFile').click();
-
-  // }
-  // dealWordBase(ary:string[]){
-  //   //this.wordsService.sendwords(ary).then(ans=>console.log(ans));
-  //   for(let i of ary){
-  //   const wary=i.split(',',10);
-  //   this.wordsService.sendwords({
-  //     wdId:wary[0] ,
-  //     eng:wary[1],
-  //     chi: wary[2],
-  //     grade:wary[4],
-  //     memo: ''
-  //   })
-  //     console.log(i);
-  //   }
-
-  // }
 }
