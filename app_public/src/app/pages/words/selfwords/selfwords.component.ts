@@ -102,11 +102,13 @@ export class SelfwordsComponent implements OnInit {
   }
  
   onEnter() {
+    this.message='Enter detected' + this.newWord.eng;
     //let wordId = (<HTMLInputElement>document.getElementById('WordIdFirstWay')).value.trim();
     const wordId = this.newWord.eng;
     this.wordService.getAWord(wordId).subscribe(x => {
       const { row } = x as { row: any };
       this.newWord = row as Vcblry;
+      this.message += ' and API called'
       //this.message=this.newWord.chi;
     })
   }
