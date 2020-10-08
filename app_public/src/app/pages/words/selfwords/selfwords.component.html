@@ -8,10 +8,16 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">英文：</span>
             </div>
-            <input class="form-control" type="text" (keyup.enter)="onBlur()" (keyup)="getWordIdsFirstWay($event)" id="WordIdFirstWay" list="dynmicWordIds" name="WordIdFirstWay" [(ngModel)]="newWord.eng" autocomplete="off" />
-            <datalist id="dynmicWordIds">
-                <option *ngFor="let item of wordList1 " [value]="item ">{{item}}</option>
-            </datalist>
+            <input class="form-control" type="text" (keyup.enter)="onEnter()" (keyup)="getWordIdsFirstWay($event)" id="WordIdFirstWay" name="WordIdFirstWay" [(ngModel)]="newWord.eng" autocomplete="off" />
+            <div class="sub-list">
+                <br>
+                <ui *ngIf="wordList1">
+                    <li *ngFor="let item of wordList1" (click)="itemSelected(item)" [value]="item">{{item}}</li>
+                </ui>
+            </div>
+            <!-- <datalist id="dynmicWordIds">
+                <option *ngFor="let item of wordList1 " [value]="item ">{{item}}</option> list="dynmicWordIds"
+            </datalist> -->
         </div>
         <div class="input-group fMargin ">
             <div class="input-group-prepend ">

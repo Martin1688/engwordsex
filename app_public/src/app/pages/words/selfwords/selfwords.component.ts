@@ -53,6 +53,9 @@ export class SelfwordsComponent implements OnInit {
   // }
 
   getWordIdsFirstWay($event) {
+    if($event.key ==='Enter'){
+      return;
+    }
     this.wordList1 = [];
 //    let wordId = (<HTMLInputElement>document.getElementById('WordIdFirstWay')).value.trim();
     const wordId= this.newWord.eng;
@@ -84,7 +87,7 @@ export class SelfwordsComponent implements OnInit {
     return matches;
   }
  
-  onBlur() {
+  onEnter() {
     //let wordId = (<HTMLInputElement>document.getElementById('WordIdFirstWay')).value.trim();
     const wordId = this.newWord.eng;
     this.wordService.getAWord(wordId).subscribe(x => {
@@ -92,6 +95,12 @@ export class SelfwordsComponent implements OnInit {
       this.newWord = row as Vcblry;
       //this.message=this.newWord.chi;
     })
+  }
+
+  itemSelected(item: string){
+    this.newWord.eng=item;
+    this.wordList1=[];
+    //this.onEnter();
   }
 
   Add2List() {
