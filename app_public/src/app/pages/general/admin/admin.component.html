@@ -9,9 +9,9 @@
         <form>
             <div class="input-group fMargin">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">Email：</span>
+                    <span class="input-group-text" (click)="credentials.email='';formError=''">Email：</span>
                 </div>
-                <input class="form-control" type="email" (focus)="credentials.email='';formError=''" (keyup)="getMailsFirstWay($event)" id="email" name="email" [(ngModel)]="credentials.email" autocomplete="off" />
+                <input class="form-control" type="email" (keyup.enter)="onEnter()" (keyup)="getMailsFirstWay($event)" id="email" name="email" [(ngModel)]="credentials.email" autocomplete="off" />
                 <div class="sub-list">
                     <br>
                     <ui *ngIf="mailList1">

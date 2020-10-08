@@ -139,7 +139,7 @@ export class AdminComponent implements OnInit {
   itemSelected(item: string){
     this.credentials.email=item;
     this.mailList1=[];
-    this.onEnter();
+    //this.onEnter();
   }
 
 }
