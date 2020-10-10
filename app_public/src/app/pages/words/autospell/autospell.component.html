@@ -28,6 +28,11 @@
                     <h4>{{currentWord.chi}}</h4>
                 </td>
             </tr>
+            <tr *ngIf="currentWord.sentence">
+                <td class="center">
+                    <h4>{{currentWord.sentence}}</h4>
+                </td>
+            </tr>
             <!-- <tr>
                 <td class="center ">
                     <input class="mainWord" type="text" [(ngModel)]="exWord" (keydown)="onKeydown($event)">
@@ -39,6 +44,14 @@
     </div>
 
     <div class="navbar fixed-bottom foot2nd">
-        <td class="left"><button type="button" class="btn btn-success" (click)="playWord()">自動撥放</button></td>
+        <div class="row">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-success" (click)="playWord()" *ngIf="false">自動撥放</button>
+                <button type="button" class="btn btn-success" (click)="suspense()">{{btnSuspenseText}}</button>
+                <!-- btnSuspenseText === '暫停' -->
+            </div>
+        </div>
+
+        <td class="left"></td>
         <!-- <td class="showOk"><button type="button" class="btn btn-success">{{ok}}</button></td> -->
     </div>

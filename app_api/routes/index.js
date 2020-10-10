@@ -9,6 +9,8 @@ const ctrlAuth = require('../controllers/authentication');
 const ctrlPara = require('../controllers/paras');
 const ctrlWord = require('../controllers/word');
 const ctrlMail = require('../controllers/mailagent');
+const ctrlDic = require('../controllers/dictionary');
+
 
 router.post('/register', ctrlAuth.register);
 router.post('/login', ctrlAuth.login);
@@ -50,6 +52,7 @@ router.route('/user/:email')
 router.route('/mailcpl')
     .post(auth, ctrlAuth.completeMails);
 
-
+router.route('/dictionary')
+    .post(auth, ctrlDic.dictionaryWord);
 
 module.exports = router;

@@ -23,7 +23,7 @@
             <div class="input-group-prepend ">
                 <span class="input-group-text ">中文：</span>
             </div>
-            <textarea id="chi" name="chi" [(ngModel)]="newWord.chi " class="form-control " rows="3 "></textarea>
+            <textarea id="chi" name="chi" [(ngModel)]="newWord.chi" class="form-control " rows="3 "></textarea>
         </div>
 
         <div class="input-group fMargin " *ngIf="wordAry.length> 0">
@@ -32,6 +32,14 @@
             </div>
             <select class="form-control">
             <option *ngFor="let word of wordAry">{{word.eng}}</option>
+        </select>
+        </div>
+        <div class="input-group fMargin " *ngIf="sentenceAry.length> 0">
+            <div class="input-group-prepend">
+                <span class="input-group-text">例句：</span>
+            </div>
+            <select id="sentens" name="sentens" class="form-control" [(ngModel)]="newWord.sentence">
+            <option *ngFor="let sentence of sentenceAry">{{sentence}}</option>
         </select>
         </div>
 

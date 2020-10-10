@@ -3,4 +3,5 @@ export  class Vcblry {
     eng: string; 
     chi: string; 
     grade: string;
+    sentence: string;
   }

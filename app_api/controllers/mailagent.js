@@ -75,7 +75,7 @@ const changePws = (req, res) => {
     User.findOne({ email: userMailUrl }, (err, row) => { //查看看練習檔中使用者有無紀錄
         if (err) {
             console.log(err);
-            return res.status(402).send({ "message": "查無此email" })
+            return res.status(402).send({ "message": "查無此email" });
         }
         if (row) {
             console.log(row);

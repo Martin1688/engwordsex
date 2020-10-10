@@ -19,10 +19,12 @@ export class SelfwordsComponent implements OnInit {
     wdId:'',
     eng:'',
     chi:'',
-    grade:''
+    grade:'',
+    sentence:''
   };
   chiAry: string[];
   wordAry: Vcblry[] = [];
+  sentenceAry = [];
   isMobile=false;
   //showBox=false;
   constructor(private authService: AuthenticationService,
@@ -60,9 +62,7 @@ export class SelfwordsComponent implements OnInit {
       });
 
   }
-  // onKeydown($event){
-  //   this.lastkeydown1=$event.timeStamp;
-  // }
+
 
   getWordIdsFirstWay($event) {
     if(this.isMobile){
@@ -107,30 +107,37 @@ export class SelfwordsComponent implements OnInit {
   }
  
   onEnter() {
-    this.message='Enter detected';
+    //this.message='Enter detected';
     let wordId = (<HTMLInputElement>document.getElementById('WordIdFirstWay')).value.trim();
-
-    //const wordId = this.newWord.eng;
-    this.wordService.getAWord(wordId).subscribe(x => {
+    this.wordService.getSentence(wordId).then(x => {
+      console.log(x);
+      this.sentenceAry=x as [];
+      if(this.sentenceAry){
+        this.newWord.sentence=this.sentenceAry[0];
+      }
+    }).catch(err => {
+      this.message = err;
+    });
+     this.wordService.getAWord(wordId).subscribe(x => {
       console.log(x);
       const { row } = x as { row: any };
       console.log(row);
       if(row){
-        this.message += ' and API called'  
+        //this.message += ' and API called'  
         this.newWord = row as Vcblry;
       } else {
         const {error}=x as {error:any};
         this.message = error;
       }
-      //this.message=this.newWord.chi;
-    })
+    });
+    this.wordList1=[];
   }
 
   itemSelected(item: string){
     this.newWord.eng=item;
     this.wordList1=[];
     document.getElementById('WordIdFirstWay').focus();
-    //this.onEnter();
+    this.onEnter();
   }
 
   Add2List() {
@@ -139,9 +146,11 @@ export class SelfwordsComponent implements OnInit {
       wdId:'',
       eng:'',
       chi:'',
-      grade:''
+      grade:'',
+      sentence:''
     };
     this.message='';
+    this.sentenceAry=[];
     //(<HTMLInputElement>document.getElementById('WordIdFirstWay')).value='';
   }
   Save2Local() {

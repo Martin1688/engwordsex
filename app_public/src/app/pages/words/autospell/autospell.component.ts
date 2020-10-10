@@ -22,6 +22,8 @@ export class AutospellComponent implements OnInit {
   uttergirl: SpeechSynthesisUtterance;
   playSubject: Subject<Vcblry>;
   charDelayTime=1100;
+  iswork=false;
+  btnSuspenseText="播放";
   constructor(private authService: AuthenticationService) {
     this.wordAry = JSON.parse(authService.getPrjItem('exWords'));
     this.totalRpt = this.authService.getPrjItem('repCount');
@@ -52,12 +54,13 @@ export class AutospellComponent implements OnInit {
   initGirl() {
     this.uttergirl = new SpeechSynthesisUtterance();
     //this.uttergirl.lang = 'en-GB';
-    this.utterboy.lang = 'en-US';
+    this.uttergirl.lang = 'en-US';
     this.uttergirl.rate = 1;
     this.uttergirl.pitch = 1;
   }
 
   playWord() {
+    if(!this.iswork) return;
     if (this.currentWord) {
       if(this.currentWord.eng.length > 10){
         this.charDelayTime = 1300;
@@ -71,7 +74,9 @@ export class AutospellComponent implements OnInit {
     }
   }
   playChar(aWord: string) {
-    //console.log(aWord);
+    if(!this.iswork){
+       return;
+    }
     if (aWord.length > 0) {
       const myWord = aWord.substr(0, 1);
       this.speakEng(myWord, aWord.length % 2);
@@ -109,9 +114,20 @@ export class AutospellComponent implements OnInit {
         this.utterboy.text = aChar;
         speechSynthesis.speak(this.utterboy);
       } else {
-        this.utterboy.text = aChar;
-        speechSynthesis.speak(this.utterboy);
+        this.uttergirl.text = aChar;
+        speechSynthesis.speak(this.uttergirl);
       }
+    }
+  }
+
+  suspense(){
+    this.iswork = !this.iswork;
+    this.currentWord = this.wordAry[this.wIndex - 1];
+    if(this.iswork){
+      this.btnSuspenseText = "暫停";
+      this.playWord();
+    }else{
+      this.btnSuspenseText = "撥放";
     }
   }
 }

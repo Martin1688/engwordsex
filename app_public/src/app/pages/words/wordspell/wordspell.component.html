@@ -28,6 +28,11 @@
                     <h4>{{currentWord.chi}}</h4>
                 </td>
             </tr>
+            <tr *ngIf="currentWord.sentence">
+                <td class="center">
+                    <h4>{{currentWord.sentence}}</h4>
+                </td>
+            </tr>
             <tr>
                 <td class="center ">
                     <input class="mainWord" type="text" [(ngModel)]="exWord" (keydown)="onKeydown($event)">

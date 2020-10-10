@@ -10,6 +10,7 @@ import { Vcblry } from '../classes/vcblry';
 })
 export class VocabularyService {
 
+
   private apiBaseUrl = environment.apiBaseUrl;
 
   constructor(private http: HttpClient, private authService:AuthenticationService) { }
@@ -76,8 +77,17 @@ export class VocabularyService {
       })
     };
     return this.http.patch(url,{eng:key},httpOptions);
-
   }
+  getSentence(wordId: string) {
+    const url: string = `${this.apiBaseUrl}/dictionary`;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${this.authService.getToken()}`
+      })
+    };
+    return this.http.post(url,{word:wordId},httpOptions).toPromise();
+  }
+
 
   setWords(emailuser: string) {
     const url: string = `${this.apiBaseUrl}/words`;
