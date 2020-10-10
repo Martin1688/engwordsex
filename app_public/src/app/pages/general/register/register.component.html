@@ -24,7 +24,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">密 碼：</span>
                 </div>
-                <input [type]="passwordTextType?'password':'text'" class="form-control" id="password" name="password" placeholder="輸入密碼" [(ngModel)]="credentials.password">
+                <input [type]="passwordTextType?'password':'text'" class="form-control" id="password" name="password" placeholder="輸入密碼" [(ngModel)]="credentials.password" autocomplete="off">
                 <div class="input-group-append">
                     <span class="input-group-text">
                       <i class="fa" [ngClass]="{
@@ -38,7 +38,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">確 認：</span>
                 </div>
-                <input id="password2" name="password2" [type]="password2TextType?'password':'text'" class="form-control" placeholder="確認密碼" [(ngModel)]="password2content">
+                <input id="password2" name="password2" [type]="password2TextType?'password':'text'" class="form-control" placeholder="確認密碼" [(ngModel)]="password2content" autocomplete="off">
                 <div class="input-group-append">
                     <span class="input-group-text">
                       <i class="fa" [ngClass]="{
