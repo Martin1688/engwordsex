@@ -119,9 +119,9 @@ export class SelfwordsComponent implements OnInit {
       this.message = err;
     });
      this.wordService.getAWord(wordId).subscribe(x => {
-      console.log(x);
+      //console.log(x);
       const { row } = x as { row: any };
-      console.log(row);
+      //console.log(row);
       if(row){
         //this.message += ' and API called'  
         this.newWord = row as Vcblry;
