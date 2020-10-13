@@ -101,6 +101,18 @@ export class VocabularyService {
       .toPromise()
       .then(response => response as boolean)
       .catch(this.handleError);
-
   }
+  
+  seizeChiStr(cnt: number) {
+    const url: string = `${this.apiBaseUrl}/selectChinese`;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${this.authService.getToken()}`
+      })
+    };
+    return this.http
+      .patch(url,{length:cnt},httpOptions)
+      .toPromise();
+  }
+
 }

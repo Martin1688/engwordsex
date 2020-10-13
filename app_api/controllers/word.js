@@ -213,11 +213,60 @@ const wordsGetOne = (req, res) => {
 
 }
 
+const selectChinese = (req, res) => {
+    const words = req.body.words;
+    word.find({ eng: { $in: words } }, (err, rows) => {
+        if (err) {
+            console.log(err);
+            res.status(401).json({ "error": err });
+            return;
+        }
+        if (rows) {
+            res.status(200).send(rows);
+        }
+    })
+}
+
+const get3chiary = (req, res) => {
+    let ary = [];
+    let cnt = req.body.length;
+    get3chi(ary, cnt, res, () => {
+        if (ary.length > 0) {
+            res.status(200).send(ary);
+        }
+    });
+}
+const get3chi = (ary, cnt, res, callback) => {
+    const no = Math.floor(Math.random() * Math.floor(7800));
+    const ans = (no % 4);
+    cnt--;
+    word.find({ wdId: { $gt: no } }).limit(10).exec((err, rows) => {
+        if (err) {
+            console.log(err);
+            res.status(400).send(err);
+            return;
+        }
+        const ret = rows.map(x => { return x.chi });
+        const rets = `${ret[3]},${ret[6]},${ret[9]},${ans}`;
+        ary.push(rets);
+        console.log(rets);
+        if (cnt > 0) {
+            get3chi(ary, cnt, res, callback);
+        } else {
+            callback();
+        }
+
+    })
+}
+
 module.exports = {
     wordsCreate,
     wordsGet,
     exerciseDone,
     exerciseDel,
     completeWords,
-    wordsGetOne
+    wordsGetOne,
+    selectChinese,
+    get3chi,
+    get3chiary
 };

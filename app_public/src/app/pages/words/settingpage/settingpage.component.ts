@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, IterableDiffers, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { VocabularyService } from 'src/app/services/vocabulary.service';
 import { User } from 'src/app/classes/user';
 import { WordsRoutingModule } from '../words-routing.module';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settingpage',
@@ -11,7 +12,8 @@ import { WordsRoutingModule } from '../words-routing.module';
 })
 export class SettingpageComponent implements OnInit {
   user: User;
-  constructor(private authService: AuthenticationService,
+  constructor(private router: Router,
+    private authService: AuthenticationService,
     private wordService: VocabularyService) { }
   viewModel = {
     "exCount": [10, 20, 30, 40, 50],
@@ -23,6 +25,9 @@ export class SettingpageComponent implements OnInit {
   };
   formError = '';
   ngOnInit(): void {
+    if(!this.authService.isLoggedIn()){
+      this.router.navigateByUrl('/general/login');
+    }
     this.user = this.authService.getCurrentUser();
     // const nm =user.name;
     // console.log(user);

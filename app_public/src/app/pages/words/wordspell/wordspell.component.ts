@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Vcblry } from 'src/app/classes/vcblry';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
@@ -18,12 +19,16 @@ export class WordspellComponent implements OnInit {
   rptCount=1;
   message="";
   utterThis :SpeechSynthesisUtterance; 
-  constructor(private authService:AuthenticationService) {
+  constructor(private router: Router,
+    private authService:AuthenticationService) {
     this.wordAry = JSON.parse(authService.getPrjItem('exWords'));
     this.totalRpt = this.authService.getPrjItem('repCount');
    }
 
   ngOnInit(): void {
+    if(!this.authService.isLoggedIn()){
+      this.router.navigateByUrl('/general/login');
+    }    
     this.utterThis= new SpeechSynthesisUtterance();
     //this.utterThis.lang='zh-TW';
     //this.utterThis.lang = 'en-GB'

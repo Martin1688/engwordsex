@@ -53,6 +53,11 @@ router.route('/mailcpl')
     .post(auth, ctrlAuth.completeMails);
 
 router.route('/dictionary')
-    .post(auth, ctrlDic.dictionaryWord);
+    .post(auth, ctrlDic.dictionarySentences)
+    .patch(auth, ctrlDic.dictionaryWord);
+
+router.route('/selectChinese')
+    .post(auth, ctrlWord.selectChinese)
+    .patch(auth, ctrlWord.get3chiary);
 
 module.exports = router;

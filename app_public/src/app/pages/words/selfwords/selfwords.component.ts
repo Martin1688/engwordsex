@@ -112,9 +112,12 @@ export class SelfwordsComponent implements OnInit {
     this.wordService.getSentence(wordId).then(x => {
       console.log(x);
       this.sentenceAry=x as [];
-      if(this.sentenceAry){
-        this.newWord.sentence=this.sentenceAry[0];
-      }
+      setTimeout(() => {
+        if(this.sentenceAry){
+          this.newWord.sentence=this.sentenceAry[0];
+        } 
+      }, 100);
+
     }).catch(err => {
       this.message = err;
     });
@@ -137,7 +140,10 @@ export class SelfwordsComponent implements OnInit {
     this.newWord.eng=item;
     this.wordList1=[];
     document.getElementById('WordIdFirstWay').focus();
-    this.onEnter();
+    setTimeout(() => {
+      this.onEnter();
+    }, 100);
+    
   }
 
   Add2List() {
@@ -155,5 +161,6 @@ export class SelfwordsComponent implements OnInit {
   }
   Save2Local() {
     this.authService.setPrjItem("exWords", JSON.stringify(this.wordAry));
+    return true;
   }
 }

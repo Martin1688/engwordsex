@@ -11,24 +11,17 @@ require('./app_api/config/passport');
 const apiRouter = require('./app_api/routes/index');
 // var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
-
 var app = express();
-
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
 app.use(express.urlencoded({ extended: false }));
 app.engine('ejs', require('ejs').__express);
 var bodyParser = require('body-parser');
-
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
-
-// parse application/json
+    // parse application/json
 app.use(bodyParser.json())
-
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

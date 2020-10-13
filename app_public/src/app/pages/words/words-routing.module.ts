@@ -5,6 +5,8 @@ import { WordspellComponent } from './wordspell/wordspell.component';
 import { AutospellComponent } from './autospell/autospell.component';
 import { SelfwordsComponent } from './selfwords/selfwords.component';
 import { WordselectComponent } from './wordselect/wordselect.component';
+import { RouteGuardServiceService } from '../../services/route-guard-service.service';
+
 const routes: Routes = [
   {
     path:'',
@@ -17,7 +19,8 @@ const routes: Routes = [
     component:AutospellComponent
   },{
     path:'selfwordset',
-    component:SelfwordsComponent
+    component:SelfwordsComponent,
+    canDeactivate:[RouteGuardServiceService]
   },{
     path:'engselectchiex',
     component:WordselectComponent
