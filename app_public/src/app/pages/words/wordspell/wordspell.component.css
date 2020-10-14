@@ -27,4 +27,11 @@ tr {
 
 .mainWord {
     margin-top: 50px;
+    border-radius: 4px;
+    background-color: gainsboro;
+}
+
+.rowSpace {
+    margin: 10px;
+    padding: 10px;
 }

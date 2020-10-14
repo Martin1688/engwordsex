@@ -4,28 +4,27 @@ import { Vcblry } from 'src/app/classes/vcblry';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
-  selector: 'app-wordspell',
-  templateUrl: './wordspell.component.html',
-  styleUrls: ['./wordspell.component.css']
+  selector: 'app-testspell',
+  templateUrl: './testspell.component.html',
+  styleUrls: ['./testspell.component.css']
 })
- 
-export class WordspellComponent implements OnInit {
+export class TestspellComponent implements OnInit {
   currentWord:Vcblry;
   wordAry:Vcblry[];
   wIndex:number=1;
   total:number;
   exWord:string;
-  totalRpt:string="3";
-  rptCount=1;
+  errCount=0;
   message="";
+  errCorrect='';
+  redoFlag=false;
   utterThis :SpeechSynthesisUtterance; 
-  constructor(private router: Router,
-    private authService:AuthenticationService) {
+  constructor(private router: Router,private authService:AuthenticationService) {
     this.wordAry = JSON.parse(authService.getPrjItem('exWords'));
-    this.totalRpt = this.authService.getPrjItem('repCount');
+
    }
 
-  ngOnInit(): void {
+   ngOnInit(): void {
     if(!this.authService.isLoggedIn()){
       this.router.navigateByUrl('/general/login');
     }    
@@ -39,6 +38,7 @@ export class WordspellComponent implements OnInit {
     this.checkSuport();
     this.reset();
   }
+
   checkSuport(){
     if(speechSynthesis)
     {
@@ -47,6 +47,7 @@ export class WordspellComponent implements OnInit {
       this.message="瀏覽器不支援英文發音，改用Chrome";
     }
   }
+
   speakEng(){
     if(this.currentWord){
       this.utterThis.text=this.currentWord.eng;
@@ -55,53 +56,39 @@ export class WordspellComponent implements OnInit {
       this.message = this.wIndex.toString();
     }
   }
+
   reset(){
     this.wIndex=1;
     this.currentWord = this.wordAry[this.wIndex -1];
     this.total = this.wordAry.length;
+    this.errCount=0;
+    this.errCorrect='';
+    this.redoFlag=false;
     this.speakEng();
   }
-  onKeydown(event){
-    //this.message=event.key;
-    if (event.key === "Enter"){
-      this.onEnter();
-    } else if(event.key === "Escape") {
-      this.wIndex++;
-      this.rptCount=1;
-      this.currentWord=this.wordAry[this.wIndex -1];
-      this.speakEng();
-      this.message='';
-      if(this.wIndex > this.wordAry.length){
-        this.message="練習完成"
-        this.reset();
-      }
-    }
-  }
-  onEnter(){
+
+  onEnter(event){
     if(this.exWord === this.currentWord.eng)
     {
-      this.message="正確"
+      this.message="正確";
+      this.errCorrect='';
     } else {
-      this.message="錯誤"
+      this.message="錯誤";
+      this.errCount++;
+      this.errCorrect = `${this.currentWord.eng}(${this.currentWord.chi})`;
     }
-    if(this.rptCount.toString() === this.totalRpt){
-      this.rptCount=1;
+
+    if(this.wIndex === this.wordAry.length){
+      const score= Math.floor(((this.wordAry.length - this.errCount)/this.wordAry.length)*100);
+      this.message=`測驗結束，分數：${score}`;
+      this.redoFlag=true;
+      //this.reset();
+    } else {
       this.wIndex++;
-      this.currentWord=this.wordAry[this.wIndex -1];
-      this.speakEng();
-    } else {
-      this.rptCount++;
+      this.currentWord = this.wordAry[this.wIndex -1];
       this.speakEng();
     }
-    if(this.wIndex > this.wordAry.length){
-      this.message="練習完成"
-      this.reset();
-    }
-    this.exWord='';
     console.log(this.exWord);
+    this.exWord='';
   }
-
-
-
-  
 }

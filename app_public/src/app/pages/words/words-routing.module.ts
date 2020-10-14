@@ -6,6 +6,9 @@ import { AutospellComponent } from './autospell/autospell.component';
 import { SelfwordsComponent } from './selfwords/selfwords.component';
 import { WordselectComponent } from './wordselect/wordselect.component';
 import { RouteGuardServiceService } from '../../services/route-guard-service.service';
+import { TestspellComponent } from './testspell/testspell.component';
+import { TestselectchiComponent } from './testselectchi/testselectchi.component';
+import { TestfillComponent } from './testfill/testfill.component';
 
 const routes: Routes = [
   {
@@ -24,7 +27,18 @@ const routes: Routes = [
   },{
     path:'engselectchiex',
     component:WordselectComponent
+  },{
+    path:'testspell',
+    component:TestspellComponent
+  },{
+    path:'testselectchi',
+    component:TestselectchiComponent
+  },{
+    path:'testfill',
+    component:TestfillComponent
   }
+
+
 ];
 
 @NgModule({

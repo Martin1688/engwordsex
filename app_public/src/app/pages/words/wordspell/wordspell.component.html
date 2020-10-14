@@ -5,31 +5,31 @@
 
         <table class="col-12">
             <tr>
-                <td class="center">
+                <td class="center rowSpace">
                     <h2>英文單字練習</h2>
                 </td>
             </tr>
             <tr *ngIf="message">
-                <td class="center">
+                <td class="center rowSpace">
                     <span class="alert alert-danger">{{message}}</span>
                 </td>
             </tr>
-            <tr *ngIf="wordAry">
+            <tr *ngIf="wordAry" class="rowSpace">
                 <td class="left"><span>{{wIndex}}/{{wordAry.length}}</span></td>
                 <td class="right"><span class="justify-content-end">{{rptCount}}/{{totalRpt}} </span></td>
             </tr>
             <tr>
-                <td class="center">
+                <td class="center rowSpace">
                     <h4>{{currentWord.eng}}</h4>
                 </td>
             </tr>
             <tr>
-                <td class="center">
+                <td class="center rowSpace">
                     <h4>{{currentWord.chi}}</h4>
                 </td>
             </tr>
             <tr *ngIf="currentWord.sentence">
-                <td class="center">
+                <td class="center rowSpace">
                     <h4>{{currentWord.sentence}}</h4>
                 </td>
             </tr>

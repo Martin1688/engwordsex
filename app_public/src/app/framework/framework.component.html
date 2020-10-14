@@ -27,13 +27,14 @@
                         <a routerLink="/words/autospell" class="dropdown-item" *ngIf="isLoggedIn()">自動語音拼字</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown" *ngIf="false">
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                    考試
+                        測驗
                   </a>
                     <div class="dropdown-menu bg-primary">
-                        <a routerLink="wordspelltest " routerLinkActive="active " class="dropdown-item ">單字拼字考試</a>
-                        <a routerLink="engselectchitest " class="dropdown-item ">英選中考試</a>
+                        <a routerLink="/words/testspell" class="dropdown-item ">單字拼字測驗</a>
+                        <a routerLink="/words/testselectchi" class="dropdown-item ">英選中測驗</a>
+                        <a routerLink="/words/testfill" class="dropdown-item ">單字填空測驗</a>
                     </div>
                 </li>
                 <li class="nav-item">

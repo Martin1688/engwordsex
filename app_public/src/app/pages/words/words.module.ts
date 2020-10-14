@@ -7,9 +7,12 @@ import { WordspellComponent } from './wordspell/wordspell.component';
 import { AutospellComponent } from './autospell/autospell.component';
 import { SelfwordsComponent } from './selfwords/selfwords.component';
 import { WordselectComponent } from './wordselect/wordselect.component';
+import { TestspellComponent } from './testspell/testspell.component';
+import { TestselectchiComponent } from './testselectchi/testselectchi.component';
+import { TestfillComponent } from './testfill/testfill.component';
 
 @NgModule({
-  declarations: [SettingpageComponent, WordspellComponent, AutospellComponent, SelfwordsComponent, WordselectComponent],
+  declarations: [SettingpageComponent, WordspellComponent, AutospellComponent, SelfwordsComponent, WordselectComponent, TestspellComponent, TestselectchiComponent, TestfillComponent],
   imports: [
     CommonModule,
     WordsRoutingModule,

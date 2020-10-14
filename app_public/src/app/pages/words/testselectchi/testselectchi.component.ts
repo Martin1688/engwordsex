@@ -18,11 +18,11 @@ class ChiAns {
   };
 }
 @Component({
-  selector: 'app-wordselect',
-  templateUrl: './wordselect.component.html',
-  styleUrls: ['./wordselect.component.css']
+  selector: 'app-testselectchi',
+  templateUrl: './testselectchi.component.html',
+  styleUrls: ['./testselectchi.component.css']
 })
-export class WordselectComponent implements OnInit {
+export class TestselectchiComponent implements OnInit {
   message = '';
   //selectAns='';
   currentWord: Vcblry;
@@ -89,8 +89,8 @@ export class WordselectComponent implements OnInit {
       this.errCorrect = `${this.currentWord.eng}(${this.currentWord.chi})`;
     }
     if (this.wIndex === this.wordAry.length) {
-      const okCnt = this.wordAry.length - this.errCount;
-      this.message = `完成：正確(${okCnt})`;
+      const score= Math.floor(((this.wordAry.length - this.errCount)/this.wordAry.length)*100);
+      this.message = `測驗結束，分數：${score}`;
       this.redoFlag=true;
     } else {
       //this.wIndex++;
@@ -108,4 +108,5 @@ export class WordselectComponent implements OnInit {
     this.errCorrect="";
     this.message='';
   }
+
 }
