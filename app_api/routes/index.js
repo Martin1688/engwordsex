@@ -54,7 +54,7 @@ router.route('/mailcpl')
 
 router.route('/dictionary')
     .post(auth, ctrlDic.dictionarySentences)
-    .patch(auth, ctrlDic.dictionaryWord);
+    .patch(auth, ctrlDic.fetchSentence);
 
 router.route('/selectChinese')
     .post(auth, ctrlWord.selectChinese)

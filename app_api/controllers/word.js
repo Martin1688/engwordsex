@@ -213,6 +213,7 @@ const wordsGetOne = (req, res) => {
 
 }
 
+//依據傳入的英文單字陣列由DB取回對應的單字物件
 const selectChinese = (req, res) => {
     const words = req.body.words;
     word.find({ eng: { $in: words } }, (err, rows) => {
@@ -259,6 +260,8 @@ const get3chi = (ary, cnt, res, callback) => {
     })
 }
 
+
+
 module.exports = {
     wordsCreate,
     wordsGet,
@@ -267,6 +270,5 @@ module.exports = {
     completeWords,
     wordsGetOne,
     selectChinese,
-    get3chi,
     get3chiary
 };

@@ -88,6 +88,17 @@ export class VocabularyService {
     return this.http.post(url,{word:wordId},httpOptions).toPromise();
   }
 
+  getASentence(eng: string) {
+    const url: string = `${this.apiBaseUrl}/dictionary`;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${this.authService.getToken()}`
+      })
+    };
+    console.log(url);
+    return this.http.patch(url,{word:eng},httpOptions).toPromise();
+  }
+
 
   setWords(emailuser: string) {
     const url: string = `${this.apiBaseUrl}/words`;
