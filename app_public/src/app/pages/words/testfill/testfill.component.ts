@@ -81,14 +81,17 @@ export class TestfillComponent implements OnInit {
   }
 
   getSentence() {
-    console.log('go fetch eng '+ this.currentWord.eng);
-    this.getHideWord();
+    //console.log('go fetch eng '+ this.currentWord.eng);
     const wd =this.currentWord.eng;
     this.wordService.getASentence(wd).then(x => {
       //console.log(x);
       const y = x as {word:string};
-      console.log(this.hideWord+'martin');
-      this.currentWord.sentence =y.word.replace(this.currentWord.eng, this.hideWord);
+      //console.log(this.hideWord+'martin');
+      const kWord=y.word.indexOf(this.currentWord.eng) > -1 ?  this.currentWord.eng : this.currentWord.eng.charAt(0).toUpperCase()+ this.currentWord.eng.substr(1);
+      this.currentWord.eng=kWord;
+      this.getHideWord(kWord,(hWord: string)=>{
+        this.currentWord.sentence =y.word.replace(kWord, hWord);
+      });
 
     }).catch(err => {
       this.message = err;
@@ -96,18 +99,29 @@ export class TestfillComponent implements OnInit {
     });
   }
 
-  getHideWord(){
+  getHideWord(kWord:string, callback){
+    console.log(kWord);
     //const endchar =;
-    if(this.currentWord.eng.length > 5){
-      this.hideWord=this.currentWord.eng.substr(0,1);
-      for(let i =1; i<= this.currentWord.eng.length; i++){
-        if(i === (this.currentWord.eng.length)){
-          this.hideWord += this.currentWord.eng.substr(this.currentWord.eng.length-1);
-          console.log(this.hideWord);
+    if(kWord.length > 5){
+      this.hideWord=kWord.substr(0,1);
+      for(let i =1; i<= kWord.length; i++){
+        if(i === (kWord.length)){
+          this.hideWord += kWord.substr(kWord.length-1);
+          callback(this.hideWord);
         } else {
           this.hideWord += '_';
         }        
       }      
+    } else {
+      this.hideWord='_';
+      for(let i =1; i<= kWord.length; i++){
+        if(i === (kWord.length)){
+          this.hideWord +='_';
+          callback(this.hideWord);
+        } else {
+          this.hideWord += '_';
+        }        
+        }        
     }
   }
 

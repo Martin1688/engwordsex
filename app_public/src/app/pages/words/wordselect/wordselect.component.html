@@ -29,11 +29,12 @@
             </tr>
             <tr *ngIf="currentChiAns">
                 <td class="left rowSpace" colspan="2">
-                    <ul class="list-unstyled">
-                        <li *ngFor="let strChi of currentChiAns.chiary; let i = index" (click)="onSelected(i)">
-                            <input type="radio" name="choice" value="i" style="margin-left: 30px;"><span class="itemLeft">{{strChi}}</span>
-                        </li>
-                    </ul>
+                    <table>
+                        <tr *ngFor="let strChi of currentChiAns.chiary; let i = index" (click)="onSelected(i)">
+                            <td><input type="radio" name="choice" value="i" style="margin-left: 30px;"></td>
+                            <td><span class="itemLeft">{{strChi}}</span></td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
         </table>

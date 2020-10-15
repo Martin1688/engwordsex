@@ -95,7 +95,7 @@ export class VocabularyService {
         'Authorization': `Bearer ${this.authService.getToken()}`
       })
     };
-    console.log(url);
+    //console.log(url);
     return this.http.patch(url,{word:eng},httpOptions).toPromise();
   }
 

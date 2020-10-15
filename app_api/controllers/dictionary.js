@@ -104,9 +104,11 @@ const fetchSentence = (req, res) => {
             let list = [];
             let str = '';
             if (arrays.length) {
-                //list = arrays.map(x => { return x.text.charAt(0).toUpperCase() + x.text.slice(1) });
-                list = arrays.map(x => { return x.text });
-                str = list[0];
+                list = arrays.map(x => { return x.text.charAt(0).toUpperCase() + x.text.slice(1) });
+                //list = arrays.map(x => { return x.text });
+                str = list.reduce(function(a, b) {
+                    return a.length >= b.length ? a : b;
+                })
             }
             //console.log(arrays);
             res.status('200').json({ "word": str });
