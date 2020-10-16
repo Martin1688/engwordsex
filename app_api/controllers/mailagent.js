@@ -18,8 +18,8 @@ let transporter = nodemailer.createTransport({
 const sendMail = (req, res) => {
     const pws = crypto.randomBytes(5).toString('hex').toUpperCase();
     const userMailUrl = req.body.email;
-    console.log(userMailUrl);
-    console.log(pws);
+    //console.log(userMailUrl);
+    //console.log(pws);
     User.findOne({ email: userMailUrl }, (err, row) => { //查看看練習檔中使用者有無紀錄
         if (err) {
             console.log(err);
@@ -28,8 +28,8 @@ const sendMail = (req, res) => {
         }
         if (row) {
             done = true;
-            console.log(done);
-            console.log(row);
+            //console.log(done);
+            //console.log(row);
             row.setPassword(pws);
             row.save();
             // return 'Password changed.';
@@ -46,7 +46,7 @@ const sendMail = (req, res) => {
         };
         if (done) {
             transporter.sendMail(mailOptions, (err, info) => {
-                console.log('sending mail');
+                //console.log('sending mail');
                 if (err) {
                     console.log(err);
                     return;
@@ -69,16 +69,16 @@ const changePws = (req, res) => {
     const userMailUrl = req.body.email;
     const oldPassword = req.body.oldPassword;
     const newPassword = req.body.newPassword;
-    console.log(userMailUrl);
-    console.log(oldPassword);
-    console.log(newPassword);
+    //console.log(userMailUrl);
+    //console.log(oldPassword);
+    //console.log(newPassword);
     User.findOne({ email: userMailUrl }, (err, row) => { //查看看練習檔中使用者有無紀錄
         if (err) {
             console.log(err);
             return res.status(402).send({ "message": "查無此email" });
         }
         if (row) {
-            console.log(row);
+            //console.log(row);
             if (row.validPassword(oldPassword)) {
                 done = true;
                 row.setPassword(newPassword);

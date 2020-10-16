@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/classes/user';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { GeneralService } from 'src/app/services/general.service';
@@ -33,7 +34,8 @@ export class AdminComponent implements OnInit {
   roleops = ['client', 'user', 'admin'];
   gradeops = ['初級', '中級', '中高級'];
   isMobile=false;
-  constructor(private authService: AuthenticationService,
+  constructor(private router: Router,
+    private authService: AuthenticationService,
     private generalService: GeneralService,
     private wordsService: VocabularyService
   ) {
@@ -41,6 +43,9 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (!this.authService.isLoggedIn()) {
+      this.router.navigateByUrl('/general/login');
+    }
     this.lastkeydown1 = new Date().getTime();
     this.getAutoMails();
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){

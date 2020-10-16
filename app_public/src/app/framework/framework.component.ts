@@ -22,7 +22,7 @@ export class FrameworkComponent implements OnInit {
   userRole(){
     //return 'admin';
      let myRole = '';
-     if(this.user && this.user.role){
+     if(this.isLoggedIn() && this.user && this.user.role){
        myRole=this.user.role;
      } 
     return myRole;

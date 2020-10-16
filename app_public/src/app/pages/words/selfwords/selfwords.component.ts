@@ -110,7 +110,7 @@ export class SelfwordsComponent implements OnInit {
     //this.message='Enter detected';
     let wordId = (<HTMLInputElement>document.getElementById('WordIdFirstWay')).value.trim();
     this.wordService.getSentence(wordId).then(x => {
-      console.log(x);
+      //console.log(x);
       this.sentenceAry=x as [];
       setTimeout(() => {
         if(this.sentenceAry){

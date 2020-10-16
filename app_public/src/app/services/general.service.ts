@@ -110,7 +110,7 @@ export class GeneralService {
 
   deleteUser(userMail:string) {
     const uMail=userMail;
-    console.log(uMail);
+    //console.log(uMail);
   //const url: string = `${this.apiBaseUrl}/user/`;
   const url: string = `${this.apiBaseUrl}/user/${uMail}`;
   const httpOptions = {

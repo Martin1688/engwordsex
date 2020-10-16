@@ -36,9 +36,9 @@ export class RegisterComponent implements OnInit {
     this.password2TextType = !this.password2TextType;
   }
   public onRegisterSubmit(): void {
-     console.log(this.credentials);
+     //console.log(this.credentials);
     const pws2 = this.password2content;
-    console.log(pws2);
+    //console.log(pws2);
     this.formError = '';
     if (
       !this.credentials.name ||

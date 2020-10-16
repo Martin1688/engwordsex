@@ -33,8 +33,8 @@
                   </a>
                     <div class="dropdown-menu bg-primary">
                         <a routerLink="/words/testspell" class="dropdown-item ">單字拼字測驗</a>
-                        <a routerLink="/words/testselectchi" class="dropdown-item ">英選中測驗</a>
-                        <a routerLink="/words/testfill" class="dropdown-item ">單字填空測驗</a>
+                        <a routerLink="/words/testselectchi" class="dropdown-item" *ngIf="isLoggedIn()">英選中測驗</a>
+                        <a routerLink="/words/testfill" class="dropdown-item" *ngIf="isLoggedIn()">單字填空測驗</a>
                     </div>
                 </li>
                 <li class="nav-item">

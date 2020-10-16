@@ -69,7 +69,7 @@ const dictionarySentences = (req, resp) => {
             const data = body.toString();
             ary = JSON.parse(data).list.map(x => { return x.example.replace(/(\r\n|\n|\r)/gm, " ") });
             resp.status(200).send(ary);
-            console.log(ary);
+            //console.log(ary);
         });
     });
 

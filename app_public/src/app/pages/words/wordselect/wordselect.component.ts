@@ -64,15 +64,15 @@ export class WordselectComponent implements OnInit {
     if (this.ChiAnsList.length < this.wIndex) {
       this.wordService.seizeChiStr(1).then(x => {
         const ary = x as [1];
-        console.log(ary[0]);
+        //console.log(ary[0]);
         this.ChiAnsList.push(new ChiAns());
         this.ChiAnsList[tIndex].chilist(ary[0], this.currentWord.chi);
         this.currentChiAns = this.ChiAnsList[tIndex];
-        console.log(this.currentChiAns.chiary);
+        //console.log(this.currentChiAns.chiary);
       });
     } else {
       this.currentChiAns = this.ChiAnsList[tIndex];
-      console.log(this.currentChiAns.chiary);
+      //console.log(this.currentChiAns.chiary);
     }
 
   }

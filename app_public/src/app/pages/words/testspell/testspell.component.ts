@@ -88,7 +88,7 @@ export class TestspellComponent implements OnInit {
       this.currentWord = this.wordAry[this.wIndex -1];
       this.speakEng();
     }
-    console.log(this.exWord);
+    //console.log(this.exWord);
     this.exWord='';
   }
 }

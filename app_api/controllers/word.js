@@ -41,11 +41,11 @@ const wordsCreate = (req, res) => {
 function put2db(ary) {
     if (ary.length > 0) {
         const ary = words[i].split(',');
-        console.log(ary);
+        //console.log(ary);
     }
 };
 const wordsGet = (req, res) => {
-    console.log(req.body);
+    //console.log(req.body);
     exercise.findOne({ userEmail: req.body.email }, (err, row) => { //查看看練習檔中使用者有無紀錄
         if (err) {
             console.log(err);
@@ -139,7 +139,7 @@ const wordsGet = (req, res) => {
 }
 
 const exerciseDone = (req, res) => {
-    console.log(req.body.email);
+    //console.log(req.body.email);
     exercise.findOne({ userEmail: req.body.email }, (err, row) => {
         if (err) {
             console.log(err);
@@ -172,7 +172,7 @@ const exerciseDel = (req, res) => {
 const completeWords = (req, res) => {
     const str = req.body.startChar;
     //const mm = `/^${str}/`;
-    console.log(str);
+    //console.log(str);
     word.find({ eng: new RegExp('^' + str + '.*') }).limit(1000).exec((err, rows) => {
         if (err) {
             console.log(err);
@@ -181,9 +181,9 @@ const completeWords = (req, res) => {
         }
         if (rows) {
             let ary = rows.map(x => {
-                return x.eng;
-            })
-            console.log(ary.length);
+                    return x.eng;
+                })
+                //console.log(ary.length);
             res.status(200).json({ ary });
         }
     });
@@ -250,7 +250,7 @@ const get3chi = (ary, cnt, res, callback) => {
         const ret = rows.map(x => { return x.chi });
         const rets = `${ret[3]},${ret[6]},${ret[9]},${ans}`;
         ary.push(rets);
-        console.log(rets);
+        //console.log(rets);
         if (cnt > 0) {
             get3chi(ary, cnt, res, callback);
         } else {

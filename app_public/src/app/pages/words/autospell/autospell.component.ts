@@ -83,7 +83,7 @@ export class AutospellComponent implements OnInit {
       if (aWord.length > 1) {
         setTimeout(() => {
           const restWord = aWord.substr(1);
-          console.log(`${myWord}  ${restWord}`);
+          //console.log(`${myWord}  ${restWord}`);
           this.playChar(restWord);
         }, this.charDelayTime);
       }

@@ -32,7 +32,7 @@ export class TestfillComponent implements OnInit {
       this.router.navigateByUrl('/general/login');
     }
     this.currentWord = this.wordAry[this.wIndex - 1];
-    console.log(this.currentWord.sentence);
+    //console.log(this.currentWord.sentence);
     if (!this.currentWord.sentence) {
       this.getSentence();
     }
@@ -100,7 +100,7 @@ export class TestfillComponent implements OnInit {
   }
 
   getHideWord(kWord:string, callback){
-    console.log(kWord);
+    //console.log(kWord);
     //const endchar =;
     if(kWord.length > 5){
       this.hideWord=kWord.substr(0,1);

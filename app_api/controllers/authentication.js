@@ -62,7 +62,7 @@ const login = (req, res) => {
 
 //用email 取回1個使用者資料
 const aUser = (req, res) => {
-    console.log(req.body.email);
+    //console.log(req.body.email);
     if (!req.body.email) {
         return res
             .status(400)
@@ -83,7 +83,7 @@ const aUser = (req, res) => {
 
 //產生指定長度的亂數密碼
 const updateUser = (req, res) => {
-    console.log(req.body.email);
+    //console.log(req.body.email);
     const role = req.body.role;
     const grade = req.body.grade;
     const name = req.body.name;
@@ -129,7 +129,7 @@ const delUser = (req, res) => {
 const completeMails = (req, res) => {
     //const str = req.body.startChar;
     //const mm = `/^${str}/`;
-    console.log('str');
+    //console.log('str');
     User.find({}).limit(1000).exec((err, rows) => {
         if (err) {
             console.log(err);
@@ -138,9 +138,9 @@ const completeMails = (req, res) => {
         }
         if (rows) {
             let ary = rows.map(x => {
-                return x.email;
-            })
-            console.log(ary.length);
+                    return x.email;
+                })
+                //console.log(ary.length);
             res.status(200).json({ ary });
         }
     });

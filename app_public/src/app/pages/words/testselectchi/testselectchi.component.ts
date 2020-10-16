@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Vcblry } from 'src/app/classes/vcblry';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { VocabularyService } from 'src/app/services/vocabulary.service';
@@ -34,13 +35,16 @@ export class TestselectchiComponent implements OnInit {
   errCorrect = '';
   redoFlag=false;
   utterThis :SpeechSynthesisUtterance;   
-  constructor(private authService: AuthenticationService,
+  constructor(private router: Router,
+    private authService: AuthenticationService,
     private wordService: VocabularyService) {
     this.wordAry = JSON.parse(authService.getPrjItem('exWords'));
   }
 
   ngOnInit(): void {
-    this.currentWord = this.wordAry[this.wIndex-1];
+    if (!this.authService.isLoggedIn()) {
+      this.router.navigateByUrl('/general/login');
+    }    this.currentWord = this.wordAry[this.wIndex-1];
     this.seizeChiStr();
     this.utterThis= new SpeechSynthesisUtterance();
     this.utterThis.lang = 'en-US'
