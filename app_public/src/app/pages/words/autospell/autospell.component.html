@@ -46,7 +46,7 @@
     <div class="navbar fixed-bottom foot2nd">
         <div class="row">
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-success" (click)="playWord()" *ngIf="false">自動撥放</button>
+                <button type="button" id="suspenseBtn" name="suspenseBtn" class="btn btn-success" (click)="suspense()" style="display: none;">自動撥放</button>
                 <button type="button" class="btn btn-success" (click)="suspense()">{{btnSuspenseText}}</button>
                 <!-- btnSuspenseText === '暫停' -->
             </div>

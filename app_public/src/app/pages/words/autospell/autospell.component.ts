@@ -14,21 +14,21 @@ export class AutospellComponent implements OnInit {
   wIndex: number = 1;
   total: number;
   exWord: string;
-  totalRpt: string="3";
+  totalRpt: string = "3";
   rptCount = 1;
   message = "";
   utterTW: SpeechSynthesisUtterance;
   utterboy: SpeechSynthesisUtterance;
   uttergirl: SpeechSynthesisUtterance;
   playSubject: Subject<Vcblry>;
-  charDelayTime=1100;
-  iswork=false;
-  btnSuspenseText="播放";
+  charDelayTime = 1100;
+  iswork = false;
+  btnSuspenseText = "播放";
   constructor(private authService: AuthenticationService) {
     this.wordAry = JSON.parse(authService.getPrjItem('exWords'));
     this.totalRpt = this.authService.getPrjItem('repCount');
     this.currentWord = this.wordAry[this.wIndex - 1];
-    this.playSubject = new Subject<Vcblry>();
+    //this.playSubject = new Subject<Vcblry>();
   }
 
   ngOnInit(): void {
@@ -60,74 +60,86 @@ export class AutospellComponent implements OnInit {
   }
 
   playWord() {
-    if(!this.iswork) return;
+    if (!this.iswork) return;
     if (this.currentWord) {
-      if(this.currentWord.eng.length > 10){
-        this.charDelayTime = 1300;
-      } else{
-        this.charDelayTime =1100;
-      }
-      this.speakEng(this.currentWord.eng, this.currentWord.eng.length % 2);
       setTimeout(() => {
-        this.playChar(this.currentWord.eng);
-      }, this.charDelayTime);
+        this.spellEng();
+      });
     }
   }
-  playChar(aWord: string) {
-    if(!this.iswork){
-       return;
+  spellEng() {
+    this.utterboy.text = this.currentWord.eng;
+    speechSynthesis.speak(this.utterboy);
+    let sEng = '';
+    const oEng = this.currentWord.eng;
+    for (let i = 0; i < oEng.length; i++) {
+      sEng += oEng.charAt(i) + ',';
     }
-    if (aWord.length > 0) {
-      const myWord = aWord.substr(0, 1);
-      this.speakEng(myWord, aWord.length % 2);
-      if (aWord.length > 1) {
-        setTimeout(() => {
-          const restWord = aWord.substr(1);
-          //console.log(`${myWord}  ${restWord}`);
-          this.playChar(restWord);
-        }, this.charDelayTime);
-      }
-      else {
-        this.utterTW.text = this.currentWord.chi;
-        speechSynthesis.speak(this.utterTW);
-        setTimeout(() => {
-          this.rptCount++;
-          if (this.rptCount > parseInt(this.totalRpt)) {
-            this.wIndex++;
-            this.rptCount = 1;
-          }
-          if (this.wIndex <= this.wordAry.length) {
-            this.currentWord = this.wordAry[this.wIndex - 1];
-            this.playWord();
-          } else {
-            this.wIndex =1;
-            this.currentWord = this.wordAry[this.wIndex - 1];
-            this.message="撥放完畢";
-          }
-        }, 7000);
-      }
+    if (this.rptCount % 2 === 0) {
+      this.uttergirl.text = sEng;
+      speechSynthesis.speak(this.uttergirl);
+    } else {
+      this.utterboy.text = sEng;
+      speechSynthesis.speak(this.utterboy);
     }
+    this.utterTW.text = this.currentWord.chi;
+    speechSynthesis.speak(this.utterTW);
+    this.utterTW.onend = () => {
+      this.endFun();
+    }
+
+
   }
-  speakEng(aChar: string, pIdx: number) {
-    if (aChar) {
-      if (pIdx === 0) {
-        this.utterboy.text = aChar;
-        speechSynthesis.speak(this.utterboy);
+
+  endFun() {
+
+    if (this.rptCount < parseInt(this.totalRpt)) {
+      this.rptCount = this.rptCount + 1;
+      document.getElementById('suspenseBtn').click();
+      setTimeout(() => {
+        document.getElementById('suspenseBtn').click();
+      }, 1000);
+  } else {
+      if (this.wIndex < this.wordAry.length) {
+        this.wIndex = this.wIndex + 1;
+        this.rptCount = 1;
+        this.currentWord = this.wordAry[this.wIndex - 1];
+        document.getElementById('suspenseBtn').click();
+        setTimeout(() => {
+          document.getElementById('suspenseBtn').click();
+        }, 1000);
+        //this.playWord();
       } else {
-        this.uttergirl.text = aChar;
-        speechSynthesis.speak(this.uttergirl);
+        this.wIndex = this.wIndex + 1;
+        this.rptCount = 1;
+        this.currentWord = this.wordAry[this.wIndex - 1];
       }
+    }
+
+  }
+
+
+
+  suspense() {
+    //console.log(this.dateStr());
+    this.iswork = !this.iswork;
+    //this.currentWord = this.wordAry[this.wIndex - 1];
+    if (this.iswork) {
+      this.btnSuspenseText = "暫停";
+      this.playWord();
+    } else {
+      this.btnSuspenseText = "撥放";
     }
   }
 
-  suspense(){
-    this.iswork = !this.iswork;
-    this.currentWord = this.wordAry[this.wIndex - 1];
-    if(this.iswork){
-      this.btnSuspenseText = "暫停";
-      this.playWord();
-    }else{
-      this.btnSuspenseText = "撥放";
-    }
+  dateStr(): string {
+    const date = new Date();
+    const str = ("00" + (date.getMonth() + 1).toString()).slice(-2) + "/" +
+      ("00" + date.getDate().toString()).slice(-2) + "/" +
+      date.getFullYear() + " " +
+      ("00" + date.getHours().toString()).slice(-2) + ":" +
+      ("00" + date.getMinutes().toString()).slice(-2) + ":" +
+      ("00" + date.getSeconds().toString()).slice(-2);
+    return str;
   }
 }
