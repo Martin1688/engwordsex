@@ -47,7 +47,8 @@
         <div class="row">
             <div class="btn-group" role="group" aria-label="Basic example">
                 <button type="button" id="suspenseBtn" name="suspenseBtn" class="btn btn-success" (click)="suspense()" style="display: none;">自動撥放</button>
-                <button type="button" class="btn btn-success" (click)="suspense()">{{btnSuspenseText}}</button>
+                <button type="button" class="btn btn-success" (click)="suspense()" style="display: none;">{{iswork4ShowText}}</button>
+                <button type="button" class="btn btn-success" (click)="suspenseShow()">{{btnSuspenseText}}</button>
                 <!-- btnSuspenseText === '暫停' -->
             </div>
         </div>

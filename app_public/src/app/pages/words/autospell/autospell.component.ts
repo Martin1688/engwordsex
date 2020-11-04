@@ -22,6 +22,8 @@ export class AutospellComponent implements OnInit {
   uttergirl: SpeechSynthesisUtterance;
   playSubject: Subject<Vcblry>;
   charDelayTime = 1100;
+  iswork4Show = false;
+  iswork4ShowText= "播放";
   iswork = false;
   btnSuspenseText = "播放";
   constructor(private authService: AuthenticationService) {
@@ -60,6 +62,7 @@ export class AutospellComponent implements OnInit {
   }
 
   playWord() {
+    if (!this.iswork4Show) return;
     if (!this.iswork) return;
     if (this.currentWord) {
       setTimeout(() => {
@@ -122,15 +125,30 @@ export class AutospellComponent implements OnInit {
 
   suspense() {
     //console.log(this.dateStr());
+    this.iswork4Show = !this.iswork4Show;
+    //this.currentWord = this.wordAry[this.wIndex - 1];
+    if (this.iswork4Show) {
+      this.iswork4ShowText = "暫停";
+      this.playWord();
+    } else {
+      this.iswork4ShowText = "撥放";
+    }
+  }
+
+  suspenseShow(){
+    //console.log(this.dateStr());
     this.iswork = !this.iswork;
     //this.currentWord = this.wordAry[this.wIndex - 1];
     if (this.iswork) {
+      this.iswork4Show= this.iswork;
       this.btnSuspenseText = "暫停";
       this.playWord();
     } else {
       this.btnSuspenseText = "撥放";
     }
+
   }
+
 
   dateStr(): string {
     const date = new Date();
