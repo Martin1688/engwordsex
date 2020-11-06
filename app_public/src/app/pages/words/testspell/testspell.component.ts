@@ -91,4 +91,12 @@ export class TestspellComponent implements OnInit {
     //console.log(this.exWord);
     this.exWord='';
   }
+
+  repeat() {
+    if (this.currentWord) {
+      this.utterThis.text = this.currentWord.eng;
+      speechSynthesis.speak(this.utterThis);
+    }
+  }
+
 }

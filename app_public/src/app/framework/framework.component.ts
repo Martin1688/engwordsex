@@ -37,7 +37,7 @@ export class FrameworkComponent implements OnInit {
   doLogout() {
      this.authService.logout();
      setTimeout(() => {
-      this.router.navigateByUrl('/words');  
+      this.router.navigateByUrl('/general/login');  
      }, 100);
   }
 }
