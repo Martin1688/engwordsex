@@ -43,7 +43,7 @@
                   </a>
                     <div class="dropdown-menu bg-primary">
                         <a routerLink="/general/author" class="dropdown-item">關於</a>
-                        <a routerLink="/general/about" class="dropdown-item" *ngIf="false">功能說明</a>
+                        <a routerLink="/general/about" class="dropdown-item">功能說明</a>
                     </div>
             </ul>
             <ul class="navbar-nav justify-content-end ">
@@ -51,7 +51,7 @@
                     <a routerLink="/general/login " class="nav-link ">登入</a>
                 </li>
                 <li class="nav-item dropdown " *ngIf="isLoggedIn() ">
-                    <a class="nav-link dropdown-toggle " href="# " id="navbardrop " data-toggle="dropdown ">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown">
                         {{getUsername()}}
                   </a>
                     <div class="dropdown-menu bg-primary ">
