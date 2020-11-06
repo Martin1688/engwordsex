@@ -9,10 +9,12 @@ import { AdminComponent } from './admin/admin.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { SelfusersetComponent } from './selfuserset/selfuserset.component';
 import { ChangepwsComponent } from './changepws/changepws.component';
+import { AuthorComponent } from './author/author.component';
+import { AboutComponent } from './about/about.component';
 
 
 @NgModule({
-  declarations: [RegisterComponent, LoginComponent, AdminComponent, ResetpasswordComponent, SelfusersetComponent, ChangepwsComponent],
+  declarations: [RegisterComponent, LoginComponent, AdminComponent, ResetpasswordComponent, SelfusersetComponent, ChangepwsComponent, AuthorComponent, AboutComponent],
   imports: [
     CommonModule,
     GeneralRoutingModule,

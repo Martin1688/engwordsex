@@ -6,6 +6,8 @@ import { AdminComponent } from './admin/admin.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { SelfusersetComponent} from './selfuserset/selfuserset.component';
 import { ChangepwsComponent } from './changepws/changepws.component';
+import { AuthorComponent } from './author/author.component';
+import { AboutComponent } from './about/about.component';
 const routes: Routes = [
   {
     path: 'register',
@@ -25,8 +27,13 @@ const routes: Routes = [
     },{
     path: 'changepws',
     component: ChangepwsComponent
+    },{
+    path: 'author',
+    component: AuthorComponent
+    },{
+    path: 'about',
+    component: AboutComponent
     }
-   
 ];
 
 @NgModule({

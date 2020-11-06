@@ -37,20 +37,25 @@
                         <a routerLink="/words/testfill" class="dropdown-item" *ngIf="isLoggedIn()">單字填空測驗</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a routerLink="about " routerLinkActive="active " class="nav-link ">關於</a>
-                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        其他
+                  </a>
+                    <div class="dropdown-menu bg-primary">
+                        <a routerLink="/general/author" class="dropdown-item">關於作者</a>
+                        <a routerLink="/general/about" class="dropdown-item" *ngIf="false">功能說明</a>
+                    </div>
             </ul>
             <ul class="navbar-nav justify-content-end ">
                 <li class="nav-item " routerLinkActive="active " *ngIf="!isLoggedIn() ">
-                    <a routerLink="/general/login" class="nav-link ">登入</a>
+                    <a routerLink="/general/login " class="nav-link ">登入</a>
                 </li>
-                <li class="nav-item dropdown" *ngIf="isLoggedIn()">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                <li class="nav-item dropdown " *ngIf="isLoggedIn() ">
+                    <a class="nav-link dropdown-toggle " href="# " id="navbardrop " data-toggle="dropdown ">
                         {{getUsername()}}
                   </a>
-                    <div class="dropdown-menu bg-primary">
-                        <a class="dropdown-item" (click)="doLogout()">登出</a>
+                    <div class="dropdown-menu bg-primary ">
+                        <a class="dropdown-item " (click)="doLogout() ">登出</a>
                     </div>
                 </li>
             </ul>
@@ -59,7 +64,7 @@
 </nav>
 <div class="container content ">
     <router-outlet></router-outlet>
-    <footer class="navbar fixed-bottom">
+    <footer class="navbar fixed-bottom ">
         <div class="row ">
             <div class="col-12 ">
                 <small>&copy; 潘丁瑜設計 2020</small>
