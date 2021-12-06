@@ -8,7 +8,7 @@ const EMAIL = process.env.EMAIL;
 const PASSWORD = process.env.PASSWORD;
 let done = false;
 let transporter = nodemailer.createTransport({
-    service: "Yahoo",
+    service: "gmail",
     secure: true,
     auth: {
         user: EMAIL,
