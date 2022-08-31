@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { HistoryService } from 'src/app/services/history.service';
+//import { HistoryService } from 'src/app/services/history.service';
 
 @Component({
   selector: 'app-login',
@@ -23,11 +23,12 @@ export class LoginComponent implements OnInit {
   passwordTextType = true;
   constructor(
     private router: Router,
-    private authenticationService: AuthenticationService,
-    private historyService: HistoryService) { }
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
+    console.log('login');
     const currentUser =this.authenticationService.getCurrentUser();
+    console.log(currentUser);
     if(currentUser){
       console.log(JSON.stringify(currentUser));
       this.router.navigateByUrl('/words'); 

@@ -22,21 +22,21 @@ export class FrameworkComponent implements OnInit {
   }
   isLoggedIn() {
     const isLog=this.authService.isLoggedIn();
-    console.log(isLog);
+    //console.log(isLog);
     return isLog;
   }
   userRole(){
     //return 'admin';
      let myRole = '';
-     if(this.isLoggedIn() && this.user && this.user.role){
-       myRole=this.user.role;
+     if(this.isLoggedIn()){
+       myRole=this.user!.role;
      } 
     return myRole;
   }
   getUsername() {
     let myName ='';
-     if(this.user && this.user.name){
-       myName=this.user.name;
+    if(this.isLoggedIn()){
+      myName=this.user!.name;
      }
     return myName;
   }

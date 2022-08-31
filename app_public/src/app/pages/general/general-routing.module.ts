@@ -10,6 +10,9 @@ import { AuthorComponent } from './author/author.component';
 import { AboutComponent } from './about/about.component';
 const routes: Routes = [
   {
+    path:'',
+    component:LoginComponent,
+  },{
     path: 'register',
     component: RegisterComponent
   },{

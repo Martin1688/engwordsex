@@ -15,6 +15,7 @@ export class AuthenticationService {
 
   public getToken(): string {
     let ret = this.storage.getItem('token');
+    //console.log(`token is ${ret}`);
     ret = ret === null || ret === undefined ? "" : ret;
     return ret;
   }
@@ -49,16 +50,26 @@ export class AuthenticationService {
   }
 
   public isLoggedIn(): boolean {
-    // console.log('Martin in isLogin')
+    let ret = false;
     const token: string = this.getToken();
     if (token) {
       const payload = JSON.parse(atob(token.split('.')[1]));
-      return payload.exp > (Date.now() / 1000);
+      //console.log(`payload is ${JSON.stringify(payload)}`);
+      const nowStamp =Date.now() / 1000;
+      //console.log(` now is ${nowStamp}`)
+      ret = payload.exp > nowStamp;
+      if(!ret){
+        this.storage.removeItem('token');
+      }
+      return ret;
     } else {
-      return false;
+      return ret;
     }
+    
   }
+
   public getCurrentUser(): User {
+    console.log('getinguser');
     const user = new User();
     if (this.isLoggedIn()) {
       const token: string = this.getToken();
