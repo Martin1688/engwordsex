@@ -14,13 +14,15 @@ export class AuthenticationService {
 
 
   public getToken(): string {
-    return this.storage.getItem('token');
+    let ret = this.storage.getItem('token');
+    ret = ret === null || ret === undefined ? "" : ret;
+    return ret;
   }
   public saveToken(token: string): void {
-    if(this.removePrjItem('token')){
-      this.setPrjItem('token',token);
+    if (this.removePrjItem('token')) {
+      this.setPrjItem('token', token);
     }
- }
+  }
   public login(user: User): Promise<any> {
     return this.generalService.login(user)
       .then((authResp: Authresponse) => {
@@ -31,9 +33,9 @@ export class AuthenticationService {
           this.storage.removeItem('password');
           this.storage.removeItem('useremail');
         }
-         //console.log(authResp.name);
-        this.setPrjItem('username',authResp.name)
-        this.setPrjItem('grade',authResp.grade)
+        //console.log(authResp.name);
+        this.setPrjItem('username', authResp.name)
+        this.setPrjItem('grade', authResp.grade)
         this.saveToken(authResp.token);
       });
   }
@@ -41,7 +43,7 @@ export class AuthenticationService {
     return this.generalService.register(user)
       .then((authResp: Authresponse) => {
         this.setPrjItem('username', authResp.name);
-        this.setPrjItem('grade',authResp.grade)
+        this.setPrjItem('grade', authResp.grade)
         this.saveToken(authResp.token);
       });
   }
@@ -57,39 +59,52 @@ export class AuthenticationService {
     }
   }
   public getCurrentUser(): User {
+    const user = new User();
     if (this.isLoggedIn()) {
       const token: string = this.getToken();
       const { email, role } = JSON.parse(atob(token.split('.')[1]));
       //console.log({ email, name, role });
-      const user={ email,  role } as User;
-      user.name=this.getName();
-      user.grade=this.storage.getItem('grade');
-      return user;
+      user.email = email;
+      user.role = role;
+      user.name = this.getName();
+      user.grade = this.getPrjItem('grade');
     }
+    return user;
   }
   public getName(): string {
-    //console.log(this.storage.getItem('username'));
-    return this.storage.getItem('username');
+    let ret = this.storage.getItem('username');
+    if(!ret){
+      ret="";
+    }
+    return ret;
   }
   public getMail(): string {
-    return this.storage.getItem('useremail');
+    let ret = this.storage.getItem('useremail');
+    if(!ret){
+      ret="";
+    }
+    return ret;
   }
 
-  public setPrjItem(itmName:string, itmValue:string){
-    if(this.removePrjItem(itmName)){
-      this.storage.setItem(itmName,itmValue);
+  public setPrjItem(itmName: string, itmValue: string) {
+    if (this.removePrjItem(itmName)) {
+      this.storage.setItem(itmName, itmValue);
     }
   }
 
-  public getPrjItem(itmName:string):string{
-    return this.storage.getItem(itmName);
+  public getPrjItem(itmName: string): string {
+    let ret = this.storage.getItem(itmName);
+    if(!ret){
+      ret="";
+    }
+    return ret;
   }
 
-  public removePrjItem(itmName:string):boolean{
-    if(this.storage.getItem(itmName) !== null && this.storage.getItem(itmName).length > 0){
-      this.storage.removeItem(itmName); 
+  public removePrjItem(itmName: string): boolean {
+    if (this.storage.getItem(itmName) !== null && this.getPrjItem(itmName).length > 0) {
+      this.storage.removeItem(itmName);
     }
-   return true;
+    return true;
   }
   public logout(): void {
     this.storage.removeItem('token');

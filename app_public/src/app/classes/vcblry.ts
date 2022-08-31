@@ -1,7 +1,7 @@
 export  class Vcblry {
-    wdId:string; 
-    eng: string; 
-    chi: string; 
-    grade: string;
-    sentence: string;
+    wdId=""; 
+    eng="";
+    chi="";
+    grade="";
+    sentence="";
   }

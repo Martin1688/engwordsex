@@ -5,16 +5,16 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { VocabularyService } from 'src/app/services/vocabulary.service';
 
 class ChiAns {
-  chiary = [];
-  ans: number;
-  chilist = (str, chi) => {
+  chiary:string[] = [];
+  ans: number | undefined;
+  chilist = (str: string, chi: string) => {
     this.chiary = str.split(',');
     this.ans = parseInt(this.chiary[3]);
     this.chiary[3] = this.chiary[this.ans];
     this.chiary[this.ans] = chi;
   };
-  selectChi: number;
-  ok = (ans, selectChi) => {
+  selectChi: number | undefined;
+  ok = (ans: number | undefined, selectChi: number | undefined) => {
     return ans === selectChi;
   };
 }
@@ -26,15 +26,15 @@ class ChiAns {
 export class TestselectchiComponent implements OnInit {
   message = '';
   //selectAns='';
-  currentWord: Vcblry;
+  currentWord: Vcblry | undefined;
   wordAry: Vcblry[] = [];
   wIndex: number = 1;
-  currentChiAns: ChiAns;
+  currentChiAns: ChiAns | undefined;
   ChiAnsList: ChiAns[] = [];
   errCount = 0;
   errCorrect = '';
   redoFlag=false;
-  utterThis :SpeechSynthesisUtterance;   
+  utterThis :SpeechSynthesisUtterance | undefined;   
   constructor(private router: Router,
     private authService: AuthenticationService,
     private wordService: VocabularyService) {
@@ -55,8 +55,8 @@ export class TestselectchiComponent implements OnInit {
 
   speakEng(){
     if(this.currentWord){
-      this.utterThis.text=this.currentWord.eng;
-      speechSynthesis.speak(this.utterThis);  
+      this.utterThis!.text=this.currentWord.eng;
+      speechSynthesis.speak(this.utterThis!);  
     } else {
       this.message = this.wIndex.toString();
     }
@@ -70,7 +70,7 @@ export class TestselectchiComponent implements OnInit {
         const ary = x as [1];
         //console.log(ary[0]);
         this.ChiAnsList.push(new ChiAns());
-        this.ChiAnsList[tIndex].chilist(ary[0], this.currentWord.chi);
+        this.ChiAnsList[tIndex].chilist(ary[0].toString(), this.currentWord!.chi);
         this.currentChiAns = this.ChiAnsList[tIndex];
         //console.log(this.currentChiAns.chiary);
       });
@@ -81,16 +81,16 @@ export class TestselectchiComponent implements OnInit {
 
   }
 
-  onSelected(i) {
-    this.currentChiAns.selectChi = i;
+  onSelected(i: number | undefined) {
+    this.currentChiAns!.selectChi = i;
 
-    if (this.currentChiAns.ok(this.currentChiAns.ans, this.currentChiAns.selectChi)) {
+    if (this.currentChiAns!.ok(this.currentChiAns!.ans, this.currentChiAns!.selectChi)) {
       this.message = "正確";
       this.errCorrect = '';
     } else {
       this.errCount++;
       this.message = "錯誤";
-      this.errCorrect = `${this.currentWord.eng}(${this.currentWord.chi})`;
+      this.errCorrect = `${this.currentWord!.eng}(${this.currentWord!.chi})`;
     }
     if (this.wIndex === this.wordAry.length) {
       const score= Math.floor(((this.wordAry.length - this.errCount)/this.wordAry.length)*100);

@@ -9,12 +9,12 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
   styleUrls: ['./selfwords.component.css']
 })
 export class SelfwordsComponent implements OnInit {
-  message: string;
+  message: string | undefined;
   wordData: any[] = [];
-  retObj: { "ary": any };
+  retObj: { "ary": any; } | undefined;
   lastkeydown1: number = 0;
   subscription: any;
-  wordList1: any[];
+  wordList1: any[] | undefined;
   newWord: Vcblry = {
     wdId:'',
     eng:'',
@@ -22,7 +22,7 @@ export class SelfwordsComponent implements OnInit {
     grade:'',
     sentence:''
   };
-  chiAry: string[];
+  chiAry: string[] | undefined;
   wordAry: Vcblry[] = [];
   sentenceAry = [];
   isMobile=false;
@@ -64,7 +64,7 @@ export class SelfwordsComponent implements OnInit {
   }
 
 
-  getWordIdsFirstWay($event) {
+  getWordIdsFirstWay($event: { key: string; timeStamp: number; }):any {
     if(this.isMobile){
       // if($event.key === 'Enter'){
       //   return this.onEnter();
@@ -96,7 +96,7 @@ export class SelfwordsComponent implements OnInit {
     }
   }
 
-  searchFromArray(arr, regex) {
+  searchFromArray(arr: string | any[], regex: string) {
     let matches = [], i;
     for (i = 0; i < arr.length; i++) {
       if (arr[i].match(regex)) {
@@ -139,7 +139,7 @@ export class SelfwordsComponent implements OnInit {
   itemSelected(item: string){
     this.newWord.eng=item;
     this.wordList1=[];
-    document.getElementById('WordIdFirstWay').focus();
+    document.getElementById('WordIdFirstWay')!.focus();
     setTimeout(() => {
       this.onEnter();
     }, 100);

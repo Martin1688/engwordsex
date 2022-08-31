@@ -10,11 +10,11 @@ import { VocabularyService } from 'src/app/services/vocabulary.service';
   styleUrls: ['./testfill.component.css']
 })
 export class TestfillComponent implements OnInit {
-  currentWord: Vcblry;
+  currentWord: Vcblry | undefined;
   wordAry: Vcblry[];
   wIndex: number = 1;
-  total: number;
-  exWord: string;
+  total: number | undefined;
+  exWord: string | undefined;
   errCount = 0;
   message = "";
   errCorrect = '';
@@ -55,13 +55,13 @@ export class TestfillComponent implements OnInit {
   onEnter() {
     this.errCorrect='';
     this.chiHint=false;
-    if (this.exWord === this.currentWord.eng) {
+    if (this.exWord === this.currentWord!.eng) {
       this.message = "正確";
       this.errCorrect = '';
     } else {
       this.message = "錯誤";
       this.errCount++;
-      this.errCorrect = `${this.currentWord.eng}(${this.currentWord.chi})`;
+      this.errCorrect = `${this.currentWord!.eng}(${this.currentWord!.chi})`;
     }
 
     if (this.wIndex === this.wordAry.length) {
@@ -82,15 +82,15 @@ export class TestfillComponent implements OnInit {
 
   getSentence() {
     //console.log('go fetch eng '+ this.currentWord.eng);
-    const wd =this.currentWord.eng;
+    const wd =this.currentWord!.eng;
     this.wordService.getASentence(wd).then(x => {
       //console.log(x);
       const y = x as {word:string};
       //console.log(this.hideWord+'martin');
-      const kWord=y.word.indexOf(this.currentWord.eng) > -1 ?  this.currentWord.eng : this.currentWord.eng.charAt(0).toUpperCase()+ this.currentWord.eng.substr(1);
-      this.currentWord.eng=kWord;
+      const kWord=y.word.indexOf(this.currentWord!.eng) > -1 ?  this.currentWord!.eng : this.currentWord!.eng.charAt(0).toUpperCase()+ this.currentWord!.eng.substr(1);
+      this.currentWord!.eng=kWord;
       this.getHideWord(kWord,(hWord: string)=>{
-        this.currentWord.sentence =y.word.replace(kWord, hWord);
+        this.currentWord!.sentence =y.word.replace(kWord, hWord);
       });
 
     }).catch(err => {
@@ -99,7 +99,7 @@ export class TestfillComponent implements OnInit {
     });
   }
 
-  getHideWord(kWord:string, callback){
+  getHideWord(kWord:string, callback: { (hWord: string): void; (arg0: string): void; }){
     //console.log(kWord);
     //const endchar =;
     if(kWord.length > 5){

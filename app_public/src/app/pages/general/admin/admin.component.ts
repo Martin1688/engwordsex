@@ -12,7 +12,7 @@ import { VocabularyService } from 'src/app/services/vocabulary.service';
 })
 export class AdminComponent implements OnInit {
   user: User;
-  setUser: User;
+  setUser: User | undefined;
   uploadFileName = '';
   mailData: any[] = [];
   public formError: string = '';
@@ -28,9 +28,9 @@ export class AdminComponent implements OnInit {
     keep: true
   };
   fileContent: any;
-  mailList1: string[];
+  mailList1: string[] | undefined;
   lastkeydown1: number = 0;
-  retObj: { "ary": any };
+  retObj: { "ary": any; } | undefined;
   roleops = ['client', 'user', 'admin'];
   gradeops = ['初級', '中級', '中高級'];
   isMobile=false;
@@ -117,7 +117,7 @@ export class AdminComponent implements OnInit {
 
   }
 
-  getMailsFirstWay($event) {
+  getMailsFirstWay($event: { key: string; timeStamp: number; }) {
     if(this.isMobile){
       return;
     }    
@@ -129,7 +129,7 @@ export class AdminComponent implements OnInit {
     //    let wordId = (<HTMLInputElement>document.getElementById('WordIdFirstWay')).value.trim();
     const temMail = this.credentials.email;
     if (temMail.length == 0) {
-      return false;
+      return ;
     }
 
     //console.log(temMail);
@@ -146,7 +146,7 @@ export class AdminComponent implements OnInit {
   }
 
 
-  searchFromArray(arr, regex) {
+  searchFromArray(arr: string | any[], regex: string) {
     let matches = [], i;
     for (i = 0; i < arr.length; i++) {
       if (arr[i].match(regex)) {
@@ -159,7 +159,7 @@ export class AdminComponent implements OnInit {
   itemSelected(item: string){
     this.credentials.email=item;
     this.mailList1=[];
-    document.getElementById('email').focus();
+    document.getElementById('email')!.focus();
     //this.onEnter();
   }
 

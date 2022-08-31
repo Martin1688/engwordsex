@@ -15,14 +15,14 @@
             <tr *ngIf="wordAry">
                 <td class="left"><span>{{wIndex}}/{{wordAry.length}}</span></td>
                 <td class="left">
-                    <h4>{{currentWord.eng}}</h4>
+                    <h4>{{currentWord!.eng}}</h4>
                 </td>
                 <td class="right"><span class="justify-content-end" *ngIf="errCount > 0">錯誤數：{{errCount}}</span></td>
             </tr>
 
             <tr *ngIf="false">
                 <td class="center" colspan="3">
-                    <h4>{{currentWord.chi}}</h4>
+                    <h4>{{currentWord!.chi}}</h4>
                 </td>
             </tr>
             <tr *ngIf="currentChiAns">

@@ -11,7 +11,7 @@ export class HistoryService {
   constructor(private router: Router) {
     this.router.events
       .pipe(filter(routerEvent => routerEvent instanceof NavigationEnd))
-      .subscribe((routerEvent: NavigationEnd) => {
+      .subscribe((routerEvent: any) => {
         const url = routerEvent.urlAfterRedirects;
         this.urls = [...this.urls, url];
       });

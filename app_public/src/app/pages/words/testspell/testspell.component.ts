@@ -9,16 +9,16 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
   styleUrls: ['./testspell.component.css']
 })
 export class TestspellComponent implements OnInit {
-  currentWord:Vcblry;
+  currentWord:Vcblry | undefined;
   wordAry:Vcblry[];
   wIndex:number=1;
-  total:number;
-  exWord:string;
+  total:number | undefined;
+  exWord:string | undefined;
   errCount=0;
   message="";
   errCorrect='';
   redoFlag=false;
-  utterThis :SpeechSynthesisUtterance; 
+  utterThis :SpeechSynthesisUtterance | undefined; 
   constructor(private router: Router,private authService:AuthenticationService) {
     this.wordAry = JSON.parse(authService.getPrjItem('exWords'));
 
@@ -50,8 +50,8 @@ export class TestspellComponent implements OnInit {
 
   speakEng(){
     if(this.currentWord){
-      this.utterThis.text=this.currentWord.eng;
-      speechSynthesis.speak(this.utterThis);  
+      this.utterThis!.text=this.currentWord.eng;
+      speechSynthesis.speak(this.utterThis!);  
     } else {
       this.message = this.wIndex.toString();
     }
@@ -67,15 +67,15 @@ export class TestspellComponent implements OnInit {
     this.speakEng();
   }
 
-  onEnter(event){
-    if(this.exWord === this.currentWord.eng)
+  onEnter(){
+    if(this.exWord === this.currentWord!.eng)
     {
       this.message="正確";
       this.errCorrect='';
     } else {
       this.message="錯誤";
       this.errCount++;
-      this.errCorrect = `${this.currentWord.eng}(${this.currentWord.chi})`;
+      this.errCorrect = `${this.currentWord!.eng}(${this.currentWord!.chi})`;
     }
 
     if(this.wIndex === this.wordAry.length){
@@ -94,8 +94,8 @@ export class TestspellComponent implements OnInit {
 
   repeat() {
     if (this.currentWord) {
-      this.utterThis.text = this.currentWord.eng;
-      speechSynthesis.speak(this.utterThis);
+      this.utterThis!.text = this.currentWord.eng;
+      speechSynthesis.speak(this.utterThis!);
     }
   }
 

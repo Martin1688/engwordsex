@@ -10,15 +10,15 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 
 export class WordspellComponent implements OnInit {
-  currentWord: Vcblry;
+  currentWord: Vcblry | undefined;
   wordAry: Vcblry[];
   wIndex: number = 1;
-  total: number;
-  exWord: string;
+  total: number | undefined;
+  exWord: string | undefined;
   totalRpt: string = "3";
   rptCount = 1;
   message = "";
-  utterThis: SpeechSynthesisUtterance;
+  utterThis: SpeechSynthesisUtterance | undefined;
   constructor(private router: Router,
     private authService: AuthenticationService) {
     this.wordAry = JSON.parse(authService.getPrjItem('exWords'));
@@ -48,8 +48,8 @@ export class WordspellComponent implements OnInit {
   }
   speakEng() {
     if (this.currentWord) {
-      this.utterThis.text = this.currentWord.eng;
-      speechSynthesis.speak(this.utterThis);
+      this.utterThis!.text = this.currentWord.eng;
+      speechSynthesis.speak(this.utterThis!);
     } else {
       this.message = this.wIndex.toString();
     }
@@ -60,7 +60,7 @@ export class WordspellComponent implements OnInit {
     this.total = this.wordAry.length;
     this.speakEng();
   }
-  onKeydown(event) {
+  onKeydown(event: { key: string; }) {
     //this.message=event.key;
     if (event.key === "Enter") {
       this.onEnter();
@@ -77,7 +77,7 @@ export class WordspellComponent implements OnInit {
     }
   }
   onEnter() {
-    if (this.exWord === this.currentWord.eng) {
+    if (this.exWord === this.currentWord!.eng) {
       this.message = "正確"
     } else {
       this.message = "錯誤"
@@ -101,8 +101,8 @@ export class WordspellComponent implements OnInit {
 
   repeat() {
     if (this.currentWord) {
-      this.utterThis.text = this.currentWord.eng;
-      speechSynthesis.speak(this.utterThis);
+      this.utterThis!.text = this.currentWord.eng;
+      speechSynthesis.speak(this.utterThis!);
     }
   }
 

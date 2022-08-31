@@ -8,16 +8,22 @@ import { Router } from '@angular/router';
   styleUrls: ['./framework.component.css']
 })
 export class FrameworkComponent implements OnInit {
-  user: User;
+  user: User | undefined;
   constructor(private router: Router,private authService: AuthenticationService) {
   }
 
   ngOnInit(): void {
-    this.user = this.authService.getCurrentUser();
-    //console.log(this.user);
+    if(this.isLoggedIn()){
+      this.user = this.authService.getCurrentUser();
+      //alert('bbb');
+    }
+       //alert('aaa');
+     console.log(this.user);
   }
   isLoggedIn() {
-    return this.authService.isLoggedIn();
+    const isLog=this.authService.isLoggedIn();
+    console.log(isLog);
+    return isLog;
   }
   userRole(){
     //return 'admin';

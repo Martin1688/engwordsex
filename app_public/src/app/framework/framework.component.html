@@ -7,56 +7,56 @@
         <div id="navbarMain" class="navbar-collapse collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                         設定
                       </a>
-                    <div class="dropdown-menu bg-primary">
-                        <a routerLink="/words" routerLinkActive="active" class="dropdown-item">練習設定</a>
-                        <a routerLink="/words/selfwordset" class="dropdown-item" *ngIf="isLoggedIn()">單字輸入設定</a>
-                        <a routerLink="/general/selfuserset" class="dropdown-item" *ngIf="isLoggedIn()">帳號自我管理</a>
-                        <a routerLink="/general/admin" class="dropdown-item" *ngIf="userRole()==='admin'">管理員</a>
-                    </div>
+                    <ul class="dropdown-menu bg-primary">
+                        <li><a routerLink="/words" routerLinkActive="active" class="dropdown-item">練習設定</a></li>
+                        <li *ngIf="isLoggedIn()"><a routerLink="/words/selfwordset" class="dropdown-item">單字輸入設定</a></li>
+                        <li *ngIf="isLoggedIn()"><a routerLink="/general/selfuserset" class="dropdown-item">帳號自我管理</a></li>
+                        <li *ngIf="userRole()==='admin'"><a routerLink="/general/admin" class="dropdown-item">管理員</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                     練習
                   </a>
-                    <div class="dropdown-menu bg-primary">
-                        <a routerLink="/words/spellex" routerLinkActive="active" class="dropdown-item">單字拼字練習</a>
-                        <a routerLink="/words/engselectchiex" class="dropdown-item" *ngIf="isLoggedIn()">英選中練習</a>
-                        <a routerLink="/words/autospell" class="dropdown-item" *ngIf="isLoggedIn()">自動語音拼字</a>
-                    </div>
+                    <ul class="dropdown-menu bg-primary">
+                        <li><a routerLink="/words/spellex" routerLinkActive="active" class="dropdown-item">單字拼字練習</a></li>
+                        <li *ngIf="isLoggedIn()"><a routerLink="/words/engselectchiex" class="dropdown-item">英選中練習</a></li>
+                        <li *ngIf="false"><a routerLink="/words/autospell" class="dropdown-item">自動語音拼字</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                         測驗
                   </a>
-                    <div class="dropdown-menu bg-primary">
-                        <a routerLink="/words/testspell" class="dropdown-item ">單字拼字測驗</a>
-                        <a routerLink="/words/testselectchi" class="dropdown-item" *ngIf="isLoggedIn()">英選中測驗</a>
-                        <a routerLink="/words/testfill" class="dropdown-item" *ngIf="false">單字填空測驗</a>
-                    </div>
+                    <ul class="dropdown-menu bg-primary">
+                        <li><a routerLink="/words/testspell" class="dropdown-item ">單字拼字測驗</a></li>
+                        <li><a routerLink="/words/testselectchi" class="dropdown-item" *ngIf="isLoggedIn()">英選中測驗</a></li>
+                        <li *ngIf="false"><a routerLink="/words/testfill" class="dropdown-item">單字填空測驗</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    <a class="nav-link dropdown-toggle" href="#"  role="button" data-bs-toggle="dropdown">
                         其他
                   </a>
-                    <div class="dropdown-menu bg-primary">
-                        <a routerLink="/general/author" class="dropdown-item">關於</a>
-                        <a routerLink="/general/about" class="dropdown-item">功能說明</a>
-                    </div>
+                    <ul class="dropdown-menu bg-primary">
+                        <li><a routerLink="/general/author" class="dropdown-item">關於</a></li>
+                        <li><a routerLink="/general/about" class="dropdown-item">功能說明</a></li>
+                    </ul>
             </ul>
-            <ul class="navbar-nav justify-content-end ">
+            <ul class="navbar-nav  ms-auto mb-2 justify-content-end ">
                 <li class="nav-item " routerLinkActive="active " *ngIf="!isLoggedIn() ">
                     <a routerLink="/general/login" class="nav-link ">登入</a>
                 </li>
                 <li class="nav-item dropdown " *ngIf="isLoggedIn() ">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown">
+                    <a class="nav-link dropdown-toggle"  href="#"  role="button" data-bs-toggle="dropdown">
                         {{getUsername()}}
                   </a>
-                    <div class="dropdown-menu bg-primary ">
-                        <a class="dropdown-item " (click)="doLogout() ">登出</a>
-                    </div>
+                    <ul class="dropdown-menu bg-primary ">
+                        <li><a class="dropdown-item " (click)="doLogout() ">登出</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>

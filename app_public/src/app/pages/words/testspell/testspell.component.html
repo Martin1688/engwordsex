@@ -20,12 +20,12 @@
             </tr>
             <tr>
                 <td class="text-center rowSpace">
-                    <span style="font-size: larger;"><img src="../../../../assets/image/speaker.png" (click)="repeat()"> {{currentWord.chi}}</span>
+                    <span style="font-size: larger;"><img src="../../../../assets/image/speaker.png" (click)="repeat()"> {{currentWord!.chi}}</span>
                 </td>
             </tr>
             <tr class="fMargin">
                 <td class="text-center rowSpace">
-                    <input class="mainWord" type="text" [(ngModel)]="exWord" (keyup.enter)="onEnter($event)" autocapitalize="none">
+                    <input class="mainWord" type="text" [(ngModel)]="exWord" (keyup.enter)="onEnter()" autocapitalize="none">
                 </td>
             </tr>
         </table>

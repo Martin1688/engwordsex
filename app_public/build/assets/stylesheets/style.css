@@ -105,3 +105,11 @@ body {
   color: #fff;
   background-color: #108a93;
 }
+
+.mainDiv {
+  margin-top: 100px;
+}
+
+.fMargin {
+  margin-top: 10px;
+}

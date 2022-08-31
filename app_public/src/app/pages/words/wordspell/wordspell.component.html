@@ -20,17 +20,17 @@
             </tr>
             <tr>
                 <td class="center rowSpace">
-                    <span style="font-size: xx-large;"><img src="../../../../assets/image/speaker.png" (click)="repeat()"> {{currentWord.eng}}</span>
+                    <span style="font-size: xx-large;"><img src="../../../../assets/image/speaker.png" (click)="repeat()"> {{currentWord!.eng}}</span>
                 </td>
             </tr>
             <tr>
                 <td class="center rowSpace">
-                    <h4>{{currentWord.chi}}</h4>
+                    <h4>{{currentWord!.chi}}</h4>
                 </td>
             </tr>
-            <tr *ngIf="currentWord.sentence">
+            <tr *ngIf="currentWord!.sentence">
                 <td class="center rowSpace">
-                    <h4>{{currentWord.sentence}}</h4>
+                    <h4>{{currentWord!.sentence}}</h4>
                 </td>
             </tr>
             <tr>

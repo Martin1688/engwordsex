@@ -14,9 +14,9 @@
                 <input class="form-control" type="email" (keyup.enter)="onEnter()" (keyup)="getMailsFirstWay($event)" id="email" name="email" [(ngModel)]="credentials.email" autocapitalize="none" />
                 <div class="sub-list">
                     <br>
-                    <ui *ngIf="mailList1">
+                    <ul *ngIf="mailList1">
                         <li *ngFor="let item of mailList1" (click)="itemSelected(item)">{{item}}</li>
-                    </ui>
+                    </ul>
                 </div>
                 <!-- <datalist id="dynmicMail">  list="dynmicMail"
                     <option *ngFor="let item of mailList1 " [value]="item ">{{item}}</option>

@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     const currentUser =this.authenticationService.getCurrentUser();
     if(currentUser){
+      console.log(JSON.stringify(currentUser));
       this.router.navigateByUrl('/words'); 
     } else {
       this.credentials.email = this.authenticationService.getMail();

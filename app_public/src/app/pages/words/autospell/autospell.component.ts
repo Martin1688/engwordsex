@@ -12,15 +12,15 @@ export class AutospellComponent implements OnInit {
   currentWord: Vcblry;
   wordAry: Vcblry[];
   wIndex: number = 1;
-  total: number;
-  exWord: string;
+  total: number | undefined;
+  exWord: string | undefined;
   totalRpt: string = "3";
   rptCount = 1;
   message = "";
-  utterTW: SpeechSynthesisUtterance;
-  utterboy: SpeechSynthesisUtterance;
-  uttergirl: SpeechSynthesisUtterance;
-  playSubject: Subject<Vcblry>;
+  utterTW: SpeechSynthesisUtterance | undefined;
+  utterboy: SpeechSynthesisUtterance | undefined;
+  uttergirl: SpeechSynthesisUtterance | undefined;
+  playSubject: Subject<Vcblry> | undefined;
   charDelayTime = 1100;
   iswork4Show = false;
   iswork4ShowText= "播放";
@@ -71,23 +71,23 @@ export class AutospellComponent implements OnInit {
     }
   }
   spellEng() {
-    this.utterboy.text = this.currentWord.eng;
-    speechSynthesis.speak(this.utterboy);
+    this.utterboy!.text = this.currentWord.eng;
+    speechSynthesis.speak(this.utterboy!);
     let sEng = '';
     const oEng = this.currentWord.eng;
     for (let i = 0; i < oEng.length; i++) {
       sEng += oEng.charAt(i) + ',';
     }
     if (this.rptCount % 2 === 0) {
-      this.uttergirl.text = sEng;
-      speechSynthesis.speak(this.uttergirl);
+      this.uttergirl!.text = sEng;
+      speechSynthesis.speak(this.uttergirl!);
     } else {
-      this.utterboy.text = sEng;
-      speechSynthesis.speak(this.utterboy);
+      this.utterboy!.text = sEng;
+      speechSynthesis.speak(this.utterboy!);
     }
-    this.utterTW.text = this.currentWord.chi;
-    speechSynthesis.speak(this.utterTW);
-    this.utterTW.onend = () => {
+    this.utterTW!.text = this.currentWord.chi;
+    speechSynthesis.speak(this.utterTW!);
+    this.utterTW!.onend = () => {
       this.endFun();
     }
 
@@ -98,18 +98,18 @@ export class AutospellComponent implements OnInit {
 
     if (this.rptCount < parseInt(this.totalRpt)) {
       this.rptCount = this.rptCount + 1;
-      document.getElementById('suspenseBtn').click();
+      document.getElementById('suspenseBtn')!.click();
       setTimeout(() => {
-        document.getElementById('suspenseBtn').click();
+        document.getElementById('suspenseBtn')!.click();
       }, 1000);
   } else {
       if (this.wIndex < this.wordAry.length) {
         this.wIndex = this.wIndex + 1;
         this.rptCount = 1;
         this.currentWord = this.wordAry[this.wIndex - 1];
-        document.getElementById('suspenseBtn').click();
+        document.getElementById('suspenseBtn')!.click();
         setTimeout(() => {
-          document.getElementById('suspenseBtn').click();
+          document.getElementById('suspenseBtn')!.click();
         }, 1000);
         //this.playWord();
       } else {
