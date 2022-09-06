@@ -22,7 +22,7 @@ const register = (req, res) => {
     user.save((err) => {
         if (err) {
             res
-                .status(401)
+                .status(400)
                 .json(err);
         } else {
             const token = user.generateJwt();
@@ -52,7 +52,7 @@ const login = (req, res) => {
                 .json({ 'token': token, 'name': user.name, 'grade': user.grade });
         } else {
             res
-                .status(403)
+                .status(400)
                 .json(info);
         }
     })(req, res);

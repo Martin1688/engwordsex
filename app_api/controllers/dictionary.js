@@ -40,38 +40,38 @@ var http = require("https");
 // }
 
 const dictionarySentences = (reqq, resp) => {
-    const qWord = reqq.body.word;
-     const myPath = '/define?term=' + qWord;
-    console.log(myPath);
+    // // const qWord = reqq.body.word;
+    // //  const myPath = '/define?term=' + qWord;
+    // //  console.log(myPath);
 
     //console.log(qWord);
     //var chunks = [];
-    const options = {
-        "method": "GET",
-        "hostname": "mashape-community-urban-dictionary.p.rapidapi.com",
-        "port": null,
-        "path": "/define?term=wat",
-        "headers": {
-            "X-RapidAPI-Key": "ffe432fdcemshd8d7820e4812f0ap16e752jsnfc3c39cfc722",
-            "X-RapidAPI-Host": "mashape-community-urban-dictionary.p.rapidapi.com",
-            "useQueryString": true
-        }
-    };
+    // // // const options = {
+    // // //     "method": "GET",
+    // // //     "hostname": "mashape-community-urban-dictionary.p.rapidapi.com",
+    // // //     "port": null,
+    // // //     "path": "/define?term=wat",
+    // // //     "headers": {
+    // // //         "X-RapidAPI-Key": "ffe432fdcemshd8d7820e4812f0ap16e752jsnfc3c39cfc722",
+    // // //         "X-RapidAPI-Host": "mashape-community-urban-dictionary.p.rapidapi.com",
+    // // //         "useQueryString": true
+    // // //     }
+    // // // };
     
-    const req = http.request(options, function (res) {
-        const chunks = [];
+    // // // const req = http.request(options, function (res) {
+    // // //     const chunks = [];
     
-        res.on("data", function (chunk) {
-            chunks.push(chunk);
-        });
+    // // //     res.on("data", function (chunk) {
+    // // //         chunks.push(chunk);
+    // // //     });
     
-        res.on("end", function () {
-            const body = Buffer.concat(chunks);
-            console.log(body.toString());
-        });
-    });
+    // // //     res.on("end", function () {
+    // // //         const body = Buffer.concat(chunks);
+    // // //         console.log(body.toString());
+    // // //     });
+    // // // });
     
-    req.end();
+    // // // req.end();
     resp.status(200).send([]);
     // // const myPath = '/define?term=' + qWord;
     // // console.log(myPath);
