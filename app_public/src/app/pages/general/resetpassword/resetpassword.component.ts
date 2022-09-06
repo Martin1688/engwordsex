@@ -24,6 +24,7 @@ export class ResetpasswordComponent implements OnInit {
   onResetSubmit(){
     this.generalService.resetpws(this.userEmail)
       .then((x) => { 
+        console.log(x);
         const {message} = x;
         this.formError=message;
         //document.location.reload();

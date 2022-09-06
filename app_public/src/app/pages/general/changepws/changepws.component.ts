@@ -46,9 +46,9 @@ export class ChangepwsComponent implements OnInit {
         this.formError=message;
         //document.location.reload();
         // this.authenticationService.getCurrentUser();
-        // setTimeout(() => {
+        setTimeout(() => {
            this.router.navigateByUrl('/general/selfuserset');          
-        // }, 200);       
+        }, 200);       
       })
       .catch((message) => {
         this.formError = message

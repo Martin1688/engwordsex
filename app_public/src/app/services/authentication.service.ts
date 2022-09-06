@@ -3,7 +3,7 @@ import { BROWSER_STORAGE } from '../classes/storage';
 import { User } from '../classes/user';
 import { Authresponse } from '../classes/authresponse';
 import { GeneralService } from '../services/general.service';
-
+import { Buffer } from 'buffer';
 @Injectable({
   providedIn: 'root'
 })
@@ -28,10 +28,10 @@ export class AuthenticationService {
     return this.generalService.login(user)
       .then((authResp: Authresponse) => {
         if (user.keep) {
-          this.setPrjItem('password', user.password);
+          //this.setPrjItem('password', user.password);
           this.setPrjItem('useremail', user.email);
         } else {
-          this.storage.removeItem('password');
+          //this.storage.removeItem('password');
           this.storage.removeItem('useremail');
         }
         //console.log(authResp.name);
@@ -53,27 +53,40 @@ export class AuthenticationService {
     let ret = false;
     const token: string = this.getToken();
     if (token) {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      //console.log(`payload is ${JSON.stringify(payload)}`);
-      const nowStamp =Date.now() / 1000;
+      const str = token.split('.')[1];
+      const payload = JSON.parse(this.myatob(str));
+      const nowStamp = Date.now() / 1000;
       //console.log(` now is ${nowStamp}`)
       ret = payload.exp > nowStamp;
-      if(!ret){
+      if (!ret) {
         this.storage.removeItem('token');
       }
       return ret;
     } else {
       return ret;
     }
-    
   }
 
+  isWordsSet(): boolean {
+    let ret = false;
+    const exwords=this.getPrjItem('exWords');
+    if(exwords){
+      const wordAry:any[] = JSON.parse(exwords);
+      ret = wordAry.length > 0; 
+    }
+    return ret;
+
+  }
+
+
+
+
   public getCurrentUser(): User {
-    console.log('getinguser');
+    //console.log('getinguser');
     const user = new User();
     if (this.isLoggedIn()) {
       const token: string = this.getToken();
-      const { email, role } = JSON.parse(atob(token.split('.')[1]));
+      const { email, role } = JSON.parse(this.myatob(token.split('.')[1]));
       //console.log({ email, name, role });
       user.email = email;
       user.role = role;
@@ -84,15 +97,15 @@ export class AuthenticationService {
   }
   public getName(): string {
     let ret = this.storage.getItem('username');
-    if(!ret){
-      ret="";
+    if (!ret) {
+      ret = "";
     }
     return ret;
   }
   public getMail(): string {
     let ret = this.storage.getItem('useremail');
-    if(!ret){
-      ret="";
+    if (!ret) {
+      ret = "";
     }
     return ret;
   }
@@ -105,14 +118,14 @@ export class AuthenticationService {
 
   public getPrjItem(itmName: string): string {
     let ret = this.storage.getItem(itmName);
-    if(!ret){
-      ret="";
+    if (!ret) {
+      ret = "";
     }
     return ret;
   }
 
   public removePrjItem(itmName: string): boolean {
-    if (this.storage.getItem(itmName) !== null && this.getPrjItem(itmName).length > 0) {
+    if (this.getPrjItem(itmName).length > 0) {
       this.storage.removeItem(itmName);
     }
     return true;
@@ -121,7 +134,16 @@ export class AuthenticationService {
     this.storage.removeItem('token');
     this.storage.removeItem('username');
     this.storage.removeItem('role');
+    this.storage.removeItem('exWords');
   }
 
+  public myatob(base64Str: string) {
+    const utf8Str = Buffer.from(base64Str, 'base64').toString('utf8');
+    return utf8Str;
+  }
 
+  public mybtoa(utf8Str: string) {
+    const base64Str = Buffer.from(utf8Str, 'utf8').toString('base64');
+    return base64Str;
+  }
 }

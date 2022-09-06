@@ -27,10 +27,12 @@ userSchema.methods.setPassword = function(password) {
         .toString('hex');
 };
 userSchema.methods.validPassword = function(password) {
-    const hash = crypto
+    const hashh = crypto
         .pbkdf2Sync(password, this.salt, 1000, 64, 'sha512')
         .toString('hex');
-    return this.hash === hash;
+        // console.log(this.hash);
+        // console.log(hashh);
+    return this.hash === hashh;
 };
 userSchema.methods.generateJwt = function() {
     const expiry = new Date();

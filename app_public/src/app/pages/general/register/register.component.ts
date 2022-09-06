@@ -23,12 +23,25 @@ export class RegisterComponent implements OnInit {
   passwordTextType = true;
   password2TextType = true;
   password2content='';
+  hgt: string='62';
   constructor(private router: Router,
     private authenticationService: AuthenticationService,
     private historyService: HistoryService) { }
 
   ngOnInit(): void {
+    this.adjustMemoHeight();
   }
+
+  adjustMemoHeight() {
+    if (this.credentials) {
+      const elMemo = document.getElementById('password');
+      const meDim = elMemo!.getBoundingClientRect();
+      this.hgt = meDim.height.toString();
+      //elMemo!.previousElementSibling!.setAttribute('height',  meHeight.toString()+'px');
+      //console.log(this.hgt + 'px');
+    }
+  }
+
   setPasswordText() {
     this.passwordTextType = !this.passwordTextType;
   }

@@ -17,13 +17,20 @@ export class GeneralService {
   }
 
   private handleError(error: any): Promise<any> {
-    console.log(error.status);
+    //console.log(error.status);
     if (error.status == 401) {
-      return Promise.reject('帳號不存在，請先註冊');
+      const {message} = error.error;
+      // console.log(message);
+      // console.log(JSON.stringify(error));
+      return Promise.reject(`密碼不正確(${message})`);
     } else if (error.status == 402) {
       return Promise.reject('密碼不正確');
+    } else  {
+      const {message} = error.error;
+      // console.log(message);
+      // console.log(JSON.stringify(error));
+      return Promise.reject(`錯誤(${message})`);
     }
-    return Promise.reject(error.message || error);
   }
 
   public login(user: User): Promise<Authresponse> {

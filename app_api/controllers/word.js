@@ -72,28 +72,28 @@ const wordsGet = (req, res) => {
             }
             //讀取使用者設定的練習字數
             word.find({ grade: req.body.grade, wdId: { $gt: row.startIndex } }).limit(parseInt(req.body.wordCount)).exec((err, rows) => {
-                    if (err) {
-                        console.log(err);
-                        res.status(402).json(err);
-                        return;
-                    }
-                    if (rows) {
-                        row.endIndex = rows[rows.length - 1].wdId; //紀錄最後一筆資料的wdId，以便作為下個查詢的startIndex
-                        row.save();
-                        res.status(200).json(rows);
-                    }
+                if (err) {
+                    console.log(err);
+                    res.status(402).json(err);
+                    return;
+                }
+                if (rows) {
+                    row.endIndex = rows[rows.length - 1].wdId; //紀錄最後一筆資料的wdId，以便作為下個查詢的startIndex
+                    row.save();
+                    res.status(200).json(rows);
+                }
 
-                })
-                // word.find({ wdId: { $gt: row.startIndex - 1, $lte: row.endIndex } }, (err, rows) => {
-                //     if (err) {
-                //         console.log(err);
-                //         res.status(402).json(err);
-                //         return;
-                //     }
-                //     if (rows) {
-                //         res.status(200).json(rows);
-                //     }
-                // })
+            })
+            // word.find({ wdId: { $gt: row.startIndex - 1, $lte: row.endIndex } }, (err, rows) => {
+            //     if (err) {
+            //         console.log(err);
+            //         res.status(402).json(err);
+            //         return;
+            //     }
+            //     if (rows) {
+            //         res.status(200).json(rows);
+            //     }
+            // })
         } else { //練習檔中使用者無紀錄
             exercise.create({ //建1筆紀錄
                 userEmail: req.body.email,
@@ -111,28 +111,28 @@ const wordsGet = (req, res) => {
                 //console.log(row);
                 //讀取使用者設定的練習字數
                 word.find({ grade: req.body.grade, wdId: { $gt: row.startIndex } }).limit(parseInt(req.body.wordCount)).exec((err, rows) => {
-                        if (err) {
-                            console.log(err);
-                            res.status(402).json(err);
-                            return;
-                        }
-                        if (rows) {
-                            row.endIndex = rows[rows.length - 1].wdId; //紀錄最後一筆資料的wdId，以便作為下個查詢的startIndex
-                            row.save();
-                            res.status(200).json(rows);
-                        }
+                    if (err) {
+                        console.log(err);
+                        res.status(402).json(err);
+                        return;
+                    }
+                    if (rows) {
+                        row.endIndex = rows[rows.length - 1].wdId; //紀錄最後一筆資料的wdId，以便作為下個查詢的startIndex
+                        row.save();
+                        res.status(200).json(rows);
+                    }
 
-                    })
-                    // word.find({ wdId: { $gt: row.startIndex - 1, $lt: row.endIndex } }, (err, rows) => {
-                    //     if (err) {
-                    //         console.log(err);
-                    //         res.status(404).json(err);
-                    //         return;
-                    //     }
-                    //     if (rows) {
-                    //         res.status(200).json(rows);
-                    //     }
-                    // })
+                })
+                // word.find({ wdId: { $gt: row.startIndex - 1, $lt: row.endIndex } }, (err, rows) => {
+                //     if (err) {
+                //         console.log(err);
+                //         res.status(404).json(err);
+                //         return;
+                //     }
+                //     if (rows) {
+                //         res.status(200).json(rows);
+                //     }
+                // })
             });
         }
     });
@@ -172,19 +172,20 @@ const exerciseDel = (req, res) => {
 const completeWords = (req, res) => {
     const str = req.body.startChar;
     //const mm = `/^${str}/`;
-    //console.log(str);
+    console.log(str);
     word.find({ eng: new RegExp('^' + str + '.*') }).limit(1000).exec((err, rows) => {
         if (err) {
             console.log(err);
-            res.status(401).json({ "error": err });
-            return;
-        }
-        if (rows) {
+            res.status(201).json([]);
+        } else if (rows) {
             let ary = rows.map(x => {
-                    return x.eng;
-                })
-                //console.log(ary.length);
-            res.status(200).json({ ary });
+                return x.eng;
+            })
+            console.log(ary.length);
+            res.status(200).json(ary);
+        } else {
+            console.log(`${str} no match words.`);
+            res.status(201).json([]);
         }
     });
 }
@@ -195,18 +196,20 @@ const wordsGetOne = (req, res) => {
     word.find({ eng: str }, (err, rows) => {
         if (err) {
             // console.log(err);
-            res.status(401).json({ "error": err });
+            res.status(201).json({ "error": err });
             return;
-        }
-        if (rows) {
+        } else if (rows.length > 0) {
             const row = rows[0];
-            // console.log(row);
+            console.log(rows);
             if (row) {
                 res.status(200).json({ row });
             } else {
                 const other = '查不到' + str;
                 res.status(200).json({ "error": other });
             }
+        } else {
+            const other = '查不到' + str;
+            res.status(200).json({ "error": other });
         }
 
     })

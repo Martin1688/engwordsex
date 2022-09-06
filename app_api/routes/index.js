@@ -38,7 +38,7 @@ router.route('/complete')
     .patch(auth, ctrlWord.wordsGetOne); //用eng 查 1個 字物件返回
 
 
-router.post('/usernewpsw', ctrlMail.sendMail);
+router.post('/usernewpsw', ctrlMail.forgetPws);
 
 router.route('/changepws')
     .post(auth, ctrlMail.changePws);

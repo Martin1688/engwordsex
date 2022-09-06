@@ -1,5 +1,6 @@
 <div class="mainDiv">
-    <h2>練習設定</h2>
+    <h3 class="pagetitle">練習字數與次數設定</h3>
+    <h4 class="pagedescript">請先設定練習字數與練習次數再開始練習，未設定前無法練習</h4>
     <form (ngSubmit)="onSubmit()" #queryForm="ngForm">
         <div role="alert" *ngIf="formError" class="alert alert-danger">
             {{ formError }}

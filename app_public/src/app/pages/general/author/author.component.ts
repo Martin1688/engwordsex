@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./author.component.css']
 })
 export class AuthorComponent implements OnInit {
+  hgt: string = "62";
 
   constructor() { }
 
   ngOnInit(): void {
   }
-
+  adjustMemoHeight() {
+    const elMemo = document.getElementById('explain');
+    const meDim = elMemo!.getBoundingClientRect();
+    this.hgt = meDim.height.toString();
+}
 }

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵfindLocaleData } from '@angular/core';
 import { VocabularyService } from 'src/app/services/vocabulary.service';
 import { Vcblry } from 'src/app/classes/vcblry';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-selfwords',
@@ -26,6 +27,7 @@ export class SelfwordsComponent implements OnInit {
   wordAry: Vcblry[] = [];
   sentenceAry = [];
   isMobile=false;
+  hgt: string = "62";
   //showBox=false;
   constructor(private authService: AuthenticationService,
     private wordService: VocabularyService) {
@@ -43,23 +45,51 @@ export class SelfwordsComponent implements OnInit {
       this.isMobile=false;
       //this.formError="not mobile device";
     }
-
+    this.adjustMemoHeight();
   }
+  adjustMemoHeight() {
+    if (this.newWord) {
+      const elMemo = document.getElementById('chi');
+      const meDim = elMemo!.getBoundingClientRect();
+      this.hgt = meDim.height.toString();
+      //elMemo!.previousElementSibling!.setAttribute('height',  meHeight.toString()+'px');
+      //console.log(this.hgt + 'px');
+    }
+  }
+
+
+
   getAutoWords(chr: string) {
     if(this.isMobile){
       return;
     }
-    this.wordService.getAutoComp(chr).subscribe(
-      data => {
-        this.retObj = data as { "ary": any };
-        Object.assign(this.wordData, this.retObj.ary);
-        // setTimeout(() => {
-        //   console.log(this.wordData);
-        // }, 10);
+    this.wordService.getAutoComp(chr).subscribe({
+      next:(data:any)=>{
+        //console.log(data);
+        //this.retObj = data as { "ary": any };
+        //Object.assign(this.wordData, this.retObj.ary);
+        Object.assign(this.wordData, data);
+
       },
-      error => {
-        console.log("Something wrong here", error);
-      });
+      error: (err: HttpErrorResponse) => {
+        const errResult = err.error as { message: string, token: string };
+        console.log("Something wrong here : ",errResult.message);
+      }
+  }
+
+      
+      // data => {
+      //   this.retObj = data as { "ary": any };
+      //   Object.assign(this.wordData, this.retObj.ary);
+      //   // setTimeout(() => {
+      //   //   console.log(this.wordData);
+      //   // }, 10);
+      // },
+      // error => {
+      //   console.log("Something wrong here", error);
+      // }
+      
+      );
 
   }
 
@@ -88,7 +118,7 @@ export class SelfwordsComponent implements OnInit {
     if (wordId.length > 1) {
       const decision = this.lastkeydown1 - $event.timeStamp;
       //console.log(decision);
-      if (decision > 200) {
+      if (decision > 100) {
         this.wordList1 = this.searchFromArray(this.wordData, wordId);
         //this.showBox=true;
         //console.log(this.wordList1);
@@ -109,18 +139,18 @@ export class SelfwordsComponent implements OnInit {
   onEnter() {
     //this.message='Enter detected';
     let wordId = (<HTMLInputElement>document.getElementById('WordIdFirstWay')).value.trim();
-    this.wordService.getSentence(wordId).then(x => {
-      //console.log(x);
-      this.sentenceAry=x as [];
-      setTimeout(() => {
-        if(this.sentenceAry){
-          this.newWord.sentence=this.sentenceAry[0];
-        } 
-      }, 100);
+    // // this.wordService.getSentence(wordId).then(x => {
+    // //   //console.log(x);
+    // //   this.sentenceAry=x as [];
+    // //   setTimeout(() => {
+    // //     if(this.sentenceAry){
+    // //       this.newWord.sentence=this.sentenceAry[0];
+    // //     } 
+    // //   }, 100);
 
-    }).catch(err => {
-      this.message = err;
-    });
+    // // }).catch(err => {
+    // //   this.message = err;
+    // // });
      this.wordService.getAWord(wordId).subscribe(x => {
       //console.log(x);
       const { row } = x as { row: any };
@@ -160,7 +190,9 @@ export class SelfwordsComponent implements OnInit {
     //(<HTMLInputElement>document.getElementById('WordIdFirstWay')).value='';
   }
   Save2Local() {
+    //console.log('save');
     this.authService.setPrjItem("exWords", JSON.stringify(this.wordAry));
-    return true;
+    this.wordAry=[];
+    return false;
   }
 }

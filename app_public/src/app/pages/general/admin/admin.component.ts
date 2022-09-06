@@ -136,7 +136,7 @@ export class AdminComponent implements OnInit {
     if (temMail.length > 1) {
       const decision = this.lastkeydown1 - $event.timeStamp;
       //console.log(decision);
-      if (decision > 200) {
+      if (decision > 100) {
         this.mailList1 = this.searchFromArray(this.mailData, temMail);
         //this.showBox=true;
         //console.log(this.wordList1);

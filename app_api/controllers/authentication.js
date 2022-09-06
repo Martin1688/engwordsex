@@ -52,7 +52,7 @@ const login = (req, res) => {
                 .json({ 'token': token, 'name': user.name, 'grade': user.grade });
         } else {
             res
-                .status(401)
+                .status(403)
                 .json(info);
         }
     })(req, res);
@@ -140,7 +140,7 @@ const completeMails = (req, res) => {
             let ary = rows.map(x => {
                     return x.email;
                 })
-                //console.log(ary.length);
+                console.log(ary);
             res.status(200).json({ ary });
         }
     });

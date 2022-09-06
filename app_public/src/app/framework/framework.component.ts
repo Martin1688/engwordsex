@@ -18,7 +18,7 @@ export class FrameworkComponent implements OnInit {
       //alert('bbb');
     }
        //alert('aaa');
-     console.log(this.user);
+     //console.log(this.user);
   }
   isLoggedIn() {
     const isLog=this.authService.isLoggedIn();
@@ -29,14 +29,17 @@ export class FrameworkComponent implements OnInit {
     //return 'admin';
      let myRole = '';
      if(this.isLoggedIn()){
-       myRole=this.user!.role;
+      if(this.user){
+        myRole=this.user!.role;
+      }
      } 
     return myRole;
   }
   getUsername() {
     let myName ='';
-    if(this.isLoggedIn()){
-      myName=this.user!.name;
+    if(this.user){
+      //console.log(this.user);
+      myName=this.user.name;
      }
     return myName;
   }
