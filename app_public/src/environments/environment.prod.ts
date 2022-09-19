@@ -1,4 +1,4 @@
 export const environment = {
-  apiBaseUrl: 'https://engwordsex.herokuapp.com/api',
+  apiBaseUrl: 'https://engwordsv2.herokuapp.com/api',
   production: true
 };
