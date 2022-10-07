@@ -1,4 +1,4 @@
 export const environment = {
-  apiBaseUrl: 'https://engwordsv2.herokuapp.com/api',
+  apiBaseUrl: 'https://elegant-tan-ox.cyclic.app/api',
   production: true
 };

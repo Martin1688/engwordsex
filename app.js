@@ -32,7 +32,7 @@ app.use(passport.initialize());
 
 app.use('/api', (req, res, next) => {
     console.log(req.headers.origin);
-    var allowedOrigins = ['http://127.0.0.1:4200', 'http://localhost:4200', 'http://127.0.0.1:3000', 'http://localhost:3000', 'https://engwordsv2.herokuapp.com'];
+    var allowedOrigins = ['http://127.0.0.1:4200','https://elegant-tan-ox.cyclic.app', 'http://localhost:4200', 'http://127.0.0.1:3000', 'http://localhost:3000', 'https://engwordsv2.herokuapp.com'];
     var origin = req.headers.origin;
     //console.log(req.headers.origin);
     if (allowedOrigins.indexOf(origin) > -1) {
